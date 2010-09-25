@@ -1,0 +1,29 @@
+﻿	<body>
+		<span style="position:absolute;visibility:hidden;display:none" id="loading"><img src="style/images/spinner.gif" alt="spinner"></span>
+		<div class="tab-bar">
+			<div class="menu-bar">
+				<ul>
+					<li id="user" class="menu-bar">{#USERNAME#} <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>
+					<li id="tags" class="menu-bar">Tags <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>					
+				</ul>
+			</div>			
+		</div>		
+		<div style="visibility:hidden;display:none;" class="category" id="category">
+			<ul>				
+				{#TAGS#}
+			</ul>		
+		</div>	
+		<div style="visibility:hidden;color:white;" class="user-menu" id="usermenu">
+			<ul>				
+				<li id="login" class="user-menu"><p>{#LOGINOUTLINK#}</p></li>
+				<!--LOGGEDIN--><li id="acp" class="user-menu">{#ACPLINK#}</li>
+				<!--LOGGEDIN--><li id "ucp" class="user-menu">{#UCPLINK#}</li>
+			</ul>		
+		</div>			
+		<div id="outer">
+			<div id="inner">
+				<div class="bgtext">{#SITETITLE#}</div>
+				<span class="news">{#LATESTARTICLES#}</span>
+			</div>
+		</div>
+		

@@ -1,0 +1,99 @@
+<!--div id="logo">
+		<img align="right" src="{{#IMAGEPATH#}}wbadmin-dev.png"  />
+</div-->   
+<script>
+tinyMCE.init({
+	mode : "textareas",
+	theme : "simple",
+	editor_selector : "commbox"
+});
+</script>
+	<link rel="stylesheet" href="../acp/admin-s2.css" />
+    <div align="center">
+    <table align="center" style="margin-top:65px;" width="723" border="0" cellpadding="0" cellspacing="0">
+      <!--DWLayoutTable-->
+      <tr>
+        <td height="15" colspan="2" valign="top" id="breadcrumb-text"><!-- IF R_ACT is null -->Main<!-- ELSEECHO --><a href="../index.php">Main</a><!-- ENDIF --></td>
+      </tr>
+      <tr>
+        <td width="196" height="27" valign="top"><div class="username-area" align="center">Welcome, <!-- IF U_AUTH --> <!-- ECHO LOGGEDINUSER --> <!-- ENDIF --></div></td>
+        <td width="487" rowspan="2" valign="top">
+		<!-- IF C_INSTALLER -->
+		<div id="announce-main-content">
+			<div id="announce-content-box">
+				Please delete, move or rename the installer folder as soon as possible as this poses a significant security risk to your site.
+		    </div>
+			<div class="announce-item-info">         
+	  		   <p><u>Warning:</u> Installer Present </p>
+			</div>    
+		</div>
+        <!-- ENDIF -->
+            <blockquote> 
+	        <div id="addcatOL">
+            	<div>
+					<form id="form2" name="form2" method="post" action="">
+					    <label> Category Name:
+					   		 <input type="text" name="category" id="category" />
+					    </label>
+  					</form>
+                    <p id="loading"></p>
+        		    <p align="right">{{#SUBMITCATLINK#}}</p>		
+                </div>
+            </div>
+			<div id="overlay">
+		        <div>
+					<p id="label"><strong>Edit Post</strong></p>
+					<p><strong>Content</strong><strong>:</strong></p>
+					<form id="form1" name="form1" method="post" action="">
+					  <p>
+					    <textarea name="post_content" cols="45" rows="10" id="post_content"></textarea>					    
+				      </p>
+					</form>
+				   <img id="progressbar" style="visibility:hidden;" src="../images/loading.gif" alt="none" />
+                   <p align="right">{{#SAVEPOSTLINK#}}</p>
+		      </div>
+			</div>
+          </blockquote>
+           <p>
+			 {{#CONTENTBODY#}}
+           </p>
+		   <!-- IF R_ACT is viewarticle -->
+ 	            {{#COMMENTS#}}
+               <div style="margin-left:65px;">  
+               <form id="comments" name="comments" method="post" action="../index.php?act=postcom&amp;id={{#POSTID#}}">
+				  <p>
+				    <textarea name="commentbox" cols="45" rows="10" id="commentbox" class="commbox"></textarea>					    
+			      </p>
+        		  <p>&nbsp;</p>
+	    	      <fieldset class="submit-buttons"> 
+		               <br />
+			   	      <input style="right:400px;" class="button1" type="submit" id="button" value="Submit" />
+		   		  </fieldset> 
+               </form>
+                  </div>       
+	       <!-- ENDIF -->
+                  
+           </td> 
+     </tr>
+           <tr>
+        <td height="591" valign="top">
+          <div align="center">
+			<div class="side-nav-main">
+			    <div class="side-nav-header"> 
+			   	   User Controls     
+			    </div>                 
+		    <ul>                    
+				<li>{{#LOGIN#}}</li>
+	            <!-- IF P_ADMIN --><li><a href="../index.php?act=acp">Admin Panel</a></li><!-- ENDIF -->
+			    <!-- IF C_REGISTER --><li>{{#REGISTER#}}</li><!-- ENDIF -->
+		        <!-- IF P_NEWS --><li>{{#NEWSLINK#}}</li><!-- ENDIF -->
+			</ul>
+			</div>
+         </div>   
+		  <div class="categories" id="cats">
+	      	  <p><u>Categories:</u></p>
+            {{#POSTCATS#}}
+          </div>     </td>
+      </tr>
+   </table>
+</div>
