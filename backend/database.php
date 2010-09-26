@@ -64,16 +64,24 @@ class Database
 		
        public static function sql_query($query)
 		{
-		    //global $numquerys, $dbquerys, $db;
+			if (strpos($query, "SELECT") !== false)
+			{
+				$cacheHash = md5($query);
+				if (Cache::in_cache("sql_$cacheHash.php"))
+				{
+					//TODO: Implement getting SELECT query results from cache.
+				}
+			}	
 			if ($query != NULL)
 			{
 				$query_result = mysql_query($query, self::$connect_id);
-                if(!$query_result)
+			    if(!$query_result)
 				{
                     return self::error();
                 }
 				else
 				{
+					Cache::putDataInCache(md5($query), var_export($query_result));
 				    self::$numquerys += 1;
 					if (@function_exists("debugmsg")) {@debugmsg($query);}
 					return $query_result;					

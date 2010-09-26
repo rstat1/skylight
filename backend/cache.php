@@ -12,9 +12,20 @@ class cache
 		}		
 		else {return false;}
 	}
+	public static function getDataFromCache($name)
+	{
+		//$cacheFile = fopen(root_path. "/cache/$name.php", r+);
+		//TODO: Implement getting data from cache
+	}
+	public static function putDataInCache($name, $data)
+	{
+		$cacheFile = fopen(root_path. "/cache/sql_$name.php", "w+");
+		fwrite($handle,"<?php exit();\n");
+		fwrite($handle, $data);
+		fclose($hand);
+	}
 	public static function in_cache($file)
 	{	
-
 		if (file_exists(root_path . $file)){return true;}	
 		else {return false;}
 	}
