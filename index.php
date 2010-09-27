@@ -21,6 +21,7 @@ function __autoload($class_name)
 	}
 	if(isset($files[$classfile])) {include $files[$classfile];}
 }
+Database::put(array(4, "Hi", 5, "How", 6, "Are", 7, "You", 8, "I'm", 9, "Good"), "insert", "NotRelevent");
 $nummods = count(Modules::get(array(root_path . "/modules")));
 if ($nummods > 0)
 {
