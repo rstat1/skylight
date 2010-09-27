@@ -46,10 +46,15 @@ class compiler
 		fwrite($handle,$final_code);			
 		fclose($handle);			
 	}	
-	public static function compile_template($template, $path, $part, $cpath, $nocache = "")
+	public static function compile_template($template, $path, $part, $cpath, $nocache = "", $ext = "", $noext = false)
 	{
 		global $compiledtemp, $sid, $isecho, $isHTMLecho, $conelseec, $contains_quote,$user;
-		$filename = $path . $part . ".htm";
+		if ($noext == false)
+		{
+			if ($ext == "") {$filename = $path . $part . ".htm";}
+			else {$filename = $path . $part . ".$ext";}
+		}
+		else {$filename = $path . $part;}
 		//$handle = fopen($filename, "r");
 		if (file_exists($filename))
 		{
@@ -58,7 +63,7 @@ class compiler
 		}
 		else
 		{
-			trigger_error("File " .$filename. " could not be found, and therefore compilation cannot continue", E_USER_ERROR);
+			trigger_error("<b>Compile Failed:</b> File " .$filename. " could not be found.", E_USER_ERROR);
 		}
 		preg_match_all('#<!-- ([^<].*?) (.*?)? ?-->#', $code, $blocks, PREG_SET_ORDER);
 		$text_blocks = preg_split('#<!-- [^<].*? (?:.*?)? ?-->#', $code);		

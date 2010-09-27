@@ -2,177 +2,89 @@
 class Database
 {
 	static $numquerys = 0;
+	static $CacheHits = 0;
  	static $dbquerys = " ";
 	static $connect_id;		
-	public static function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-	{
-	  $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-
-	  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-	  switch ($theType) {
-	    case "text":
-    	  $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-	    break;    
-    	case "long":
-	    case "int":
-	      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-    	break;
-	    case "double":
-    	  $theValue = ($theValue != "") ? "'" . doubleval($theValue) . "'" : "NULL";
-	    break;
-    	case "date":
-	   	  $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-	    break;
-    	case "defined":
-	      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-    	break;
-	  }
-	  return $theValue;
-	}
-
-    public static function connect()
+	public static function connect()
 	{	
 		global $config;
-    	self::$connect_id = mysql_connect($config['db-server'], $config['db-user'], $config['db-pass']);
-        if(self::$connect_id)
+		echo "Am I called every page load?";
+		self::$connect_id = mysql_connect($config['db-server'], $config['db-user'], $config['db-pass']);
+		if(self::$connect_id)
 		{
-		   $dbsel = mysql_select_db($config['db-name']);	
-           if ($dbsel = true)
-		   {
-              return self::$connect_id;
-           }
-       	   else
-		   {
-              return self::error();
-           }
+			$dbsel = mysql_select_db($config['db-name']);	
+			if ($dbsel = true)
+			{
+				return self::$connect_id;
+			}
+			else
+			{
+				trigger_error(htmlentities(mysql_error()), E_USER_ERROR);
+			}
 		}   
-        else
+		else
 		{
-            return self::error();
-        } 
-    }
-    public static function error()
+			trigger_error(htmlentities(mysql_error()), E_USER_ERROR);
+		} 
+	}    
+	public static function get($query)
 	{
-        if(mysql_error() != '')
+		$cacheHash = md5($query);
+		if (Cache::inCache("sql_$cacheHash.php"))
 		{
-			if (@function_exists("errorbox")) {errorbox("",mysql_error(), "", "");}
-		    return mysql_error();
-		    //echo '<b>MySQL Error</b>: '.mysql_error().'<br/>';				
-        }
-    }
-		
-       public static function sql_query($query)
-		{
-			if (strpos($query, "SELECT") !== false)
-			{
-				$cacheHash = md5($query);
-				if (Cache::in_cache("sql_$cacheHash.php"))
-				{
-					//TODO: Implement getting SELECT query results from cache.
-				}
-			}	
-			if ($query != NULL)
-			{
-				$query_result = mysql_query($query, self::$connect_id);
-			    if(!$query_result)
-				{
-                    return self::error();
-                }
-				else
-				{
-					Cache::putDataInCache(md5($query), var_export($query_result));
-				    self::$numquerys += 1;
-					if (@function_exists("debugmsg")) {@debugmsg($query);}
-					return $query_result;					
-             	}
-            }
-			else{
-               return '<b>MySQL Error</b>: Empty Query!';
-            }
-        }
-        public static function get_num_rows($query_id = "")
-		{
-            if($query_id == NULL)
-			{
-                $return = mysql_num_rows($query_result);
-            }
-			else
-			{
-                $return = mysql_num_rows($query_id);
-            }
-            if(!$return)
-			{
-                $error();
-            }
-			else
-			{
-                return $return;
-            }
-        }
-		public static function fetch_array($query_id = "")
-		{
-		    if($query_id == NULL)
-			{
-                $return = @mysql_fetch_array($query_result);
-            }
-			else
-			{
-                $return = @mysql_fetch_array($query_id);
-            }
-            if(!$return)
-			{
-                self::error();
-            }
-			else
-			{
-                return $return;
-            }
-
+			self::$CacheHits += 1;
+			return Cache::getDataFromCache("sql_$cacheHash.php");
 		}
-        public static function fetch_row($query_id = "")
+		if ($query != NULL)
 		{
-            if($query_id == NULL)
+			self::connect();
+			$query_result = mysql_query($query, self::$connect_id);
+		    if(!$query_result)
 			{
-                $return = @mysql_fetch_row($query_result);
-            }
+				trigger_error(htmlentities(mysql_error($query_result)), E_USER_ERROR);
+			}
 			else
 			{
-                $return = @mysql_fetch_row($query_id);
-            }
-            if(!$return)
-			{
-                $error();
-            }
-			else
-			{
-                return $return;
-            }
-        }   
-        public static function get_affected_rows($query_id = "")
+				$data = array(mysql_num_rows($query_result), self::getResultAsArray($query_result));
+				Cache::putDataInCache(md5($query), $data);
+				self::$numquerys += 1;
+				//Eventually return $data instead of $query_result
+				return $data;
+				//return $query_result;					
+           	}
+		}
+		else
 		{
-            if($query_id == NULL)
-			{
-                $return = mysql_affected_rows($query_result);
-            }
-			else
-			{
-                $return = mysql_affected_rows($query_id);
-            }
-            if(!$return)
-			{
-                $error();
-            }
-			else
-			{
-                return $return;
-            }
-        }
-        public static function sql_close()
+               return '<b>MySQL Error</b>: Empty Query!';
+		}
+	}
+	public static function ResultCount($queryData)
+	{
+		if (!is_array($queryData)) {/*trigger_error("ResultCount needs an array", E_USER_ERROR);*/}
+		return $queryData[0];
+	}
+	public static function put($data, $type)
+	{
+		
+	}
+	public static function getResultAsArray($result)
+	{
+		$table_result=array();
+		$r=0;
+		while($row = mysql_fetch_assoc($result))
 		{
-            if($connect_id)
-			{
-                return mysql_close($connect_id);
-            }
-        }
-    }
+			$arr_row=array();
+			$c=0;
+			while ($c < mysql_num_fields($result)) 
+			{  
+				$col = mysql_fetch_field($result, $c);   
+				$arr_row[$col -> name] = $row[$col -> name];           
+				$c++;
+			}   
+			$table_result[$r] = $arr_row;
+			$r++;
+		}   
+		return $table_result;
+	}
+
+}

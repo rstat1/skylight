@@ -1,0 +1,4 @@
+glob:_vti_cnf/*
+glob:_vti_pvt/*
+glob:*.ini
+glob:cache/*

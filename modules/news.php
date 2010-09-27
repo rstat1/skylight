@@ -1,6 +1,7 @@
 <?php
 class news extends Module
-{	public function info(){}
+{	
+	public function info(){}
 	public function set_priorities(){}
 	public function action_shutdown(){}
 	public function action_theme_init(){}

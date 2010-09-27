@@ -1,7 +1,7 @@
 <?php
 $config['base-path'] = "/news/";
 $config['db-server'] = "localhost";
-$config['db-name'] = "skylight";
+$config['db-name'] = "reddroid_clients";
 $config['db-user'] = "root";
 $config['db-pass'] = "";
 $config['site-name'] = "blackheart";

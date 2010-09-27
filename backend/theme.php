@@ -40,7 +40,7 @@ class theme
 		$templateData = array_combine(self::$vars, self::$vars_data);
 		Cache::put_in_cache(self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, true), "template", "htm");
 			
-		Compiler::compile_template("skylight", "cache/", "template", "cache/skylight-template.php", true);
+		Compiler::compile_template("skylight", "cache/", Cache::getCacheFileName("template"), "cache/skylight-template.php", true, "" , true);
 		include("cache/skylight-template.php");
 	}	
 	public static function outputLoginBox()

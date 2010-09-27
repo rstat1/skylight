@@ -21,7 +21,6 @@ function __autoload($class_name)
 	}
 	if(isset($files[$classfile])) {include $files[$classfile];}
 }
-Database::connect();
 $nummods = count(Modules::get(array(root_path . "/modules")));
 if ($nummods > 0)
 {
@@ -47,7 +46,9 @@ else
 }
 
 URL::parse($_SERVER['REQUEST_URI']);
-
+echo '<p style="color:white;">Number of cache misses:'. Database::$numquerys . "</p>";
+echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";
 $buffer = ob_get_clean();
 echo $buffer;
+
 ?>
