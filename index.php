@@ -10,7 +10,7 @@ function __autoload($class_name)
 {
 	$classfile = strtolower($class_name . ".php");
 	$files = array();
-	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news");
+	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news", root_path. "/backend/database");
 
 	foreach($dirs as $dir)
 	{
@@ -21,7 +21,6 @@ function __autoload($class_name)
 	}
 	if(isset($files[$classfile])) {include $files[$classfile];}
 }
-Database::put(array(4, "Hi", 5, "How", 6, "Are", 7, "You", 8, "I'm", 9, "Good"), "insert", "NotRelevent");
 $nummods = count(Modules::get(array(root_path . "/modules")));
 if ($nummods > 0)
 {

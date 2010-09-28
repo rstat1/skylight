@@ -21,7 +21,7 @@ class ErrorHandler
 		echo '<title>Whoops! Wasn\'t me :)</title></head><body><div class="warning-box"><div class="warning-box-header">';
 		echo $args[1] .' on line: <b>'.  $args[3] .'</b> in file <b>'.$args[2] . '</b>';
 		echo '</div></div></body></html>';
-		return true;
+		return false;
 		
 	}
 	public static function displayException()
