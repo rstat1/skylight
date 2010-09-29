@@ -46,8 +46,8 @@ else
 }
 
 URL::parse($_SERVER['REQUEST_URI']);
-echo '<p style="color:white;">Number of cache misses:'. Database::$numquerys . "</p>";
-echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";
+/*echo '<p style="color:white;">Number of cache misses:'. Database::$numquerys . "</p>";
+echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";*/
 $buffer = ob_get_clean();
 echo $buffer;
 

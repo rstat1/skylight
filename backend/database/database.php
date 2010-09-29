@@ -49,9 +49,7 @@ class Database
 				$data = array(mysql_num_rows($query_result), self::getResultAsArray($query_result));
 				if ($cache) {Cache::putDataInCache(md5($query), $data);}
 				self::$numquerys += 1;
-				//Eventually return $data instead of $query_result
 				return $data;
-				//return $query_result;					
 			}
 		}
 		else
@@ -65,35 +63,31 @@ class Database
 		return $queryData[0];
 	}
 	//$data = array("Name" => "New Posting", "id" => "22");
-	public static function put($data, $type, $table)
+	public static function put($data, $table)
 	{
 		$finalQuery = "";
 		$queryType = "";
 		if ($data != NULL && $type != NULL)
-		{                        
-			switch ($type)
-			{
-				case "update":
-					self::$columns = Utils::returnColumnNames($data);
-					$selectQuery = "SELECT " . self::$columns . " FROM " . $table . " WHERE id LIKE " .$data['id'];
-					//self::get("SELECT
-					/*if (is_array($data)) {$dataToInsert = self::returnArrayAsCSV($data);}
-					$finalQuery = "UPDATE    " . $table. " VALUES(" . $dataToInsert . ")";*/ 
-				break;
-				case "insert":
-					if (is_array($data)) {$dataToInsert = Utils::returnArrayAsCSV($data);}
-					$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";                                         
-				break;
-				default:
-					trigger_error(htmlentities($queryType ." is not a recognized query type. INSERT and  UPDATE are the only two choices here"));
-			} 
-			//self::connect();
-			//$query_result = mysql_query($query, self::$connect_id);	
+		{			 
+			if (is_array($data)) {$dataToInsert = Utils::returnArrayAsCSV($data);}
+			$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";                                         			
+			self::connect();
+			$query_result = mysql_query($finalQuery, self::$connect_id);	
 			return $finalQuery;
 		}
 		else {throw new InvaildArgumentException("This function requires data and a put type, either INSERT or UPDATE");}
 	}
-	//borrow from a page about a particular MySQL command on http://php.net
+	/*$selectQuery = "SELECT " . self::$columns . " FROM " . $table . " WHERE id LIKE " .$data['id'];
+	self::get($selectQuery);*/
+	/*if (is_array($data)) {$dataToInsert = self::returnArrayAsCSV($data);}*/
+	public static function update($data, $table)
+	{
+		self::$columns = Utils::returnColumnNames($data);
+		$sets = Utils::makeSets(explode(",",self::$columns), $data);
+		$finalQuery = "UPDATE " . $table. " SET $sets WHERE id=" .$data['id'];
+		return $finalQuery;
+	}
+	//borrowed from a page about a particular MySQL command on http://php.net
 	public static function getResultAsArray($result)
 	{
 		$table_result=array();
