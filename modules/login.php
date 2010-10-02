@@ -11,7 +11,7 @@ class Login extends Module
 	}	
 	public function action_displayLogin()
 	{
-		echo Theme::outputLoginBox();	
+		echo "Login Box";	
 	}
 }
 ?>

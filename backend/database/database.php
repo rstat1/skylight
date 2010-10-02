@@ -42,7 +42,7 @@ class Database
 			$query_result = mysql_query($query, self::$connect_id);
 			if(!$query_result)
 			{
-				trigger_error(htmlentities(mysql_error($query_result)), E_USER_ERROR);
+				trigger_error(htmlentities(mysql_error()), E_USER_ERROR);
 			}
 			else
 			{
@@ -62,7 +62,6 @@ class Database
 		if (!is_array($queryData)) {trigger_error("ResultCount needs an array", E_USER_ERROR);}
 		return $queryData[0];
 	}
-	//$data = array("Name" => "New Posting", "id" => "22");
 	public static function put($data, $table)
 	{
 		$finalQuery = "";
@@ -77,9 +76,6 @@ class Database
 		}
 		else {trigger_error("This function requires data and table name.");}
 	}
-	/*$selectQuery = "SELECT " . self::$columns . " FROM " . $table . " WHERE id LIKE " .$data['id'];
-	self::get($selectQuery);*/
-	/*if (is_array($data)) {$dataToInsert = self::returnArrayAsCSV($data);}*/
 	public static function update($data, $table)
 	{
 		self::$columns = Utils::returnColumnNames($data);
