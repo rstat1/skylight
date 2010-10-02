@@ -67,7 +67,7 @@ class Database
 	{
 		$finalQuery = "";
 		$queryType = "";
-		if ($data != NULL && $type != NULL)
+		if ($data != NULL && $table != NULL)
 		{			 
 			if (is_array($data)) {$dataToInsert = Utils::returnArrayAsCSV($data);}
 			$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";                                         			
@@ -75,7 +75,7 @@ class Database
 			$query_result = mysql_query($finalQuery, self::$connect_id);	
 			return $finalQuery;
 		}
-		else {throw new InvaildArgumentException("This function requires data and a put type, either INSERT or UPDATE");}
+		else {trigger_error("This function requires data and table name.");}
 	}
 	/*$selectQuery = "SELECT " . self::$columns . " FROM " . $table . " WHERE id LIKE " .$data['id'];
 	self::get($selectQuery);*/

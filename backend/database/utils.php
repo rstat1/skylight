@@ -33,7 +33,17 @@ class Utils
 			if (!is_numeric($data[$value])) {$finalSets[$value] = "'". $data[$value] . "'";}
 			else {$finalSets[$value] = $data[$value];}
 		}
-		echo self::returnArrayAsCSV($finalSets, "false");
+		$i = count($finalSets);
+		foreach($finalSets as $column => $data)
+		{	
+			$x += 1;
+			if ($column <> "id") 
+			{
+				if ($x < $i){$sets .= $column . "=" . $data .", ";}
+				else{$sets .= $column . "=" . $data ."";}
+			}	
+		}
+		return $sets;
 	}
 	public static function singleQuoteAString($string)
 	{
