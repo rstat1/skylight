@@ -9,7 +9,7 @@ class Auth
 		if ($pass == NULL){trigger_error("Auth::challenge requires a password", E_USER_ERROR);}		
 		$authType = $config['auth-type'];
 		$auth = new $authType;
-		$auth->doChallenge($user, $pass);
+		return $auth->doChallenge($user, $pass);
 	}
 }
 ?>

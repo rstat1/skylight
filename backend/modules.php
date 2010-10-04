@@ -64,6 +64,7 @@ class Modules
 	}
 	public static function action($action, $args = NULL)
 	{		
+		
 		if (isset(self::$hooks['action'][$action]))
 		{			
 			foreach (self::$hooks['action'][$action] as $priority)

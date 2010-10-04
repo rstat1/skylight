@@ -34,12 +34,12 @@ class theme
 						
 		$headerfile .= "</head>\n";		
 		$footerfile .= "\n</body>\n</html>";
-		
+
 		self::$page .= $headerfile . $bodyfile . $footerfile;					
 		
 		$templateData = array_combine(self::$vars, self::$vars_data);
-		Cache::put_in_cache(self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, true), "template", "htm");
-			
+		Cache::putTemplateDataInCache(md5("template"), self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, true));
+		
 		Compiler::compile_template("skylight", "cache/", Cache::getCacheFileName("template"), "cache/skylight-template.php", true, "" , true);
 		include("cache/skylight-template.php");
 	}	

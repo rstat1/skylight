@@ -68,11 +68,21 @@ class Database
 		$queryType = "";
 		if ($data != NULL && $table != NULL)
 		{			 
-			if (is_array($data)) {$dataToInsert = Utils::returnArrayAsCSV($data);}
-			$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";                                         			
-			self::connect();
-			$query_result = mysql_query($finalQuery, self::$connect_id);	
-			return $finalQuery;
+			if (is_array($data))
+			{
+				$dataToInsert = Utils::returnArrayAsCSV($data);
+				$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";                                         			
+				/*echo $finalQuery;
+				die();*/
+				self::connect();
+				$query_result = mysql_query($finalQuery, self::$connect_id);	
+				if ($query_result)
+				{
+					return true;
+				}
+				else {trigger_error(mysql_error());}
+			}
+			else {trigger_error("Function expects first argument to be an array.");}
 		}
 		else {trigger_error("This function requires data and table name.");}
 	}

@@ -5,12 +5,13 @@ include (root_path . "/backend/errorhandler.php");
 ob_start();
 
 include (root_path . "/backend/config.php");
+include (root_path . "/backend/constants.php");
 
 function __autoload($class_name)
 {
 	$classfile = strtolower($class_name . ".php");
 	$files = array();
-	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news", root_path. "/backend/database", root_path. "/backend/auth");
+	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news", root_path. "/backend/database", root_path. "/backend/auth/handlers", root_path. "/backend/auth");
 	
 	foreach($dirs as $dir)
 	{
@@ -36,7 +37,7 @@ if ($nummods > 0)
 	{
 		Modules::load($mod);
 	}	
-//	Modules::action("theme_init");
+	Modules::action("theme_init");
 	Modules::action("init");	
 }
 else 
@@ -49,8 +50,6 @@ else
 	die();
 	//trigger_error("", E_USER_WARNING); die();
 }
-Auth::challenge("rstat1", "password");
-die();
 URL::parse($_SERVER['REQUEST_URI']);
 /*echo '<p style="color:white;">Number of cache misses:'. Database::$numquerys . "</p>";
 echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";*/
