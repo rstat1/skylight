@@ -1,9 +1,9 @@
 <?php
 class ThemeHandler extends Action
 {
-	public function act_displayPost()
+	public function act_displayLogin()
 	{
-		
+		echo "Hello World";
 	}
 	public function act_home()
 	{

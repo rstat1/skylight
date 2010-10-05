@@ -9,7 +9,7 @@ function getThemeLogin()
 {
 	$("#loading").css('visibility', 'visible');
 	$("#loading").css('display', 'inherit');
-	$.get("ajax/displayLogin/", function(data) {render_login(data);});
+	$.get("login/", function(data) {render_login(data);});
 }
 function getTagContent(tag)
 {	

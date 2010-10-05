@@ -8,6 +8,8 @@ class URL
 	{
 		$knownURLs = array_push(self::$knownURLs,array("name" => "404", "matchto" => "Nothing", "handler" => "ThemeHandler", "action" => "display_404"));
 		$knownURLs = array_push(self::$knownURLs,array("name" => "home", "matchto" => "%/%", "handler" => "ThemeHandler", "action" => "display_home"));
+		$knownURLs = array_push(self::$knownURLs,array("name" => "loginbox", "matchto" => "%login/%", "handler" => "ThemeHandler", "action" => "displayLogin"));
+		$knownURLs = array_push(self::$knownURLs,array("name" => "user", "matchto" => "%auth/([A-Za-z0-9-]+)%mx", "handler" => "UserHandler", "action" => "authenticate"));
 		//$knownURLs = array_push(self::$knownURLs,array("name" => "home", "matchto" => "%/%", "handler" => "ThemeHandler", "action" => "displayHome"));
 		//$knownURLs = array_push(self::$knownURLs,array("name" => "404", "matchto" => "Nothing", "handler" => "ThemeHandler", "action" => "display404"));
 	}
@@ -26,10 +28,15 @@ class URL
 		self::setSystemURLs();		
 		$parsedURL = str_replace(self::scriptPath(), "", $url);
 		$actionArgs = explode("/", $parsedURL);
+		if ($actionArgs[1] == "login") 
+		{
+			self::activateHandler("ThemeHandler", "displayLogin", "");
+			self::$requestHandled = true; 			
+		}
 		if ($parsedURL == "/") 
 		{
-			self::activateHandler("home", "home", "");			
-			self::$requestHandled = true; 			
+			self::activateHandler("ThemeHandler", "home", "");			
+			self::$requestHandled = true;			
 		}
 		foreach (self::$knownURLs as $handler => $hand)
 		{			
@@ -37,7 +44,7 @@ class URL
 			{				
 				if (preg_match($hand['matchto'], $parsedURL)) 
 				{					
-					self::activateHandler($hand['name'], $actionArgs[2], $parsedURL);					
+					self::activateHandler($hand['handler'], $hand['action'], $actionArgs);					
 					self::$requestHandled = true;					
 				}			
 			}
@@ -66,14 +73,25 @@ class URL
 			}
 		}
 	}
-	private static function activateHandler($name, $action, $args)
+	private static function activateHandler($handler, $action, $args)
 	{
+		echo "activateHandler($handler, $action, $args)\t";
+		$hand = new $handler;
+		$hand->action = $action;
+		$hand->args = $args;
+		$hand->act($action);
+	}
+/*	private static function activateHandler($name, $action, $args)
+	{
+		echo "activateHandler($name, $action, $args)\t";
 		$handler = self::getHandler($name);
 		$hand = new $handler();
+		echo $handler;
+		die();
 		$hand->name = $name;
 		$hand->action = $action;
 		$hand->args = $args;
 		$hand->act($name);		
-	}
+	}*/
 }
 ?>

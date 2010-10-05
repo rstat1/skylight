@@ -13,7 +13,7 @@ class news extends Module
 	}
 	public function action_article($args)
 	{
-		echo NewsHelper::getArticleById($args[3]);
+		echo NewsHelper::getArticleById($args['data']);
 	}
 	public function action_init()
 	{
