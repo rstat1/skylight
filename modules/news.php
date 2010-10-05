@@ -17,14 +17,16 @@ class news extends Module
 	}
 	public function action_init()
 	{
-		global $config;	
-		if ($config['enable-ajax']) 
+		global $config;
+		if ($config['enable-ajax'])
 		{
-			$this->addToTemplate("\n\t". '<script type="text/javascript" src="js/jquery.js"></script>', "header");	
-		}		
+			$this->addToTemplate("\n\t". '<script type="text/javascript" src="js/jquery.js"></script>', "header");
+		}
 		$this->addToTemplate("\n\t". '<script type="text/javascript" src="style/' . $config['style']. '/js/index.js"></script>', "header");
-		$this->addURLFilter(array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "display_tag"));
-		$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "ThemeHandler", "action" => "display_post"));							
+		$this->addURLFilter(array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "ajax"));
+		$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "ThemeHandler", "action" => "displayPost"));
+		/*$this->addURLFilter(array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "display_tag"));
+		$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "ThemeHandler", "action" => "display_post"));*/
 		$this->assignToVar("{#TAGS#}", NewsHelper::getTags());
 		$this->assignToVar("{#LATESTARTICLES#}", NewsHelper::getLatest5Articles("home", $config['package-content-withL5A']));		
 		$this->assignToVar("{#SITETITLE#}", $config['site-name']);
