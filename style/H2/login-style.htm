@@ -1,23 +1,23 @@
-	<!-- IF PAGE is login -->
 		<div class="login-box">		
 			<div class="login-boxes">
-				<form method="post" action="user/login/">
+				<form id="stupidPOS" method="post" action="javascript:alert('fuck you bitches');">
 					<p style="margin-bottom:18px;text-align:center;">
-						<label for="username" class="incontent abovecontent">Name</label>
+						<!--label for="username" class="incontent abovecontent">Name</label-->
 						<input type="text" name="skylightUser" id="skylightUser" value="" placeholder="name" class="styledformelement">
 					</p>
 					<p style="text-align:center;">
-						<label for="password" class="incontent abovecontent">Password</label><input type="password" name="skylightPW" id="skylightPW" placeholder="password" class="styledformelement">
+						<!-- label for="password" class="incontent abovecontent">Password</label-->
+						<input type="password" name="skylightPW" id="skylightPW" placeholder="password" class="styledformelement">
 					</p>
 					<br />
-					<p>
-						<input class="submit" type="submit" name="submit_button" value="Login">
+					<p style="text-align:center;">
+						<input class="submit" type="submit" value="STFU">
 					</p>	
-				
-					<p id="password_utils">
-						<input class="submit" type="submit" name="submit_button" value="Reset password">
+					<p style="text-align:center;" id="password_utils">
+						<input class="submit" type="submit" name="pwreset" value="Reset password">
 					</p>
 				</form>
+				<p id="login-failed" style="visibility:hidden;display:none;color:red;text-align:center;">Login failed.</p>
+				<p id="login-succeed" style="visibility:hidden;display:none;color:green;text-align:center;">Login successful.</p>
 			</div>	
 		</div>
-	<!-- ENDIF -->

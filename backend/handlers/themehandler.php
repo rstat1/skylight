@@ -3,7 +3,9 @@ class ThemeHandler extends Action
 {
 	public function act_displayLogin()
 	{
-		echo "Hello World";
+		global $config;
+		$bodyfile = file_get_contents("style/" .$config['style']. "/login-style.htm", FILE_USE_INCLUDE_PATH);
+		echo Theme::outputPiece("header") . $bodyfile. Theme::outputPiece("footer");
 	}
 	public function act_home()
 	{

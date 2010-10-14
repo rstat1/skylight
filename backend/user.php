@@ -20,5 +20,10 @@ class User
 		}
 		return true;	
 	}
+	public static function isUserLoggedIn()
+	{
+		//For now we return true. I mean false.
+		return false;
+	}
 }
 ?>

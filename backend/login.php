@@ -12,9 +12,7 @@ class Login
 	
 	public function action_displayLogin()
 	{
-		global $config;
-		$bodyfile = file_get_contents("style/" .$config['style']. "/login-style.htm", FILE_USE_INCLUDE_PATH);
-		echo $bodyfile;
+		
 	}
 	public function action_doLogin($user, $pass)
 	{

@@ -9,7 +9,6 @@ abstract class Action
 	{	
 		//$this->action = $action;
 		$method = "act_" . $action;
-		echo "Method: " .$method. "\t";
 		if (method_exists($this, $method)){$this->$method();}
 	}
 }

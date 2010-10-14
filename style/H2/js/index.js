@@ -1,10 +1,21 @@
-﻿$(document).ready(function(){$("#tags").bind("click", show_tags);});
-$(document).ready(function(){$("#user").bind("click", show_usermenu);});
-$(document).ready(function(){$("#login").bind("click", getThemeLogin);});
-$(document).ready(function(){$(".article").bind("click", function() {
-	var id = $(this).attr("id");
-	getArticleContent(id);
-});});
+﻿$(document).ready(function(){
+	$("#tags").bind("click", show_tags);
+	$("#user").bind("click", show_usermenu);
+	$("#login").bind("click", getThemeLogin);
+	$(".article").bind("click", function() {
+		var id = $(this).attr("id");
+		getArticleContent(id);
+	});
+	$("form").submit(function() {
+		return authChallengeInit();
+	});
+});
+function authChallengeInit()
+{
+	$("#login-failed").css('visibility', 'visible');
+	$("#login-failed").css('display', 'inherit');
+	return false;
+}
 function getThemeLogin()
 {
 	$("#loading").css('visibility', 'visible');

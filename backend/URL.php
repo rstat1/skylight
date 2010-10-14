@@ -75,7 +75,6 @@ class URL
 	}
 	private static function activateHandler($handler, $action, $args)
 	{
-		echo "activateHandler($handler, $action, $args)\t";
 		$hand = new $handler;
 		$hand->action = $action;
 		$hand->args = $args;
