@@ -15,7 +15,7 @@ class NewsHelper
 		}
 		if (self::$reqbase == null) {self::$reqbase = explode("/", $_SERVER['REQUEST_URI']);}
 		if (count(self::$reqbase) > 3) {$reqarr = array("Page" => self::$reqbase[2], "Args" => self::$reqbase[3]);}
-		else {$reqarr = array("Page" => self::$reqbase[2]);}
+		else if (count(self::$reqbase) > 2) {$reqarr = array("Page" => self::$reqbase[2]);}
 		return $reqarr;
 	}
 //	public function parse($temp_path, $temp_part, $tags, $replinfo, $toparse, $inc_output, $isfile)
@@ -26,7 +26,7 @@ class NewsHelper
 		$numOfResults = Database::ResultCount($result);
 		for($i = 0; $i < $numOfResults; $i++)
 		{
-			self::$tags .= Theme::parse("","", array("{#TAG#}"), array("{#TAG#}" => $title[$i]['name']), self::$tag_template, false, false);
+//			self::$tags .= Theme::parse("","", array("{#TAG#}"), array("{#TAG#}" => $title[$i]['name']), self::$tag_template, false, false);
 		}
 		/*while($title = mysql_fetch_assoc($result))
 		{
