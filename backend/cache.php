@@ -52,7 +52,7 @@ class cache
     }
 	public static function inCache($file)
 	{	
-		if (file_exists("cache/" .$file)) {return true;}
+		if (file_exists(root_path . "cache/" .$file)) {return true;}
 	}
 	public static function purge($path)
 	{
