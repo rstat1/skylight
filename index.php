@@ -1,7 +1,7 @@
 <?php
 define("root_path", dirname(__FILE__));	 
-//include (root_path . "/backend/errorhandler.php");
-//ErrorHandler::set();
+include (root_path . "/backend/errorhandler.php");
+ErrorHandler::set();
 ob_start();
 
 include (root_path . "/backend/config.php");
@@ -12,16 +12,17 @@ function __autoload($class_name)
 	$classfile = strtolower($class_name . ".php");
 	$files = array();
 	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news", root_path. "/backend/database", root_path. "/backend/auth/handlers", root_path. "/backend/auth");
-
+	
 	foreach($dirs as $dir)
 	{
-
-		$glob = glob($dir. "/*.php");
+		
+		$glob = glob($dir. "/*.php");		
 		$fnames = array_map(create_function('$a', 'return strtolower(basename($a));'), $glob);
 		if (is_array($fnames) && is_array($glob) && count($fnames) > 0)
 		{
-			$files = array_merge($files, array_combine($fnames, $glob));
+			$files = array_merge($files, array_combine($fnames, $glob));		
 		}
+							
 	}
 	if(isset($files[$classfile])) {include $files[$classfile];}
 }
@@ -35,11 +36,11 @@ if ($nummods > 0)
 	foreach(Modules::get(array(root_path . "/modules")) as $mod)
 	{
 		Modules::load($mod);
-	}
+	}	
 	Modules::action("theme_init");
-	Modules::action("init");
+	Modules::action("init");	
 }
-else
+else 
 {
 	echo '<link rel="stylesheet" href="style/H2/css/messageboxes.css"/>';
 	echo '<title>In the year of 400 and 1 there lived a bean stalk. But then he got run over by a raindeer and became a flattened bean staulk useless to all.</title></head><body>';
