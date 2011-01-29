@@ -2,7 +2,7 @@
 $config['db-server'] = "localhost";
 $config['db-name'] = "skylight";
 $config['db-user'] = "root";
-$config['db-pass'] = "";
+$config['db-pass'] = "rqnd2759_";
 //TODO: Put stuff below here in a database table instead of here.
 $config['site-name'] = "blackheart";
 $config['style'] = "H2";

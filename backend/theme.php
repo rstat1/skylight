@@ -6,10 +6,10 @@ class theme
 	public static $body_html = array();
 	public static $header_html = array();
 	public static $footer_html = array();
-	private static $page = "";	
+	private static $page = "";
 	private static $output = "";
 	private static $selectedPart = "";
-	
+
 	public static function outputPiece($piece)
 	{
 		global $config;
@@ -17,69 +17,65 @@ class theme
 		switch($piece)
 		{
 			case "header":
-                $fileName = URL::base() . "style/" .$config['style']. "/header.htm";
-                echo $fileName;
+         		      	$fileName = "style/" .$config['style']. "/header.htm";
+		                echo $fileName;
 				self::$output = file_get_contents($fileName, FILE_USE_INCLUDE_PATH);
 				self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
 				self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";
 				if (count(self::$header_html) > 0) { foreach(self::$header_html as $head) {self::$output .= $head;} }
 				self::$output .= "</head>\n<body>\n";
-								
 				self::$selectedPart = self::$output ;
-			break;	
+			break;
 			case "footer":
-				self::$output= file_get_contents(URL::base() ."style/" .$config['style']. "/footer.htm", FILE_USE_INCLUDE_PATH);
+				self::$output= file_get_contents("style/" .$config['style']. "/footer.htm", FILE_USE_INCLUDE_PATH);
 				if (count(self::$footer_html) > 0) { foreach(self::$footer_html as $foot) {self::$output.= $foot;} }
 				self::$output .= "\n</body>\n</html>";
-				self::$selectedPart = self::$output;		
-			break;		
+				self::$selectedPart = self::$output;
+			break;
 		}
-		self::$page = self::$selectedPart;					
+		self::$page = self::$selectedPart;
 		$templateData = array_combine(self::$vars, self::$vars_data);
-		return self::parse(URL::base() . "cache/","template.htm", self::$vars, $templateData, self::$page, false, true);
+		return self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, true);
 
-	}	
+	}
 	public static function output()
 	{
 		global $config;
-		$filepath = URL::base() ."style/" .$config['style'];
+		$filepath = "style/" .$config['style'];
 		$headerfile = file_get_contents($filepath. "/header.htm", FILE_USE_INCLUDE_PATH);
-		$bodyfile = file_get_contents(URL::base() ."style/" .$config['style']. "/body.htm", FILE_USE_INCLUDE_PATH);
-		$footerfile = file_get_contents(URL::base() ."style/" .$config['style']. "/footer.htm", FILE_USE_INCLUDE_PATH);
-		
+		$bodyfile = file_get_contents($filepath. "/body.htm", FILE_USE_INCLUDE_PATH);
+		$footerfile = file_get_contents($filepath. "/footer.htm", FILE_USE_INCLUDE_PATH);
+
 		self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
-		
 		self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";
-			
 		self::addRequiredTags();
-		
 		if (count(ErrorHandler::$debugmsgs) > 0) 
 		{
 			$msgs = '<div style="margin:20px;">';
 			foreach (ErrorHandler::$debugmsgs as $msg) { $msgs .= $msg; } 
 		}
 		self::$footer_html[] = $msgs;
-		
+
 		if (count(self::$header_html) > 0) { foreach(self::$header_html as $head) {$headerfile .= $head;} }
 		if (count(self::$body_html) > 0){ foreach(self::$body_html as $body) {$bodyfile .= $body;} }
 		if (count(self::$footer_html) > 0) { foreach(self::$footer_html as $foot) {$footerfile .= $foot;} }
-						
-		$headerfile .= "</head>\n";		
+		$headerfile .= "</head>\n";
 		$footerfile .= "\n</body>\n</html>";
 
-		self::$page .= $headerfile . $bodyfile . $footerfile;					
-		
+		self::$page .= $headerfile . $bodyfile . $footerfile;
+
 		$templateData = array_combine(self::$vars, self::$vars_data);
-		Cache::putTemplateDataInCache(md5("template"), self::parse(URL::base() . "cache/","template.htm", self::$vars, $templateData, self::$page, false, false));
-		
-		Compiler::compile_template("skylight", "cache/", Cache::getCacheFileName("template"), URL::base() . "cache/skylight-template.php", true, "" , true);
-		include(URL::base() . "cache/skylight-template.php");
-	}	
+		Cache::putTemplateDataInCache(md5("template"), self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, false));
+
+		Compiler::compile_template("skylight", "cache/", Cache::getCacheFileName("template"), "cache/skylight-template.php", true, "" , true);
+		include("cache/skylight-template.php");
+	}
 	public static function outputLoginBox()
 	{
 		global $config;
+		$filepath = "style/" .$config['style'];
 		self::addRequiredTags();
-		$loginbox = file_get_contents("style/" .$config['style']. "/login-style.htm", FILE_USE_INCLUDE_PATH);		
+		$loginbox = file_get_contents($filepath.  "/login-style.htm", FILE_USE_INCLUDE_PATH);
 		$templateData = array_combine(self::$vars, self::$vars_data);
 		$parsedTemp = self::parse("", "", self::$vars, $templateData, $loginbox, false, false);
 		if ($parsedTemp == NULL) {return $loginbox;}
