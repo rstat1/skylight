@@ -22,8 +22,6 @@ class URL
 	public static function scriptPath()
 	{
 		$script_path = explode("/", $_SERVER['REQUEST_URI']);
-//		echo $_SERVER['REQUEST_URI'];
-//		print_r($script_path);
 		if ($script_path[1] == ""){return "/";}
 		else {return "/" . $script_path[1];}
 	}
@@ -31,10 +29,13 @@ class URL
 	{
 		self::setSystemURLs();
 		$parsedURL = str_replace(self::scriptPath(), "", $url);
-		if ($parsedURL == "") {$parsedURL == self::scriptPath();}
+		if ($parsedURL == "") 
+		{
+			$parsedURL = self::scriptPath();
+
+		}
 		//else {$parsedURL = self::scriptPath();}
 		$actionArgs = explode("/", $parsedURL);
-		echo $parsedURL;
 		if (count($actionArgs) > 1 && $actionArgs[1] == "login")
 		{
 			self::activateHandler("ThemeHandler", "displayLogin", "");
