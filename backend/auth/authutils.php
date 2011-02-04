@@ -38,7 +38,7 @@ class AuthUtils
 		{
 			$cipherText = mcrypt_generic($cipher, $toEncrypt);
 			mcrypt_generic_deinit($cipher);
-			if ($forStore == true){ return array($cipherText, $whichKey);}
+			if ($forStore == true){ return array(bin2hex($cipherText), $whichKey);}
 			else {return bin2hex($cipherText);}
 		}
 	}

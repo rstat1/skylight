@@ -10,17 +10,20 @@ class ErrorHandler
 	public static function set()	
     {
 		error_reporting(0);
-        set_error_handler(array('ErrorHandler', 'displayError'));
+       	set_error_handler(array('ErrorHandler', 'displayError'));
 		set_exception_handler(array('ErrorHandler', 'displayException'));
     }
 	public static function displayError()
 	{
 		global $config;
 		$args = func_get_args();
-		echo '<link rel="stylesheet" href="' .  self::baseURL() . 'style/H2/css/messageboxes.css"/>';
-		echo '<title>Whoops! Wasn\'t me :)</title></head><body><div class="warning-box"><div class="warning-box-header">';
-		echo $args[1] .' on line: <b>'.  $args[3] .'</b> in file <b>'.$args[2] . '</b>';
-		echo '</div></div></body></html>';
+		if ($args[0] != 8)
+		{
+			echo '<link rel="stylesheet" href="' .  self::baseURL() . 'style/H2/css/messageboxes.css"/>';
+			echo '<title>Whoops! Wasn\'t me :)</title></head><body><div class="warning-box"><div class="warning-box-header">';
+			echo $args[1] .' on line: <b>'.  $args[3] .'</b> in file <b>'.$args[2] . '</b>';
+			echo '</div></div></body></html>';
+		}	
 		return false;
 		
 	}

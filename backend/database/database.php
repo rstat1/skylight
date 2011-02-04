@@ -14,19 +14,10 @@ class Database
 		if(self::$connect_id)
 		{
 			$dbsel = mysql_select_db($config['db-name']);	
-			if ($dbsel = true)
-			{
-				return self::$connect_id;
-			}
-			else
-			{
-				trigger_error(htmlentities(mysql_error()), E_USER_ERROR);
-			}
+			if ($dbsel = true){return self::$connect_id;}
+			else{trigger_error(htmlentities(mysql_error()), E_USER_ERROR);}
 		}   
-		else
-		{
-			trigger_error(htmlentities(mysql_error()), E_USER_ERROR);
-		} 
+		else{trigger_error(htmlentities(mysql_error()), E_USER_ERROR);} 
 	}    
 	public static function get($query, $cache = true)
 	{
@@ -76,11 +67,8 @@ class Database
 				die();*/
 				self::connect();
 				$query_result = mysql_query($finalQuery, self::$connect_id);	
-				if ($query_result)
-				{
-					return true;
-				}
-				else {trigger_error(mysql_error());}
+				if ($query_result){return true;}
+				else {trigger_error(mysql_error());die();}
 			}
 			else {trigger_error("Function expects first argument to be an array.");}
 		}

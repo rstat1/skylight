@@ -22,8 +22,7 @@ class news extends Module
 		{
 			$this->addToTemplate("\n\t". '<script type="text/javascript" src="js/jquery.js"></script>', "header");
 		}
-		$this->addToTemplate("\n\t". '<script type="text/javascript" src="style/' . $config['style']. '/js/index.js"></script>', "header");
-		$this->addURLFilter(array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "ajax"));
+		$this->addToTemplate("\n\t". '<script type="text/javascript" src="style/' . $config['style']. '/js/index.js"></script>', "header");		
 		$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "ThemeHandler", "action" => "displayPost"));
 		/*$this->addURLFilter(array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "display_tag"));
 		$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "ThemeHandler", "action" => "display_post"));*/
@@ -36,10 +35,10 @@ class news extends Module
 		{	
 			case "ajax-load":
 				//header("Content-Type: application/xml; charset=UTF-8");
-				return NewsHelper::getNews($request['Args']);						
+				echo NewsHelper::getNews($request['Args']);						
 			break;
 			case "article":
-				echo '<script type="text/javascript"></script>';
+				echo NewsHelper::getArticleById($request['Args']);
 			break;
 			default:								
 		}	

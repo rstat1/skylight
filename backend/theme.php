@@ -17,8 +17,7 @@ class theme
 		switch($piece)
 		{
 			case "header":
-         		      	$fileName = "style/" .$config['style']. "/header.htm";
-		                echo $fileName;
+         		$fileName = "style/" .$config['style']. "/header.htm";	        
 				self::$output = file_get_contents($fileName, FILE_USE_INCLUDE_PATH);
 				self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
 				self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";
@@ -83,7 +82,7 @@ class theme
 	}
 	public static function outputWith404($url)
 	{
-		trigger_error("The page you are looking for cannot be located or might be invaild. Never can tell.");
+		trigger_error("The page you are looking for cannot be located or might be invaild. Never can tell.", E_USER_ERROR);
 	}
 	//$this->parse_template("includes/cache/", "cp-header.php", $tags, $contents, $template, true, true)
 	public static function parse($temp_path, $temp_part, $tags, $replinfo, $toparse, $inc_output, $isfile)
@@ -109,6 +108,9 @@ class theme
 		self::$vars[] = "{#SITETITLE#}";
 		self::$vars_data[] =  $config['site-name'];
 		
+        self::$vars[] = "{#VERSION#}";
+		self::$vars_data[] =  $config['version'];
+        
 		self::$vars[] = "{#BASEPATH#}";
 		self::$vars_data[] =  URL::base();
 			
@@ -117,7 +119,11 @@ class theme
 		self::$vars_data[] = "<p>Memory Use: ". $usage ." Bytes</p>";
 	
 		self::$vars[] = "{#USERNAME#}";
-		self::$vars_data[] = "Guest";
+		if (isset($_COOKIE['skylightUser'])) 
+        {
+            self::$vars_data[] = $_COOKIE['skylightUser'];
+        }
+        else{self::$vars_data[] = "Guest";}
 		
 		self::$vars[] = "{#LOGINOUTTEXT#}";
 		if (User::isUserLoggedIn() == false) {self::$vars_data[] = "Login";}

@@ -1,6 +1,6 @@
 		<div class="login-box">		
 			<div class="login-boxes">
-				<form id="stupidPOS" method="post" action="javascript:alert('fuck you bitches');">
+				<form id="loginForm" method="post" onsubmit="return false;">
 					<p style="margin-bottom:18px;text-align:center;">
 						<!--label for="username" class="incontent abovecontent">Name</label-->
 						<input type="text" name="skylightUser" id="skylightUser" value="" placeholder="name" class="styledformelement">
@@ -11,13 +11,13 @@
 					</p>
 					<br />
 					<p style="text-align:center;">
-						<input class="submit" type="submit" value="STFU">
+						<input class="submit" type="submit" value="Login">
 					</p>	
 					<p style="text-align:center;" id="password_utils">
 						<input class="submit" type="submit" name="pwreset" value="Reset password">
 					</p>
 				</form>
-				<p id="login-failed" style="visibility:hidden;display:none;color:red;text-align:center;">Login failed.</p>
-				<p id="login-succeed" style="visibility:hidden;display:none;color:green;text-align:center;">Login successful.</p>
+				<p id="login-failed" style="visibility:hidden;color:red;text-align:center;">Login failed.</p>
+				<p id="login-success" style="visibility:hidden;color:green;text-align:center;">Login successful.</p>
 			</div>	
 		</div>

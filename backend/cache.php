@@ -3,7 +3,7 @@ class cache
 {	
 	public static function getDataFromCache($name)
 	{
-		$cacheFile = fopen(root_path. "/cache/$name", "r+");
+       	$cacheFile = fopen(root_path. "/cache/$name", "r+");
 		$data = fread($cacheFile, filesize(root_path. "/cache/$name"));
 		fclose($cacheFile);
 		$usableData = unserialize(base64_decode($data));
@@ -14,6 +14,7 @@ class cache
 	public static function getTemplateDataFromCache($tplName)
 	{	
 		$name = md5($tplName);
+        echo root_path. "/cache/sql_$name.php";
 		if (inCache($name) == true)
 		{
 			$cacheFile = fopen(root_path. "/cache/sql_$name.php", "r+");
@@ -51,8 +52,8 @@ class cache
 		self::putTemplateDataInCache(md5($name), $value);
     }
 	public static function inCache($file)
-	{	
-		if (file_exists(root_path . "cache/" .$file)) {return true;}
+	{	        
+		if (file_exists(root_path . "/cache/" .$file)) {return true;}
 	}
 	public static function purge($path)
 	{

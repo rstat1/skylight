@@ -6,14 +6,24 @@
 		var id = $(this).attr("id");
 		getArticleContent(id);
 	});
-	$("form").submit(function() {
+	$("#loginForm").submit(function() {
 		return authChallengeInit();
 	});
 });
 function authChallengeInit()
 {
-	$("#login-failed").css('visibility', 'visible');
-	$("#login-failed").css('display', 'inherit');
+	$.post("auth/challenge/", $("#loginForm").serialize(), function(data) {        
+        if (data != "Login Successful!")
+        {
+            $("#login-failed").html(data);
+            $("#login-failed").css('visibility', 'visible');
+        }
+        else
+        {
+            $("#login-success").html(data);
+            $("#login-success").css('visibility', 'visible');
+        }
+    });
 	return false;
 }
 function getThemeLogin()

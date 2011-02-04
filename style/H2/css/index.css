@@ -125,11 +125,14 @@ input[type="text"], input[type="password"]{
 	font-size:14pt;
 	border:1px solid #BBBBBB;
 	-moz-border-radius:5px 5px 5px 5px;
-	-webkit-border-radius:5px 5px 5px 5px;	
+	-webkit-border-radius:5px 5px 5px 5px;
+    border-radius:5px 5px 5px 5px;
 }
 input[type="submit"] {
+    -webkit-border-radius:5px 5px 5px 5px;
+    border-radius:5px 5px 5px 5px;
 	-moz-border-radius:5px 5px 5px 5px;
-	background:url("/news/style/images/button_background.png") repeat-x scroll 0 0 transparent;
+	background:url("../../..//style/images/button_background.png") repeat-x scroll 0 0 transparent;
 	border:1px solid #BBBBBB;
 	font-size:10px;
 	margin:0px 101px 5px;
