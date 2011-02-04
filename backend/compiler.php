@@ -25,26 +25,30 @@ class compiler
     }
 	public static function tpl_write_cache($final_code, $tpl_name, $part, $cache_path, $nocache = "")
 	{		
-		global $config;
-		if ($cache_path == "") 
-		{
-			if (strstr($part, "login"))
-			{
-				$tplcachenm = "includes/templates/cache/login-". $part. ".php";
-			}
-			else
-			{
-				$tplcachenm = "includes/templates/cache/". $tpl_name . "-" . $part . ".php";			
-			}	
-		}
-		else 
-		{
-			$tplcachenm = $cache_path;
-		}	
-		$handle = fopen($tplcachenm, "w+");
-		$final_code = str_replace(" ?	", "", $final_code);
-		fwrite($handle,$final_code);			
-		fclose($handle);			
+        if (!function_exists("putTemplateDataInCache"))
+        {
+		    global $config;
+    		if ($cache_path == "") 
+	    	{
+		    	if (strstr($part, "login"))
+			    {
+				    $tplcachenm = "includes/templates/cache/login-". $part. ".php";
+    			}
+	    		else
+		    	{
+			    	$tplcachenm = "includes/templates/cache/". $tpl_name . "-" . $part . ".php";			
+			    }	
+		    }
+		    else 
+		    {
+    			$tplcachenm = $cache_path;
+		    }	
+		    $handle = fopen($tplcachenm, "w+");
+		    $final_code = str_replace(" ?	", "", $final_code);
+		    fwrite($handle,$final_code);			
+		    fclose($handle);
+       }
+       else {Cache::putTemplateDataInCache(Cache::getTemplateName($part), $final_code);
 	}	
 	public static function compile_template($template, $path, $part, $cpath, $nocache = "", $ext = "", $noext = false)
 	{

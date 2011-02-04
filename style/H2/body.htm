@@ -16,7 +16,9 @@
 		<div style="visibility:hidden;color:white;" class="user-menu" id="usermenu">
 			<ul>				
 				<li id="login" class="user-menu"><a href="{#LOGINOUTLINK#}">{#LOGINOUTTEXT#}</a></li>
-				<!--LOGGEDIN--><li id="acp" class="user-menu">{#ACPLINK#}</li>
+				<!-- IF U_AUTH -->
+                    <!-- IF P_ACP --><li id="acp" class="user-menu">{#ACPLINK#}</li><!-- ENDIF -->
+                <!-- ENDIF-->
 				<!--LOGGEDIN--><li id "ucp" class="user-menu">{#UCPLINK#}</li>
 			</ul>		
 		</div>			

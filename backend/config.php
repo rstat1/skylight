@@ -10,7 +10,7 @@ $config['auth-type'] = "authTrue";
 $config['enable-ajax'] = "true";
 $config['debug'] = false;
 /* CHANGE NOTHING BELOW THIS LINE */
-$config['version'] = "0.3-dev";
+$config['version'] = "0.4-dev";
 $config['package-content-withL5A'] = true;
 $config['base-path'] = "/";
 $config['debug'] = true;
