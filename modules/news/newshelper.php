@@ -26,13 +26,9 @@ class NewsHelper
 		$numOfResults = Database::ResultCount($result);
 		for($i = 0; $i < $numOfResults; $i++)
 		{
-//			self::$tags .= Theme::parse("","", array("{#TAG#}"), array("{#TAG#}" => $title[$i]['name']), self::$tag_template, false, false);
+			self::$tags .= Theme::parse("","", array("{#TAG#}"), array("{#TAG#}" => $result[1][$i]['name']), self::$tag_template, false, false);
 		}
-		/*while($title = mysql_fetch_assoc($result))
-		{
-			self::$tags .= Theme::parse("","", array("{#TAG#}"), array("{#TAG#}" => $title['name']), self::$tag_template, false, false);
-		}*/
-		/*echo self::$tags;	*/
+		return self::$tags;
 	}
 	public static function getArticleById($id)
 	{		
@@ -78,7 +74,7 @@ class NewsHelper
 		self::$tag_template = self::getTemplate("fivenewsitems");
 		if ($tag == NULL) {$title = Database::get("SELECT * FROM posts ORDER by `id` DESC LIMIT 5");}
 		else{$result = Database::get("SELECT * FROM posts WHERE `category` LIKE '$tag' ORDER by `id` DESC LIMIT 5");}
-		$numOfResults = Database::ResultCount($result);
+        $numOfResults = Database::ResultCount($result);
 		if ($numOfResults > 0)
 		{
 			if ($numOfResults < 5) {$x = 5;}

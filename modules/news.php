@@ -8,8 +8,8 @@ class news extends Module
 	public function action_tag($args)
 	{		
 		global $config;	
-		NewsHelper::Page("set", "tag/" . $args[3]);		
-		echo NewsHelper::getLatest5Articles($args[3], $config['package-content-withL5A']);	
+		NewsHelper::Page("set", "tag/" . $args['data']);
+        echo NewsHelper::getLatest5Articles($args['data'], $config['package-content-withL5A']);	
 	}
 	public function action_article($args)
 	{

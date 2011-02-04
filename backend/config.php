@@ -13,4 +13,5 @@ $config['debug'] = false;
 $config['version'] = "0.3-dev";
 $config['package-content-withL5A'] = true;
 $config['base-path'] = "/";
+$config['debug'] = true;
 ?>

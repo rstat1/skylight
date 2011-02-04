@@ -23,10 +23,35 @@ class ErrorHandler
 			echo '<title>Whoops! Wasn\'t me :)</title></head><body><div class="warning-box"><div class="warning-box-header">';
 			echo $args[1] .' on line: <b>'.  $args[3] .'</b> in file <b>'.$args[2] . '</b>';
 			echo '</div></div></body></html>';
-		}	
-		return false;
-		
+            if ($config['debug'] == true)
+            {
+               //print_r(array_walk( debug_backtrace(), create_function( '$a,$b', 'print "<br /><b>". basename( $a[\'file\'] ). "</b> &nbsp; <font color=\"red\">{$a[\'line\']}</font> &nbsp; <font color=\"green\">{$a[\'function\']} ()</font> &nbsp; -- ". dirname( $a[\'file\'] ). "/";' ) ));
+               self::printBackTrace();
+               //print_r(debug_backtrace());
+            }    
+		}	        
+		return false;		
 	}
+    private static function printBackTrace()
+    {
+        $bt = debug_backtrace();
+        for($i = 0; $i < count($bt) ; $i++)
+        {    
+            $class = ""; 
+            $line = ""; 
+            $file = ""; 
+            $function = "";
+            $function = $bt[$i]['function'];
+            if (isset($bt[$i]['class'])) {$class = $bt[$i]['class'];}
+            if (isset($bt[$i]['line'])) {$line = $bt[$i]['line'];}
+            if (isset($bt[$i]['file'])) {$file = $bt[$i]['file'];}
+            if ($class != "ErrorHandler" && $function != "trigger_error") 
+            {
+                //echo "at " .$class. "::" . $function. " on line " . $line . "<br />";
+                echo 'at <font color="red">' . $class . "::" . $function . '</font> called on line<font color="red"> '. $line. "</font> in " . $file. "<br />";
+            }            
+        }
+    }
 	public static function displayException()
 	{
 		ob_start();
