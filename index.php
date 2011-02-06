@@ -1,7 +1,7 @@
 <?php
 define("root_path", dirname(__FILE__));	 
-include (root_path . "/backend/errorhandler.php");
-ErrorHandler::set();
+//include (root_path . "/backend/errorhandler.php");
+//ErrorHandler::set();
 ob_start();
 
 include (root_path . "/backend/config.php");
@@ -51,6 +51,8 @@ else
 	//trigger_error("", E_USER_WARNING); die();
 }
 URL::parse($_SERVER['REQUEST_URI']);
+if (isset($_COOKIE['skylightUser']) && !isset($_SESSION['currUser'])) {User::createUserVar();}
+print_r($_SESSION['currUser']);
 /*echo '<p style="color:white;">Number of cache misses:'. Database::$numquerys . "</p>";
 echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";*/
 $buffer = ob_get_clean();

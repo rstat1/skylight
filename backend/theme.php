@@ -35,7 +35,6 @@ class theme
 		self::$page = self::$selectedPart;
 		$templateData = array_combine(self::$vars, self::$vars_data);
 		return self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, true);
-
 	}
 	public static function output()
 	{
@@ -46,7 +45,8 @@ class theme
 		$footerfile = file_get_contents($filepath. "/footer.htm", FILE_USE_INCLUDE_PATH);
 
 		self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
-		self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";
+		self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>' . "\n";
+        self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";        
 		self::addRequiredTags();
 		if (count(ErrorHandler::$debugmsgs) > 0) 
 		{
@@ -119,24 +119,22 @@ class theme
 		self::$vars_data[] = "<p>Memory Use: ". $usage ." Bytes</p>";
 	
 		self::$vars[] = "{#USERNAME#}";
-		if (isset($_COOKIE['skylightUser'])) 
-        {
-            self::$vars_data[] = $_COOKIE['skylightUser'];
-        }
+		if (isset($_COOKIE['skylightUser'])){self::$vars_data[] = $_COOKIE['skylightUser'];}
         else{self::$vars_data[] = "Guest";}
 		
 		self::$vars[] = "{#LOGINOUTTEXT#}";
 		if (User::isUserLoggedIn() == false) {self::$vars_data[] = "Login";}
-		
+		else {self::$vars_data[] = "Logout";}
+        
 		self::$vars[] = "{#LOGINOUTLINK#}";
 		/*if {$config['enable-ajax']) {*/self::$vars_data[] = "user/login/";//}
 		/*else {self::$vars_data[] = "user/login/";}*/
 		
 		self::$vars[] = "{#ACPLINK#}";
-		self::$vars_data[] = 'Admin Controls';
+		self::$vars_data[] = 'Administration';
 		
 		self::$vars[] = "{#UCPLINK#}";
-		self::$vars_data[] = 'User Controls';
+		self::$vars_data[] = 'User Settings';
 		
 		/*self:$vars[] = "{#VERSION#}";
 		self::$vars_data[] = $config['version'];*/

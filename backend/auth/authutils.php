@@ -45,6 +45,6 @@ class AuthUtils
 	public static function encryptPWForStorage($pass)
 	{
 		return self::encryptPassword($pass, "", true);
-	}	
+	}  
 }	
 ?>

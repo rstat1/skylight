@@ -38,8 +38,8 @@ class NewsHelper
 		for($i = 0; $i < $numOfResults; $i++)
 		{				
 			$title = $result[1][$i];
-			$tags = array("{#TITLE#}", "{#CONTENT#}", "{#ID#}");
-			$content = array($title['Title'], $title['content'], $title['id']);
+			$tags = array("{#TITLE#}", "{#CONTENT#}", "{#ID#}", "{#TAG#}");
+			$content = array($title['Title'], $title['content'], $title['id'], $title['category']);
 			$data = array_combine($tags, $content);
 			self::$news = Theme::parse("","", $tags, $data, self::$tag_template, false, false);
 		}		

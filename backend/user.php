@@ -21,10 +21,21 @@ class User
 		}
 		return true;	
 	}
+    public static function createUserVar()
+    {
+        $name = AuthUtils::encryptUser($_COOKIE['skylightUser'], true);
+		$query = "SELECT * FROM users WHERE name LIKE '$name'";
+		$isVaildName = Database::get($query, false);
+        $_SESSION['currUser'] = $isVaildName[1];
+    }
 	public static function isUserLoggedIn()
 	{
-		//For now we return true. I mean false.
-		return false;
+		if (isset($_COOKIE['skylightUser'])) {return true;}
+        else {return false;}
 	}
+    public static function isUserAllowedHere($herebeingwhere)
+    {
+        Auth::checkPermission($herebeingwhere);
+    }
 }
 ?>

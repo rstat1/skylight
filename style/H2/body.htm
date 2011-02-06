@@ -4,22 +4,20 @@
 			<div class="menu-bar">
 				<ul>
 					<li id="user" class="menu-bar">{#USERNAME#} <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>
+                    <!-- IF U_AUTH -->
+                        <!-- IF P_ACP --><li id="acp" class="menu-bar">{#ACPLINK#}</li><!-- ENDIF -->
+                        <!-- IF P_UCP --><li id "ucp" class="menu-bar">{#UCPLINK#}</li><!-- ENDIF -->
+                    <!-- ELSE -->
+                        <li id="login" class="menu-bar"><a style="color:White; text-decoration:none;" href="{#LOGINOUTLINK#}">{#LOGINOUTTEXT#}</a></li>
+                        <li id="register" class="menu-bar">Register!</li>
+                    <!-- ENDIF -->                    
 					<li id="tags" class="menu-bar">Tags <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>					
 				</ul>
 			</div>			
 		</div>		
-		<div style="visibility:hidden;display:none;" class="category" id="category">
+		<div style="" class="category" id="category">
 			<ul>				
 				{#TAGS#}
-			</ul>		
-		</div>	
-		<div style="visibility:hidden;color:white;" class="user-menu" id="usermenu">
-			<ul>				
-				<li id="login" class="user-menu"><a href="{#LOGINOUTLINK#}">{#LOGINOUTTEXT#}</a></li>
-				<!-- IF U_AUTH -->
-                    <!-- IF P_ACP --><li id="acp" class="user-menu">{#ACPLINK#}</li><!-- ENDIF -->
-                <!-- ENDIF-->
-				<!--LOGGEDIN--><li id "ucp" class="user-menu">{#UCPLINK#}</li>
 			</ul>		
 		</div>			
 		<div id="outer">

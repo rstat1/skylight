@@ -46,6 +46,7 @@ img {
 	text-align:center;
 	z-index:10000;
 	float:left;
+    
 	list-style:none;
 	width:24%;
 	padding-bottom:6px;
@@ -73,7 +74,7 @@ img {
 	background-color:#404040;
 	float:left;
 	list-style:none outside none;
-	margin-left:-114px;
+	margin-left:-422px;
 	padding-bottom:6px;
 	width:132px;
 	z-index:10000;

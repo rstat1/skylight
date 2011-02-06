@@ -1,26 +1,14 @@
 <?php
 class compiler
 {
-	private static $hasnot = false;
-	//private static $contains_quote = "";
+	private static $hasnot = false;	
 	private static function convert_to($source, $target_encoding)
     {
-		// detect the character encoding of the incoming file
 		$encoding = mb_detect_encoding( $source, "auto" );
-      
-		// escape all of the question marks so we can remove artifacts from
-		// the unicode conversion process
 		$target = str_replace( "  ?	", "?", $source );
-      
-		// convert the string to the target encoding
 		$target = mb_convert_encoding( $target, $target_encoding, $encoding);
-
-		// remove any question marks that have been introduced because of illegal characters
 		$target = str_replace( "?", "?", $target );
-      
-		// replace the token string "[question_mark]" with the symbol "?"
 		$target = str_replace( "[question_mark]", "?", $target );
-  
 		return $target;
     }
 	public static function tpl_write_cache($final_code, $tpl_name, $part, $cache_path, $nocache = "")
@@ -48,7 +36,7 @@ class compiler
 		    fwrite($handle,$final_code);			
 		    fclose($handle);
        }
-       else {Cache::putTemplateDataInCache(Cache::getTemplateName($part), $final_code);
+       else {Cache::putTemplateDataInCache(Cache::getTemplateName($part), $final_code);}
 	}	
 	public static function compile_template($template, $path, $part, $cpath, $nocache = "", $ext = "", $noext = false)
 	{
@@ -58,12 +46,10 @@ class compiler
 			if ($ext == "") {$filename = $path . $part . ".htm";}
 			else {$filename = $path . $part . ".$ext";}
 		}
-		else {$filename = $path . $part;}
-		//$handle = fopen($filename, "r");
+		else {$filename = $path . $part;}		
 		if (file_exists($filename))
 		{
 			$code = file_get_contents($filename);											
-			//echo $code;			
 		}
 		else
 		{
@@ -98,19 +84,14 @@ class compiler
 				case "IF":						
 					$compiledtemp[] = "<?php " .self::compile_if($block_val[2], $contains_quote);
 				break;				
-				case "CURRENTUSER":
-					/*print_r($user->data['username']);
-					die();*/
+				case "CURRENTUSER":				
 					$compiledtemp[] =  $user->data['username'];
 				break;
 				case "SID":
-					/*print_r($user->data['username']);
-					die();*/
 					$compiledtemp[] =  "sid=" . $sid;
 				break;
 				case "ECHOHTML":										
 					$cq = stristr($text_blocks[$curr_tb],'"');					
-					//echo "Hi!";
 					if ($cq != FALSE)
 					{
 						$contains_quote = true;						
@@ -119,14 +100,12 @@ class compiler
 					{
 						$contains_quote = false;		
 					}				
-					if ($contains_quote == true) {echo "Set";}
-					//else {echo "Not set";}
+					if ($contains_quote == true) {echo "Set";}					
 					$compiledtemp[] = self::compile_htmlecho($block_val[2], true);					
 					$isHTMLecho = true;
 					$isecho = true;
 				break;
-				case "ECHO":
-					//echo self::compile_echo($block_val[2]);
+				case "ECHO":					
 					$compiledtemp[] = self::compile_echo($block_val[2]);					
 					$isecho = true;
 				break;
@@ -273,8 +252,8 @@ class compiler
 				}				
 				if ($token == "U_AUTH")
 				{
-					if (self::$hasnot == true) {$compiledif = 'if ($tplfuncs->check_perm("' .$tokens[1]. '") != true)' . " { ?>";}
-					else {$compiledif = 'if ($tplfuncs->check_perm("' .implode(' ', $tokens). '") == true)' . " { ?>";}										
+					if (self::$hasnot == true) {$compiledif = 'if (User::isUserAllowedHere("' .$tokens[1]. '") != true)' . " { ?>";}
+					else {$compiledif = 'if (User::isUserAllowedHere("' .implode(' ', $tokens). '") == true)' . " { ?>";}										
 					return $compiledif;
 				}
 				if (strstr($token, "PAGE"))
@@ -310,8 +289,8 @@ class compiler
 						{
 							if (strstr($tokens[5], "P_") || strstr($tokens[5], "U") && $tokens[5] !== "U_AUTH" )						
 							{
-								$transvar = '$tplfuncs->check_perm("' .$tokens[5]. '") == false';
-								$andvar = ""; //'$tplfuncs->check_perm("' .$tokens[4]. '") == true';
+								$transvar = 'User::isUserAllowedHere("' .$tokens[5]. '") == false';
+								$andvar = ""; //'User::isUserAllowedHere("' .$tokens[4]. '") == true';
 							}
 							if ($tokens[3] == "and")
 							{
@@ -324,7 +303,7 @@ class compiler
 						{	
 							if (strstr($tokens[4], "P_") || strstr($tokens[4], "U") && $tokens[4] !== "U_AUTH" )						
 							{
-								$transvar = '$tplfuncs->check_perm("' .$tokens[4]. '") == true';
+								$transvar = 'User::isUserAllowedHere("' .$tokens[4]. '") == true';
 							}			
 							if($valvar == 'NULL') {$compiledif = 'if ($_REQUEST["' . $act_var. '"] == ' .$valvar. ' && '. $transvar  . ")" . "{ ?>";}
 							else {$compiledif = 'if ($_REQUEST["' . $act_var. '"] == "' .$valvar. '" && '. $transvar  . ")" . "{ ?> ";}
@@ -342,13 +321,13 @@ class compiler
 				}
 				if (strstr($token, "C_"))
 				{				
-					if (self::$hasnot == true) {$compiledif = 'if (!$tplfuncs->check_config("' .$tokens[1]. '") == true)' . " {echo " . "'";}
-					if (self::$hasnot == false) {$compiledif = 'if ($tplfuncs->check_config("' .implode(' ', $tokens). '") == true)' . " {echo " . "'";}
+					if (self::$hasnot == true) {$compiledif = 'if (!tplfuncs::check_config("' .$tokens[1]. '") == true)' . " {echo " . "'";}
+					if (self::$hasnot == false) {$compiledif = 'if (tplfuncs::check_config("' .implode(' ', $tokens). '") == true)' . " {echo " . "'";}
 				}
 				if (strstr($token, "P") || strstr($token, "U") && $token !== "U_AUTH" )						
 				{						
-					if (self::$hasnot == true && $hasand == false)  {$compiledif = 'if (!$tplfuncs->check_perm("' .$tokens[1]. '") == true)' . " { ?>";}
-					if (self::$hasnot == false && $hasand == false) {$compiledif = 'if ($tplfuncs->check_perm("' .implode(' ', $tokens). '") == true)' . " { ?>";}	
+					if (self::$hasnot == true && $hasand == false)  {$compiledif = 'if (!User::isUserAllowedHere("' .$tokens[1]. '") == true)' . " { ?>";}
+					if (self::$hasnot == false && $hasand == false) {$compiledif = 'if (User::isUserAllowedHere("' .implode(' ', $tokens). '") == true)' . " { ?>";}	
 				}			
 			}
 			return $compiledif;

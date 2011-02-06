@@ -1,31 +1,11 @@
 ﻿$(document).ready(function(){
 	$("#tags").bind("click", show_tags);
 	$("#user").bind("click", show_usermenu);
-	$("#login").bind("click", getThemeLogin);
 	$(".article").bind("click", function() {
 		var id = $(this).attr("id");
 		getArticleContent(id);
 	});
-	$("#loginForm").submit(function() {
-		return authChallengeInit();
-	});
 });
-function authChallengeInit()
-{
-	$.post("auth/challenge/", $("#loginForm").serialize(), function(data) {        
-        if (data != "Login Successful!")
-        {
-            $("#login-failed").html(data);
-            $("#login-failed").css('visibility', 'visible');
-        }
-        else
-        {
-            $("#login-success").html(data);
-            $("#login-success").css('visibility', 'visible');
-        }
-    });
-	return false;
-}
 function getThemeLogin()
 {
 	$("#loading").css('visibility', 'visible');
@@ -109,11 +89,8 @@ function show_usermenu()
 	}	
 	else 
 	{
-		$('#category').fadeOut('fast', function()
-		{ 
-			category.style.visibility = "hidden"; 
-			usermenu.style.visibility = "visible";
-			$('#usermenu').fadeIn('fast', function() { });
-		});		
+        usermenu.style.visibility = "visible";
+		$('#usermenu').fadeIn('fast', function() { });
+		
 	}
 }

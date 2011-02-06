@@ -11,5 +11,18 @@ class Auth
 		$auth = new $authType;
 		return $auth->doChallenge($user, $pass);
 	}
+    public static function checkPermission($permission)
+    {
+        $user = $_SESSION['currUser'];
+        switch ($permission)
+        {
+            case "U_AUTH":                
+                if (isset($_COOKIE['skylightUser'])) {return true;}
+            break;
+            case "P_ACP":
+                //if ($user['permhash']
+            break;
+        }
+    }
 }
 ?>
