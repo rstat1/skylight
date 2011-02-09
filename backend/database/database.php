@@ -1,4 +1,5 @@
 <?php
+//TODO: Make database stuff easily extendable, and not depenedent on MySQL of any kind.
 class Database
 {
 	static $numquerys = 0;

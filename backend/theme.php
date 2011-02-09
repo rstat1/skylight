@@ -21,6 +21,7 @@ class theme
 				self::$output = file_get_contents($fileName, FILE_USE_INCLUDE_PATH);
 				self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
 				self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";
+                self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>' . "\n";
 				if (count(self::$header_html) > 0) { foreach(self::$header_html as $head) {self::$output .= $head;} }
 				self::$output .= "</head>\n<body>\n";
 				self::$selectedPart = self::$output ;

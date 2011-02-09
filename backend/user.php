@@ -28,6 +28,10 @@ class User
 		$isVaildName = Database::get($query, false);
         $_SESSION['currUser'] = $isVaildName[1];
     }
+    public static function vaildateSession()
+    {
+    
+    }
 	public static function isUserLoggedIn()
 	{
 		if (isset($_COOKIE['skylightUser'])) {return true;}
@@ -35,7 +39,7 @@ class User
 	}
     public static function isUserAllowedHere($herebeingwhere)
     {
-        Auth::checkPermission($herebeingwhere);
+        return Auth::checkPermission($herebeingwhere);
     }
 }
 ?>

@@ -6,16 +6,17 @@
 });
 function authChallengeInit()
 {
-	$.post("auth/challenge/", $("#loginForm").serialize(), function(data) {        
+	$.post("auth/challenge/", $("#loginForm").serialize(), function(data) {
+        
         if (data != "Login Successful!")
         {
             $("#login-failed").html(data);
-            $("#login-failed").css('visibility', 'visible');
+            $("#login-failed").css('visibility', 'visible');            
         }
         else
         {
             $("#login-success").html(data);
-            $("#login-success").css('visibility', 'visible');
+            $("#login-success").css('visibility', 'visible');            
         }
     });
 	return false;
