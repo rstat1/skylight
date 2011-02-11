@@ -12,7 +12,7 @@ class db
 			$myPass = AuthUtils::encryptPassword($pass, $results[1][0]["salt"]);
 			if ($results[1][0]["passhash"] != $myPass){ return USER_INVAILD_PW; }//echo '<p style="color:green;">Welcome, '. $user . '</p>';}		
 		}                
-        $userData = array("name" => $user, "theme" => $results[1][0]['theme'], "useJS" => $results[1][0]['enablejs'], "id" => $results[1][0]['id']);
+        $userData = array("name" => $user, "theme" => $results[1][0]['theme'], "useJS" => $results[1][0]['enablejs'], "id" => $results[1][0]['id']);        
 		return $userData;
 	}	
 }

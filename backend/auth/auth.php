@@ -16,15 +16,17 @@ class Auth
         $user = $_SESSION['currUser'];
         switch ($permission)
         {
-            case "U_AUTH":
-                User::vaildateSession($_COOKIE['skylightsid']);
-                if (isset($_COOKIE['skylightUser'])) {return true;}
+            case "U_AUTH":                
+                if (isset($_COOKIE['sk_U'])) {return true;}
             break;
             case "P_ACP":
-               
+               if (User::validateSession()) 
+               {
+                    
+               }
             break;
             case "P_UCP":
-                if (isset($_COOKIE['skylightUser'])) {return true;}
+                if (isset($_COOKIE['sk_U'])) {return true;}
                 //if ($user['permhash']
             break;
         }

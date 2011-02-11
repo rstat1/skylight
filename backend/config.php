@@ -6,7 +6,7 @@ $config['db-pass'] = "";
 //TODO: Put stuff below here in a database table instead of here.
 $config['site-name'] = "skylight-dev";
 $config['style'] = "H2";
-$config['auth-type'] = "authTrue";
+$config['auth-type'] = "db";
 $config['enable-ajax'] = "true";
 $config['debug'] = false;
 /* CHANGE NOTHING BELOW THIS LINE */

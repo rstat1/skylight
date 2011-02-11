@@ -6,12 +6,6 @@
 		getArticleContent(id);
 	});
 });
-function getThemeLogin()
-{
-	$("#loading").css('visibility', 'visible');
-	$("#loading").css('display', 'inherit');
-	$.get("login/", function(data) {render_login(data);});
-}
 function getTagContent(tag)
 {	
 	$("#loading").css('visibility', 'visible');
@@ -27,15 +21,6 @@ function getArticleContent(id)
 function getArticleComments(id)
 {
 	alert(id);
-}
-function render_login(data)
-{	
-	$("#loading").css('visibility', 'hidden');
-	$("#loading").css('display', 'none');
-	$('.news').fadeOut('slow', function() {
-		$(this).html(data);		
-		$(this).fadeIn('slow');		
-	});
 }
 function render_article(data)
 {

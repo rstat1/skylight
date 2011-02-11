@@ -3,10 +3,11 @@ class UserHandler extends Action
 {
 	public function act_authenticate()
 	{
+        global $config;
         $wasSuccessful = Auth::challenge($_POST['skylightUser'], $_POST['skylightPW']);              
         if (is_array($wasSuccessful))
         {
-            setcookie("skylightUser", $_POST['skylightUser'], time()+3600, "/");
+            setcookie("sk_U", $_POST['skylightUser'], time()+3600, "/");
             $_SESSION['currUser'] = $wasSuccessful;
             echo "Login Successful!";            
         }        

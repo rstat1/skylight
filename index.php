@@ -1,4 +1,5 @@
 <?php
+if (!isset($_COOKIE['PHPSESSID'])) {session_start();}
 define("root_path", dirname(__FILE__));	 
 //include (root_path . "/backend/errorhandler.php");
 //ErrorHandler::set();
@@ -51,7 +52,15 @@ else
 	//trigger_error("", E_USER_WARNING); die();
 }
 URL::parse($_SERVER['REQUEST_URI']);
-if (isset($_COOKIE['skylightUser']) && !isset($_SESSION['currUser'])) {User::createUserVar();}
+if (isset($_COOKIE['sk_U']) && $_SERVER['REQUEST_URI'] == $config['base-path'])
+{
+    if (!isset($_SESSION['currUser'])) 
+    {
+        User::createUserVar();
+        User::startSession();        
+    }
+}
+User::validateSession();
 /*echo '<p style="color:white;">Number of cache misses:'. Database::$numquerys . "</p>";
 echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";*/
 $buffer = ob_get_clean();

@@ -20,8 +20,9 @@ class theme
          		$fileName = "style/" .$config['style']. "/header.htm";	        
 				self::$output = file_get_contents($fileName, FILE_USE_INCLUDE_PATH);
 				self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
-				self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";
                 self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>' . "\n";
+                self::$header_html[] = "\n\t". '<script type="text/javascript">var path = "' .$config['base-path'] .'";</script>';
+                self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";        
 				if (count(self::$header_html) > 0) { foreach(self::$header_html as $head) {self::$output .= $head;} }
 				self::$output .= "</head>\n<body>\n";
 				self::$selectedPart = self::$output ;
@@ -45,8 +46,9 @@ class theme
 		$bodyfile = file_get_contents($filepath. "/body.htm", FILE_USE_INCLUDE_PATH);
 		$footerfile = file_get_contents($filepath. "/footer.htm", FILE_USE_INCLUDE_PATH);
 
-		self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
-		self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>' . "\n";
+		self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";        
+		self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>';
+        self::$header_html[] = "\n\t". '<script type="text/javascript">var path = "' .$config['base-path'] .'";</script>';
         self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";        
 		self::addRequiredTags();
 		if (count(ErrorHandler::$debugmsgs) > 0) 
@@ -120,7 +122,7 @@ class theme
 		self::$vars_data[] = "<p>Memory Use: ". $usage ." Bytes</p>";
 	
 		self::$vars[] = "{#USERNAME#}";
-		if (isset($_COOKIE['skylightUser'])){self::$vars_data[] = $_COOKIE['skylightUser'];}
+		if (isset($_COOKIE['sk_U'])){self::$vars_data[] = $_COOKIE['sk_U'];}
         else{self::$vars_data[] = "Guest";}
 		
 		self::$vars[] = "{#LOGINOUTTEXT#}";
