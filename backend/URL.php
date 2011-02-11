@@ -5,7 +5,7 @@ class URL
 	private static $knownURLs = array();
 
 	public static function setSystemURLs()
-	{
+	{		
 		$knownURLs = array_push(self::$knownURLs,array("name" => "404", "matchto" => "Nothing", "handler" => "ThemeHandler", "action" => "display_404"));
 		$knownURLs = array_push(self::$knownURLs,array("name" => "home", "matchto" => "%/%", "handler" => "ThemeHandler", "action" => "display_home"));
 		$knownURLs = array_push(self::$knownURLs,array("name" => "loginbox", "matchto" => "%login/%", "handler" => "ThemeHandler", "action" => "displayLogin"));
@@ -35,9 +35,11 @@ class URL
 	public static function parse($url)
 	{
         global $config;
-		self::setSystemURLs();
+        self::setSystemURLs();
+        $path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 		$parsedURL = $_SERVER['REQUEST_URI'];
-		$actionArgs = explode("/", $parsedURL);        
+        $parsedURL = str_replace($path, "", $parsedURL);
+		$actionArgs = explode("/", $parsedURL);		
 		if (count($actionArgs) > 1 && $actionArgs[1] == "login")
 		{
 			self::activateHandler("ThemeHandler", "displayLogin", "");
@@ -47,7 +49,7 @@ class URL
 		{
 			self::activateHandler("ThemeHandler", "home", "");
 			self::$requestHandled = true;
-		}
+		}		
         foreach (self::$knownURLs as $handler => $hand)
 		{            
 			if ($hand['name'] != "404" && $hand['name'] != "home" && self::$requestHandled == false)

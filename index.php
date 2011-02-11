@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($_COOKIE['PHPSESSID'])) {session_start();}
 define("root_path", dirname(__FILE__));	 
 include (root_path . "/backend/errorhandler.php");
