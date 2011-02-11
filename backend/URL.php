@@ -16,7 +16,7 @@ class URL
 	}
 	public static function base()
 	{
-        global $config;
+        global $config;        
         return "http://" . $_SERVER['SERVER_NAME'] . $config['base-path'];
 		/*$script_path = explode("/", $_SERVER['REQUEST_URI']);
        	if ($script_path[1] == ""){return "http://" . $_SERVER['SERVER_NAME'];}
@@ -24,6 +24,7 @@ class URL
 	}
 	public static function scriptPath()
 	{
+        
         return root_path;
       /*$script_path = explode("/", $_SERVER['REQUEST_URI']);
         $spvarCount = count($script_path);
@@ -33,16 +34,17 @@ class URL
 	}
 	public static function parse($url)
 	{
+        global $config;
 		self::setSystemURLs();
-		$parsedURL = str_replace(self::scriptPath(), "", $url);
-		if ($parsedURL == ""){$parsedURL = self::scriptPath();}        
+		$parsedURL = str_replace($config['base-path'], "", $url);
+		//if ($parsedURL == ""){$parsedURL = self::scriptPath();}        
 		$actionArgs = explode("/", $parsedURL);        
 		if (count($actionArgs) > 1 && $actionArgs[1] == "login")
 		{
 			self::activateHandler("ThemeHandler", "displayLogin", "");
 			self::$requestHandled = true;
 		}
-		if ($parsedURL == "/" || $parsedURL == "")
+        if ($parsedURL == "/" || $parsedURL == "")
 		{
 			self::activateHandler("ThemeHandler", "home", "");
 			self::$requestHandled = true;
@@ -52,7 +54,7 @@ class URL
 			if ($hand['name'] != "404" && $hand['name'] != "home" && self::$requestHandled == false)
 			{                
 				if (preg_match($hand['matchto'], $parsedURL))
-				{                    
+				{  
 					self::activateHandler($hand['handler'], $hand['action'], $actionArgs);
 					self::$requestHandled = true;
 				}
@@ -83,7 +85,7 @@ class URL
 	}
 	private static function activateHandler($handler, $action, $args)
 	{
-		$hand = new $handler;
+        $hand = new $handler;
 		$hand->action = $action;
 		$hand->args = $args;
 		$hand->act($action);

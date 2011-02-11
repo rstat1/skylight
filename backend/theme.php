@@ -41,7 +41,8 @@ class theme
 	public static function output()
 	{
 		global $config;
-		$filepath = "style/" .$config['style'];
+		$filepath = URL::scriptPath() . "/style/" .$config['style'];
+       
 		$headerfile = file_get_contents($filepath. "/header.htm", FILE_USE_INCLUDE_PATH);
 		$bodyfile = file_get_contents($filepath. "/body.htm", FILE_USE_INCLUDE_PATH);
 		$footerfile = file_get_contents($filepath. "/footer.htm", FILE_USE_INCLUDE_PATH);
@@ -67,10 +68,10 @@ class theme
 		self::$page .= $headerfile . $bodyfile . $footerfile;
 
 		$templateData = array_combine(self::$vars, self::$vars_data);
-		Cache::putTemplateDataInCache(md5("template"), self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, false));
+		Cache::putTemplateDataInCache(md5("template"), self::parse(URL::scriptPath(). "/cache/","template.htm", self::$vars, $templateData, self::$page, false, false));
 
-		Compiler::compile_template("skylight", "cache/", Cache::getCacheFileName("template"), "cache/skylight-template.php", true, "" , true);
-		include("cache/skylight-template.php");
+		Compiler::compile_template("skylight", URL::scriptPath(). "/cache/", Cache::getCacheFileName("template"), URL::scriptPath(). "/cache/skylight-template.php", true, "" , true);
+		include(URL::scriptPath() . "/cache/skylight-template.php");
 	}
 	public static function outputLoginBox()
 	{

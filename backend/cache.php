@@ -13,8 +13,7 @@ class cache
 	
 	public static function getTemplateDataFromCache($tplName)
 	{	
-		$name = md5($tplName);
-        echo root_path. "/cache/sql_$name.php";
+		$name = md5($tplName);        
 		if (inCache($name) == true)
 		{
 			$cacheFile = fopen(root_path. "/cache/sql_$name.php", "r+");

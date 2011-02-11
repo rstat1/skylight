@@ -5,7 +5,5 @@ glob:cache/*
 glob:test.php
 glob:test/*
 glob:test.autoload.php
-glob:modules/news/news.php
-glob:backend/handlers/actionhandler.php
 glob:backend/config.php
 glob:other/*
