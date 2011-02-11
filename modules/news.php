@@ -6,7 +6,7 @@ class news extends Module
 	public function action_shutdown(){}
 	public function action_theme_init(){}
 	public function action_tag($args)
-	{		
+	{	        
 		global $config;	
 		NewsHelper::Page("set", "tag/" . $args['data']);
         echo NewsHelper::getLatest5Articles($args['data'], $config['package-content-withL5A']);	

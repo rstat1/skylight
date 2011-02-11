@@ -12,6 +12,6 @@ $config['debug'] = false;
 /* CHANGE NOTHING BELOW THIS LINE */
 $config['version'] = "0.4-dev";
 $config['package-content-withL5A'] = true;
-$config['base-path'] = "/skylight/";
+$config['base-path'] = "/";
 $config['debug'] = true;
 ?>

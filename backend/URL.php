@@ -36,20 +36,19 @@ class URL
 	{
         global $config;
 		self::setSystemURLs();
-		$parsedURL = str_replace($config['base-path'], "", $url);
-		//if ($parsedURL == ""){$parsedURL = self::scriptPath();}        
+		$parsedURL = $_SERVER['REQUEST_URI'];
 		$actionArgs = explode("/", $parsedURL);        
 		if (count($actionArgs) > 1 && $actionArgs[1] == "login")
 		{
 			self::activateHandler("ThemeHandler", "displayLogin", "");
 			self::$requestHandled = true;
 		}
-        if ($parsedURL == "/" || $parsedURL == "")
+        if ($parsedURL == "/" || $parsedURL == "" || $parsedURL == $config['base-path'])
 		{
 			self::activateHandler("ThemeHandler", "home", "");
 			self::$requestHandled = true;
 		}
-		foreach (self::$knownURLs as $handler => $hand)
+        foreach (self::$knownURLs as $handler => $hand)
 		{            
 			if ($hand['name'] != "404" && $hand['name'] != "home" && self::$requestHandled == false)
 			{                
