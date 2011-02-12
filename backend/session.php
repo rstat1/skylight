@@ -39,7 +39,7 @@ class Session
             $session = $sessionrow[1][0];
             $deleteme = false;
             if ($session['expiration'] == time()) {$deleteme = true;}
-            if ($session['ip'] != $_SERVER['REMOTE_ADDR']) {$deleteme = true;}
+            if ($session['ip'] != $_SERVER["SERVER_ADDR"]) {$deleteme = true;}
             if ($deleteme == true)
             {
                 Database::remove(array("sessid", "=", $id), "sessions");
@@ -49,14 +49,13 @@ class Session
     }
     static function put($id, $data)
     {
-        if (self::exists($id) == false){Database::put(array($id, time()+ini_get('session.gc_maxlifetime'), $data, NULL), "sessions");}
+        if (self::exists($id) == false){Database::put(array($id, $_SERVER['REMOTE_ADDR'], time()+ini_get('session.gc_maxlifetime'), $data, NULL), "sessions");}
         else 
         {
             Database::update(array("sessid" => $id, 
                                    'ip' => $_SERVER['REMOTE_ADDR'], 
                                    "data" => $data,
-                                   "expiration" => time()+ini_get('session.gc_maxlifetime')
-                                   ), "sessions", array("id", "'". $id. "'"));
+                                   "expiration" => time()+ini_get('session.gc_maxlifetime')), "sessions", array("sessid", "'". $id. "'"));
         }
     }
     static function destroy($id)

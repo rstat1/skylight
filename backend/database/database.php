@@ -81,7 +81,6 @@ class Database
 		        self::$columns = Utils::returnColumnNames($data);
 		        $sets = Utils::makeSets(explode(",",self::$columns), $data);
                 $sets = trim($sets, ",");
-                die();
                 $finalQuery = "UPDATE $table SET $sets WHERE $keyfield[0] = ". $keyfield[1];
                 self::connect();
 				$query_result = mysql_query($finalQuery, self::$connect_id);	

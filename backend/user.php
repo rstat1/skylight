@@ -39,14 +39,14 @@ class User
     public static function isAnAdmin()
     {
         $ugidQuery = Database::get("SELECT groupid FROM group_members WHERE userid LIKE '" . self::$user['id']. "'", false);
-        $admgid = Database::get("SELECT id FROM groups WHERE name LIKE 'Administrators'", true);*/
+        $admgid = Database::get("SELECT id FROM groups WHERE name LIKE 'Administrators'", true);
     
         if ($ugidquery[0] > 0 && $admdudgid[0] > 0)
         {
             if ($ugidQuery[1][0]['groupid'] == $admgid[1][0]['id']) {return true;}
             else {return false;}
         }
-        else {trigger_error("Something is wrong here. A query that shouldn't have returned 0 records, infact just did!", E_USER_ERROR);}*/
+        else {trigger_error("Something is wrong here. A query that shouldn't have returned 0 records, infact just did!", E_USER_ERROR);}
     }
     public static function hasValidSession()
     {
