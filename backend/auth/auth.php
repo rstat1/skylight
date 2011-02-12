@@ -13,17 +13,14 @@ class Auth
 	}
     public static function checkPermission($permission)
     {
-        $user = $_SESSION['currUser'];
+        $user = $_SESSION['currUser'];        
         switch ($permission)
         {
             case "U_AUTH":                
                 if (isset($_COOKIE['sk_U'])) {return true;}
             break;
-            case "P_ACP":
-               if (User::validateSession()) 
-               {
-                    
-               }
+            case "P_ACP":               
+               if (User::hasValidSession() && User::isAnAdmin()){return true;}
             break;
             case "P_UCP":
                 if (isset($_COOKIE['sk_U'])) {return true;}

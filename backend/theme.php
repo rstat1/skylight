@@ -41,6 +41,7 @@ class theme
 	public static function output()
 	{
 		global $config;
+        
 		$filepath = URL::scriptPath() . "/style/" .$config['style'];
        
 		$headerfile = file_get_contents($filepath. "/header.htm", FILE_USE_INCLUDE_PATH);
@@ -120,7 +121,7 @@ class theme
 			
 		$use = round($usage / (1024), 2);
 		self::$vars[] = "{#DEBUGMEMORY#}";
-		self::$vars_data[] = "<p>Memory Use: ". $usage ." Bytes</p>";
+		self::$vars_data[] = "<p>Memory Use: ". $usage / 1024 / 1024 ." MB</p>";
 	
 		self::$vars[] = "{#USERNAME#}";
 		if (isset($_COOKIE['sk_U'])){self::$vars_data[] = $_COOKIE['sk_U'];}

@@ -1,6 +1,7 @@
 <?php
 class User
 {
+    public static $user;
 	public static function newUser($username, $password)
 	{	
 		$name = AuthUtils::encryptUser($username, true);
@@ -22,29 +23,40 @@ class User
 		return true;	
 	}
     public static function createUserVar()
-    {        
+    {      
         $name = AuthUtils::encryptUser($_COOKIE['sk_U'], true);
-		$query = "SELECT * FROM users WHERE name LIKE '$name'";
+		$query = "SELECT id,name,theme,enablejs FROM users WHERE name LIKE '$name'";
 		$isVaildName = Database::get($query, false);
-        $_SESSION['currUser'] = $isVaildName[1][0];      
+        $_SESSION['currUser'] = $isVaildName[1][0];
+        self::$user = $isVaildName[1][0];       
     }
     public static function startSession()
-    {
-        $user = $_SESSION['currUser'];        
+    {       
         $sessid = md5(uniqid(microtime()));
-        setcookie("sk_sid", $sessid, time()+3600, "/");
-        echo "Hi!";
-        Database::put(array($user['id'], $sessid, $_SERVER['REMOTE_ADDR']), "sessions");
+        setcookie("sk_sid", $sessid, time()+3600, "/");        
+        //Database::put(array(self::$user['id'], $sessid, $_SERVER['REMOTE_ADDR']), "sessions");
     }
-    public static function validateSession()
+    public static function isAnAdmin()
     {
-        $user = $_SESSION['currUser'];
-        $idQuery = Database::get("SELECT id FROM users WHERE name LIKE '" . $user['name']. "'", false);        
+        $ugidQuery = Database::get("SELECT groupid FROM group_members WHERE userid LIKE '" . self::$user['id']. "'", false);
+        $admgid = Database::get("SELECT id FROM groups WHERE name LIKE 'Administrators'", true);*/
+    
+        if ($ugidquery[0] > 0 && $admdudgid[0] > 0)
+        {
+            if ($ugidQuery[1][0]['groupid'] == $admgid[1][0]['id']) {return true;}
+            else {return false;}
+        }
+        else {trigger_error("Something is wrong here. A query that shouldn't have returned 0 records, infact just did!", E_USER_ERROR);}*/
+    }
+    public static function hasValidSession()
+    {
+        if (!is_array(self::$user)) {self::$user = $_SESSION['currUser'];}
+        $idQuery = Database::get("SELECT id FROM users WHERE name LIKE '" .self::$user['name']. "'", false);        
         if ($idQuery[0] != 0)
 		{
-            $id = $idQuery[1][0]['id'];
-            $sessid = Database::get("SELECT sessid,ip FROM sessions WHERE userid LIKE '" . $id. "'", false);
-            if ($sessid[1][0]['sessid'] == $_COOKIE['sk_sid'] && $sessid[1][0]['ip'] == $_SERVER['REMOTE_ADDR']) {return true;}
+            $idValue = $idQuery[1][0]['id'];
+            $sessVal = Database::get("SELECT sessid,ip FROM sessions WHERE userid LIKE '" . $idValue. "'", false);
+            if ($sessVal[1][0]['sessid'] == $_COOKIE['sk_sid'] && $sessVal[1][0]['ip'] == $_SERVER['REMOTE_ADDR']) {return true;}
             else {return false;}            
         }
     }

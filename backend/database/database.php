@@ -11,7 +11,7 @@ class Database
 	public static function connect()
 	{	
 		global $config;
-		self::$connect_id = mysql_connect($config['db-server'], $config['db-user'], $config['db-pass']);
+		if (!isset(self::$connect_id)) {self::$connect_id = mysql_connect($config['db-server'], $config['db-user'], $config['db-pass']);}
 		if(self::$connect_id)
 		{
 			$dbsel = mysql_select_db($config['db-name']);	
@@ -32,10 +32,7 @@ class Database
 		{
 			self::connect();
 			$query_result = mysql_query($query, self::$connect_id);
-			if(!$query_result)
-			{
-				trigger_error(htmlentities(mysql_error()), E_USER_ERROR);
-			}
+			if(!$query_result){trigger_error(htmlentities(mysql_error()), E_USER_ERROR);}
 			else
 			{
 				$data = array(mysql_num_rows($query_result), self::getResultAsArray($query_result));
@@ -63,10 +60,8 @@ class Database
 			if (is_array($data))
 			{
 				$dataToInsert = Utils::returnArrayAsCSV($data);
-				$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";                                         			
-				/*echo $finalQuery;
-				die();*/
-				self::connect();
+				$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";
+                self::connect();
 				$query_result = mysql_query($finalQuery, self::$connect_id);	
 				if ($query_result){return true;}
 				else {trigger_error(mysql_error());die();}
@@ -75,13 +70,44 @@ class Database
 		}
 		else {trigger_error("This function requires data and table name.");}
 	}
-	public static function update($data, $table)
+	public static function update($data, $table, $keyfield)
 	{
-		self::$columns = Utils::returnColumnNames($data);
-		$sets = Utils::makeSets(explode(",",self::$columns), $data);
-		$finalQuery = "UPDATE " . $table. " SET $sets WHERE id=" .$data['id'];
-		return $finalQuery;
+        $finalQuery = "";
+		$queryType = "";
+		if ($data != NULL && $table != NULL)
+		{			 
+			if (is_array($data))
+			{
+		        self::$columns = Utils::returnColumnNames($data);
+		        $sets = Utils::makeSets(explode(",",self::$columns), $data);
+                $sets = trim($sets, ",");
+                die();
+                $finalQuery = "UPDATE $table SET $sets WHERE $keyfield[0] = ". $keyfield[1];
+                self::connect();
+				$query_result = mysql_query($finalQuery, self::$connect_id);	
+				if ($query_result){return true;}
+				else {trigger_error(mysql_error());die();}
+            }
+			else {trigger_error("Function expects first argument to be an array.");}
+		}
+		else {trigger_error("This function requires data, a table name and a key field.");}
 	}
+    public static function remove($where, $table)
+    {
+        if ($where != NULL && $table != NULL)
+		{
+            if (is_array($where))
+			{
+                $finalQuery = "DELETE FROM $table WHERE $where[0] $where[1]  '$where[2]'";
+                self::connect();                
+				$query_result = mysql_query($finalQuery, self::$connect_id);	
+				if ($query_result){return true;}
+				else {trigger_error(mysql_error(). " " . $finalQuery);die();}
+            }
+        	else {trigger_error("Function expects first argument to be an array.");}
+		}
+		else {trigger_error("This function requires some form of criteria so it knows what to delete and a table name so it knows where to delete from.");}
+    }
 	//borrowed from a page about a particular MySQL command on http://php.net
 	public static function getResultAsArray($result)
 	{
@@ -101,6 +127,5 @@ class Database
 			$r++;
 		}   
 		return $table_result;
-	}
-    //Array ( [0] = 4. [1] = "You sucks balls", [2] = 5)	
+	}    
 }

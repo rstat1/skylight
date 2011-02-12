@@ -37,12 +37,9 @@ class Utils
 		foreach($finalSets as $column => $data)
 		{	
 			$x += 1;
-			if ($column <> "id") 
-			{
-				if ($x < $i){$sets .= $column . "=" . $data .", ";}
-				else{$sets .= $column . "=" . $data ."";}
-			}	
-		}
+			if ($x < $i){$sets .= $column . "=" . $data .", ";}
+			else{$sets .= $column . "=" . $data ."";}
+        }
 		return $sets;
 	}
 	public static function singleQuoteAString($string)

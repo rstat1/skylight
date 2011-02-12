@@ -7,3 +7,4 @@ glob:test/*
 glob:test.autoload.php
 glob:backend/config.php
 glob:other/*
+glob:.htaccess
