@@ -132,12 +132,14 @@ class theme
 		else {self::$vars_data[] = "Logout";}
         
 		self::$vars[] = "{#LOGINOUTLINK#}";
-		/*if {$config['enable-ajax']) {*/self::$vars_data[] = "user/login/";//}
-		/*else {self::$vars_data[] = "user/login/";}*/
+		self::$vars_data[] = "user/login/";
 		
-		self::$vars[] = "{#ACPLINK#}";
-		self::$vars_data[] = 'Administration';
-		
+		if (User::isAnAdmin() == true)
+        {
+            self::$vars[] = "{#ACPLINK#}";
+		    self::$vars_data[] = '<a style="text-decoration:none;color:white;" href="admin/dashboard/">Administration</a>';
+        }        
+        
 		self::$vars[] = "{#UCPLINK#}";
 		self::$vars_data[] = 'User Settings';
 		

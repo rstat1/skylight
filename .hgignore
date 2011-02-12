@@ -5,7 +5,6 @@ glob:cache/*
 glob:test.php
 glob:test/*
 glob:test.autoload.php
-glob:backend/config.php
 glob:other/*
 glob:.htaccess
 glob:php_error_log

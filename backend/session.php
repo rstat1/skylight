@@ -58,6 +58,10 @@ class Session
                                    "expiration" => time()+ini_get('session.gc_maxlifetime')), "sessions", array("sessid", "'". $id. "'"));
         }
     }
+    static function attachUserId($userId)
+    {
+        Database::update(array("userid" => $userId), "sessions", array("sessid", "'". session_id(). "'"));
+    }
     static function destroy($id)
     {
         Database::remove(array("sessid","=",$id), "sessions");

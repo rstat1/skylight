@@ -3,7 +3,7 @@
 if (!isset($_COOKIE['PHPSESSID'])) {session_start();}
 define("root_path", dirname(__FILE__));	 
 include (root_path . "/backend/errorhandler.php");
-//ErrorHandler::set();
+ErrorHandler::set();
 ob_start();
 include (root_path . "/backend/config.php");
 include (root_path . "/backend/constants.php");
@@ -12,7 +12,8 @@ function __autoload($class_name)
 {
 	$classfile = strtolower($class_name . ".php");
 	$files = array();
-	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news", root_path. "/backend/database", root_path. "/backend/auth/handlers", root_path. "/backend/auth");
+	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news", root_path. "/backend/database", 
+                  root_path. "/backend/auth/handlers", root_path. "/backend/auth",root_path. "/backend/admin" );
 	foreach($dirs as $dir)
 	{
 		
@@ -54,12 +55,17 @@ if (isset($_COOKIE['sk_U']) && $_SERVER['REQUEST_URI'] == $config['base-path'])
     if (!isset($_SESSION['currUser']));
     {
         User::createUserVar();
-        User::startSession();       
+        Session::attachUserId($_SESSION['currUser']['id']);
     }
 }
+
 URL::parse($_SERVER['REQUEST_URI']);
-echo '<p style="color:white;">Number of cache misses:'. Database::$numquerys . "</p>";
-echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";
+if ($config['debug'] && $_SERVER['REQUEST_URI'] == $config['base-path'])
+{
+    echo '<p style="color:white;">Number of cache misses:'. Database::$CacheMisses . "</p>";
+    echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";
+    echo '<p style="color:white;">Total number of queries:'. Database::$numquerys . "</p>";
+}
 session_write_close();
 ob_end_flush();
 ?>

@@ -20,7 +20,7 @@ class Auth
                 if (isset($_COOKIE['sk_U'])) {return true;}
             break;
             case "P_ACP":               
-               if (User::hasValidSession() && User::isAnAdmin()){return true;}
+                if( User::isAnAdmin()){return true;}               
             break;
             case "P_UCP":
                 if (isset($_COOKIE['sk_U'])) {return true;}

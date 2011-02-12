@@ -3,6 +3,7 @@
 class Database
 {
 	static $numquerys = 0;
+    static $CacheMisses = 0;
 	static $CacheHits = 0;
  	static $dbquerys = " ";
 	static $connect_id;		
@@ -25,6 +26,7 @@ class Database
 		$cacheHash = md5($query);
 		if (Cache::inCache("sql_$cacheHash.php"))
 		{
+            self::$numquerys += 1;
 			self::$CacheHits += 1;
 			return Cache::getDataFromCache("sql_$cacheHash.php");
 		}
@@ -36,15 +38,16 @@ class Database
 			else
 			{
 				$data = array(mysql_num_rows($query_result), self::getResultAsArray($query_result));
-				if ($cache) {Cache::putDataInCache(md5($query), $data);}
-				self::$numquerys += 1;
+				if ($cache) 
+                {
+                    Cache::putDataInCache(md5($query), $data);
+                    self::$CacheMisses += 1;
+                }
+                self::$numquerys += 1;
 				return $data;
 			}
 		}
-		else
-		{
-			return '<b>MySQL Error</b>: Empty Query!';
-		}
+		else{return '<b>MySQL Error</b>: Empty Query!';}
 	}
 	public static function ResultCount($queryData)
 	{
