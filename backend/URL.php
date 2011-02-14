@@ -8,10 +8,10 @@ class URL
 	{		
 		$knownURLs = array_push(self::$knownURLs,array("name" => "404", "matchto" => "Nothing", "handler" => "ThemeHandler", "action" => "display_404"));
 		$knownURLs = array_push(self::$knownURLs,array("name" => "home", "matchto" => "%/%", "handler" => "ThemeHandler", "action" => "display_home"));
-		$knownURLs = array_push(self::$knownURLs,array("name" => "loginbox", "matchto" => "%login/%", "handler" => "ThemeHandler", "action" => "displayLogin"));
+		$knownURLs = array_push(self::$knownURLs,array("name" => "login", "matchto" => "%login/%", "handler" => "ThemeHandler", "action" => "displayLogin"));
 		$knownURLs = array_push(self::$knownURLs,array("name" => "user", "matchto" => "%auth/([A-Za-z0-9-]+)%mx", "handler" => "UserHandler", "action" => "authenticate"));
         $knownURLs = array_push(self::$knownURLs,array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "ajax"));
-        $knownURLs = array_push(self::$knownURLs,array("name" => "adminHome", "matchto" => "%admin/%" , "handler" => "AdminHandler", "action" => "admin"));
+        $knownURLs = array_push(self::$knownURLs,array("name" => "dash", "matchto" => "%admin/%" , "handler" => "AdminHandler", "action" => "admin"));
         $knownURLs = array_push(self::$knownURLs,array("name" => "admin", "matchto" => "%admin/([A-Za-z0-9-]+)%mx" , "handler" => "AdminHandler", "action" => "admin"));
 		//$knownURLs = array_push(self::$knownURLs,array("name" => "home", "matchto" => "%/%", "handler" => "ThemeHandler", "action" => "displayHome"));
 		//$knownURLs = array_push(self::$knownURLs,array("name" => "404", "matchto" => "Nothing", "handler" => "ThemeHandler", "action" => "display404"));

@@ -1,0 +1,67 @@
+﻿<body>
+		<div class="menubar">
+			<ul id="nav">
+				<li class="home active">home</li>
+				<li class="server-item">server <img alt="down arrow" src="images/down-arrow.png" width="8" height="8" style="padding-left:0px;margin-bottom:1px;z-index:1" /></li>
+				<li id="settings">settings</li>
+			</ul>
+			<div id="server-settings" class="server-menu">
+				<ul>
+					<li id="dns">DNS Settings</li>
+					<li id="web">Web Server Settings</li>																					
+					<li class="ldap" id="server-settings-border">LDAP Settings</li>				
+					<li id="updates">Check for updates</li>
+					<li class="restart" id="server-settings-border">Restart Services</li>
+					<li id="upload">Upload A File</li>
+					<li id="status">Status</li>
+				</ul>
+			</div>
+		</div>		
+		<div class="content" style="margin-top:100px;text-align:left;">
+			<div class="top-box" style="">
+				<p class="top-box-content">Recent Checkins</p>
+				<p><strong style="padding-right:2px;">[web-central]</strong>Fixed a bug in the skylight template code that was causing unicorns to jump out of my monitors.</p>				
+				<p><strong style="padding-right:2px;">[feedmonster]</strong>Fixed a bug in the feed engine parser that was causing endless loops on certain feeds.</p>				
+				<p><strong style="padding-right:2px;">[prodev]</strong>Improved performance when opening files &gt;2MB in size</p>				
+			</div>
+			<div class="bottom-box">
+				<p class="bottom-box-content">Build Status</p>
+				<div class="build-status-item">
+					<p class="build-status-item-name">framework-build </p>
+					<p class="build-status-success"></p>
+				</div>
+				<div class="build-status-item">
+					<p class="build-status-item-name">mini</p>
+					<p class="build-status-failed"></p>
+				</div>	
+				<div class="build-status-item">
+					<p class="build-status-item-name">services</p>
+					<p class="build-status-success"></p>
+				</div>	
+				<div class="build-status-item">
+					<p class="build-status-item-name">update-archive</p>
+					<p class="build-status-warning"></p>
+				</div>				
+				<div class="build-status-item">
+					<p class="build-status-item-name">social-build</p>
+					<p class="build-status-success"></p>
+				</div>	
+				<div class="build-status-item">
+					<p class="build-status-item-name" style="">feedmonster</p>
+					<p class="build-status-success"></p>
+				</div>	
+				<div class="build-status-item">
+					<p class="build-status-item-name">prodev</p>
+					<p class="build-status-exception"></p>
+				</div>	
+				<div class="build-status-item">
+					<p class="build-status-item-name">ignition</p>
+					<p class="build-status-failed"></p>
+				</div>					
+			</div>			
+			<div class="center-box">
+				<img alt="cpu graph" src="images/cpu.png" width="630" height="320"/>
+				<img alt="net graph" src="images/net.png" width="630" height="320"/>
+			</div>
+			
+		</div>

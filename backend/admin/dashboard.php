@@ -1,9 +1,9 @@
 <?php
-class Dashboard
+class Dashboard extends Admin
 {
-    public static function init()
+    public function init()
     {
-        echo "Epic!";
+        $this->display();
     }
 }
 ?>

@@ -5,11 +5,12 @@ class ThemeHandler extends Action
     {
 		global $config;
 		$bodyfile = file_get_contents("style/" .$config['style']. "/login-style.htm", FILE_USE_INCLUDE_PATH);
-		echo Theme::outputPiece("header") . $bodyfile. Theme::outputPiece("footer");
+		echo Theme::outputPiece("header", $config['style']) . $bodyfile. Theme::outputPiece("footer", $config['style']);
     }
 	public function act_home()
 	{
-		Theme::output();
+        global $config;
+		Theme::output($config['style']);
 	}
 	public function act_display404()
     {

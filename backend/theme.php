@@ -10,25 +10,24 @@ class theme
 	private static $output = "";
 	private static $selectedPart = "";
 
-	public static function outputPiece($piece)
+	public static function outputPiece($piece, $style)
 	{
 		global $config;
 		self::addRequiredTags();
 		switch($piece)
 		{
 			case "header":
-         		$fileName = "style/" .$config['style']. "/header.htm";	        
+         		$fileName = "style/" .$style. "/header.htm";	        
 				self::$output = file_get_contents($fileName, FILE_USE_INCLUDE_PATH);
 				self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";
                 self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>' . "\n";
-                self::$header_html[] = "\n\t". '<script type="text/javascript">var path = "' .$config['base-path'] .'";</script>';
-                self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";        
+                self::$header_html[] = "\n\t". '<script type="text/javascript">var path = "' .$config['base-path'] .'";</script>';                
 				if (count(self::$header_html) > 0) { foreach(self::$header_html as $head) {self::$output .= $head;} }
 				self::$output .= "</head>\n<body>\n";
 				self::$selectedPart = self::$output ;
 			break;
 			case "footer":
-				self::$output= file_get_contents("style/" .$config['style']. "/footer.htm", FILE_USE_INCLUDE_PATH);
+				self::$output= file_get_contents("style/" .$style. "/footer.htm", FILE_USE_INCLUDE_PATH);
 				if (count(self::$footer_html) > 0) { foreach(self::$footer_html as $foot) {self::$output.= $foot;} }
 				self::$output .= "\n</body>\n</html>";
 				self::$selectedPart = self::$output;
@@ -38,11 +37,11 @@ class theme
 		$templateData = array_combine(self::$vars, self::$vars_data);
 		return self::parse("cache/","template.htm", self::$vars, $templateData, self::$page, false, true);
 	}
-	public static function output()
+	public static function output($style)
 	{
 		global $config;
         
-		$filepath = URL::scriptPath() . "/style/" .$config['style'];
+		$filepath = URL::scriptPath() . "/style/" .$style;
        
 		$headerfile = file_get_contents($filepath. "/header.htm", FILE_USE_INCLUDE_PATH);
 		$bodyfile = file_get_contents($filepath. "/body.htm", FILE_USE_INCLUDE_PATH);
@@ -50,8 +49,7 @@ class theme
 
 		self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";        
 		self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>';
-        self::$header_html[] = "\n\t". '<script type="text/javascript">var path = "' .$config['base-path'] .'";</script>';
-        self::$header_html[] = "\n\t". '<meta http-equiv="Content-type" content="text/html;charset=UTF-8" /> ' . "\n";        
+        self::$header_html[] = "\n\t". '<script type="text/javascript">var path = "' .$config['base-path'] .'";</script>';               
 		self::addRequiredTags();
 		if (count(ErrorHandler::$debugmsgs) > 0) 
 		{
@@ -121,7 +119,7 @@ class theme
 			
 		$use = round($usage / (1024), 2);
 		self::$vars[] = "{#DEBUGMEMORY#}";
-		self::$vars_data[] = "<p>Memory Use: ". $usage / 1024 / 1024 ." MB</p>";
+		self::$vars_data[] = "Memory Use: ". $usage / 1024 / 1024 ." MB";
 	
 		self::$vars[] = "{#USERNAME#}";
 		if (isset($_COOKIE['sk_U'])){self::$vars_data[] = $_COOKIE['sk_U'];}

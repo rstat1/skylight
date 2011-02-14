@@ -12,7 +12,8 @@ class AdminHandler extends Action
             switch ($argsVar[2])
             {
                 case "dashboard":
-                    Dashboard::init();
+                    $db = new Dashboard();
+                    $db->init();
                 break;
             }
         }
