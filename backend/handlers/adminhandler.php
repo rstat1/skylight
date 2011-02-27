@@ -15,6 +15,12 @@ class AdminHandler extends Action
                     $db = new Dashboard();
                     $db->init();
                 break;
+                case "newWindow":
+                    Window::create();
+                break;
+                case "draggableCode":
+                    Window::makeResizableAndDraggable();
+                break;
             }
         }
         else {header("Location: ". $config['base-path']);}

@@ -1,28 +1,46 @@
 ﻿body {
 	margin:50px 0px;
 	padding:0px;
+    
 	text-align:center;
 	background-color:#f1f2f3;
 	font-family: Helvetica, Arial, sans-serif;
 }
 .menubar {
+    padding-top:6px;
 	text-transform:lowercase;
-	border-radius: 0px 0px 5px 5px;
-	background-color:#0b1a22;
+	border-radius: 0px 15px 15px 0px;
+    background-color:#0b1a22;
 	color:#000000;
-	width:500px;
-	height:25px;
-	margin: -85px auto;
-	text-align:left;
-    margin-bottom:1px;
+	width:52px;
+	height:94%;
+    margin-top:-48px;
+    position:absolute;
+	text-align:left;    
 }
-.content {
-	top: 0px;
-	width:841px;
-	margin-left: auto;
-	margin-right: auto;
-	color:#0b1a22;
-	position:relative;	
+.content {	
+    /*position:relative;
+    width:auto;
+    height:auto;
+    margin-left:55px;
+    margin-right:109px;
+    margin-top:-45px;*/
+    bottom: 0px;
+    left: 56px;
+    position: absolute;
+    right:0px;
+    top: 0px;
+    color:#0b1a22;
+    
+}
+#window-container {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    text-align: left;
+    top: 0;
 }
 .top-box {	
 	float:left;
@@ -166,24 +184,22 @@
 	color: #f2f2f2;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 12pt;
-	top:2px;
+	top:7px;
 	right:37px;
 }
 #nav li {
+border-right:1px solid white;
 	cursor:pointer;
 	font-size: 12pt;
 	display:inline;
 	padding: 5px 7px 5px 7px;
 }
-#nav .active{
+#nav li:hover{
 	height:15px;
 	color:black;
 	cursor:default;
 	background-color: #dddddd;
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
-	border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;	
+	
 }
 #nav a:hover {
 	height:15px;

@@ -1,0 +1,42 @@
+﻿#window {
+    border:1px solid #0b1a22;
+	border-radius: 5px 5px 5px 5px;
+	background-color:#0b1a22;
+    color:white;
+	width:30%;
+	height:315px;
+    text-align:left;
+    opacity: 0.8;
+}
+#window-header {
+    background-color:#0b1a22;
+    border-radius: 5px 5px 0px 0px;
+    height:45px;
+    text-align:center;
+    color:White;
+}
+#window-content {  
+    color:white;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 45px;
+    bottom: 19px;
+    background-color: #fff;
+    overflow: auto;
+    text-align:left;
+    opacity: 1;
+}
+#window-footer {
+    position: absolute;
+    background-color: #0b1a22;
+    left: 0px;
+    right: 0px;
+    height: 18px;
+    bottom: 1px;   
+    border-radius: 0px 0px 5px 5px;
+    padding-left: 6px;
+    color: #FFF;
+    line-height: 18px;
+    text-align:left;
+}
