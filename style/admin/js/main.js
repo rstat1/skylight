@@ -15,12 +15,14 @@ function getNewPostWindow()
                                 content: "<p>Hello World! From skylight's first self-generated window", 
                                 width: "450px",
                                 height:"450px",
-                                'position[]': ['42', '42', '42','42']
+                                'position[]': ['0', '0', '142','142']
                                }, 
                                function(data){
                                     $("#window-container").append(data); 
                                },"html");
-    $.post("admin/draggableCode/", function(data) {
-        eval(data); 
-    }, "script");
+    var newJSElement = document.createElement('script');
+    var idOfHead = document.getElementsByTagName('head')[0];
+    newJSElement.setAttribute("type","text/javascript")
+    newJSElement.setAttribute("src", "admin/draggableCode/");
+    idOfHead.appendChild(newJSElement);
 }
