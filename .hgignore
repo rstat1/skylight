@@ -1,7 +1,8 @@
 glob:_vti_cnf/*
 glob:_vti_pvt/*
 glob:*.ini
-glob:cache/*
+glob:cache/*.php
+glob:cache/*.php
 glob:test.php
 glob:test/*
 glob:test.autoload.php

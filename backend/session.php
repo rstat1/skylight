@@ -25,7 +25,7 @@ class Session
     }
     static function exists($id)
     {
-        $query = "SELECT * FROM sessions WHERE sessid = '$id'";
+		$query = "SELECT * FROM sessions WHERE sessid = '$id'";
         $session = Database::get($query, false);
         if ($session[0] == 0) {return false;}
         else {return true;}

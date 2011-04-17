@@ -9,7 +9,8 @@ class URL
 		$knownURLs = array_push(self::$knownURLs,array("name" => "404", "matchto" => "Nothing", "handler" => "ThemeHandler", "action" => "display_404"));
 		$knownURLs = array_push(self::$knownURLs,array("name" => "home", "matchto" => "%/%", "handler" => "ThemeHandler", "action" => "display_home"));
 		$knownURLs = array_push(self::$knownURLs,array("name" => "login", "matchto" => "%login/%", "handler" => "ThemeHandler", "action" => "displayLogin"));
-		$knownURLs = array_push(self::$knownURLs,array("name" => "user", "matchto" => "%auth/([A-Za-z0-9-]+)%mx", "handler" => "UserHandler", "action" => "authenticate"));
+		$knownURLs = array_push(self::$knownURLs,array("name" => "auth", "matchto" => "%auth/([A-Za-z0-9-]+)%mx", "handler" => "UserHandler", "action" => "(%page%)"));
+		$knownURLs = array_push(self::$knownURLs,array("name" => "user", "matchto" => "%user/([A-Za-z0-9-]+)%mx", "handler" => "UserHandler", "action" => "(%page%)"));
         $knownURLs = array_push(self::$knownURLs,array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "ajax"));
         $knownURLs = array_push(self::$knownURLs,array("name" => "dash", "matchto" => "%admin/%" , "handler" => "AdminHandler", "action" => "admin"));
         $knownURLs = array_push(self::$knownURLs,array("name" => "admin", "matchto" => "%admin/([A-Za-z0-9-]+)%mx" , "handler" => "AdminHandler", "action" => "admin"));
@@ -58,6 +59,7 @@ class URL
 			{                
 				if (preg_match($hand['matchto'], $parsedURL))
 				{  
+					//print_r($hand);
 					self::activateHandler($hand['handler'], $hand['action'], $actionArgs);
 					self::$requestHandled = true;
 				}
@@ -91,6 +93,8 @@ class URL
         $hand = new $handler;
 		$hand->action = $action;
 		$hand->args = $args;
+		if ($action == "(%page%)") {$action = $args[2];}
+		//print($action);
 		$hand->act($action);
 	}
 /*	private static function activateHandler($name, $action, $args)

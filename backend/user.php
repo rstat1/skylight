@@ -2,7 +2,7 @@
 class User
 {
     public static $user;
-	public static function newUser($username, $password)
+	public static function newUser($username, $password, $email = "")
 	{	
 		$name = AuthUtils::encryptUser($username, true);
 		$query = "SELECT * FROM users WHERE name LIKE '$name'";
@@ -11,9 +11,9 @@ class User
 		if ($isVaildName[0] == 0)
 		{ 			
 			$pass = AuthUtils::encryptPassword($password, "", true);
-			$data = array(NULL, $name, $pass[0], $pass[1], "synergy", 1);
+			$data = array(NULL, $name, $pass[0], $pass[1], "synergy", 1, NULL);
 			$success = Database::put($data, "users");
-			if ($success)  {echo '<p style="color:green;"> Welcome to skylight, '.$username. '</p>';}
+			if ($success)  {return USER_REGISTER_SUCCESS;}
 		}
 		else
 		{
@@ -32,19 +32,22 @@ class User
     }   
     public static function isAnAdmin()
     {
-        $ugidQuery = Database::get("SELECT groupid FROM group_members WHERE userid LIKE '" . self::$user['id']. "'", false);
-        $admgid = Database::get("SELECT id FROM groups WHERE name LIKE 'Administrators'", true);
-        
-        if ($ugidQuery[0] > 0)
-        {
-            if ($admgid[0] > 0)
-            {
-                if ($ugidQuery[1][0]['groupid'] == $admgid[1][0]['id']){return true;}
-                else {return false;}
-            }
-            else {if ($config['debug'] == true){trigger_error("admgid returned null.", E_USER_ERROR);}}
-        }
-        else {if ($config['debug'] == true){trigger_error("ugidQuery returned null.", E_USER_ERROR);}}
+		global $config;
+		if (self::isUserLoggedin())
+		{
+			$ugidQuery = Database::get("SELECT groupid FROM group_members WHERE userid LIKE '" . self::$user['id']. "'", false);
+			$admgid = Database::get("SELECT id FROM groups WHERE name LIKE 'Administrators'", true);			
+			if ($ugidQuery[0] > 0)
+			{
+				if ($admgid[0] > 0)
+				{
+					if ($ugidQuery[1][0]['groupid'] == $admgid[1][0]['id']){return true;}
+					else {return false;}
+				}
+				else {if ($config['debug'] == true){trigger_error("admgid returned null.", E_USER_ERROR);}}
+			}
+			else {if ($config['debug'] == true){trigger_error("ugidQuery returned null.", E_USER_ERROR);}}
+		}
     }    
 	public static function isUserLoggedIn()
 	{

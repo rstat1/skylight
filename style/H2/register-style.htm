@@ -1,9 +1,9 @@
-		<div class="login-box">		
-			<div class="login-boxes">
-				<form id="loginForm" method="post" onsubmit="return false;">
+		<div class="login-box" style="height:205px;top:45px;">		
+			<div class="login-boxes">				
+				<form id="registerForm" method="post" onsubmit="return false;">
 					<p style="margin-bottom:18px;text-align:center;">
 						<!--label for="username" class="incontent abovecontent">Name</label-->
-						<input type="text" name="skylightUser" id="skylightUser" value="" placeholder="name" class="styledformelement">
+						<input type="text" name="skylightUser" id="skylightUser" value="" placeholder="username" class="styledformelement">
 					</p>
 					<p style="text-align:center;">
 						<!-- label for="password" class="incontent abovecontent">Password</label-->
@@ -11,11 +11,13 @@
 					</p>
 					<br />
 					<p style="text-align:center;">
-						<input class="submit" type="submit" value="Login">
-					</p>	
-					<p style="text-align:center;" id="password_utils">
-						<input class="submit" type="submit" name="pwreset" value="Reset password">
-					</p>					
+						<!-- label for="password" class="incontent abovecontent">Password</label-->
+						<input type="email" name="skylightEmail" id="skylightEmail" placeholder="email address" class="styledformelement">
+					</p>
+					<br />
+					<p style="text-align:center;">
+						<input class="submit" type="submit" value="Register">
+					</p>									
 				</form>				
 				<p id="login-failed" style="visibility:hidden;color:red;text-align:center;">Login failed.</p>
 				<p id="login-success" style="visibility:hidden;color:green;text-align:center;">Login successful.</p>

@@ -123,7 +123,7 @@ img {
 	padding-left:4px;
 	
 }
-input[type="text"], input[type="password"]{
+input[type="text"], input[type="password"], input[type="email"]{
 	font-size:14pt;
 	border:1px solid #BBBBBB;
 	-moz-border-radius:5px 5px 5px 5px;

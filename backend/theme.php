@@ -55,9 +55,9 @@ class theme
 		{
 			$msgs = '<div style="margin:20px;">';
 			foreach (ErrorHandler::$debugmsgs as $msg) { $msgs .= $msg; } 
+			self::$footer_html[] = $msgs;
 		}
-		self::$footer_html[] = $msgs;
-
+		
 		if (count(self::$header_html) > 0) { foreach(self::$header_html as $head) {$headerfile .= $head;} }
 		if (count(self::$body_html) > 0){ foreach(self::$body_html as $body) {$bodyfile .= $body;} }
 		if (count(self::$footer_html) > 0) { foreach(self::$footer_html as $foot) {$footerfile .= $foot;} }
@@ -131,6 +131,13 @@ class theme
         
 		self::$vars[] = "{#LOGINOUTLINK#}";
 		self::$vars_data[] = "user/login/";
+		
+		self::$vars[] = "{#REGISTERTEXT#}";
+		if (User::isUserLoggedIn() == false) {self::$vars_data[] = "Register!";}
+		else {self::$vars_data[] = "";}
+		
+		self::$vars[] = "{#REGISTERLINK#}";
+		self::$vars_data[] = "user/new/";		
 		
 		if (User::isAnAdmin() == true)
         {
