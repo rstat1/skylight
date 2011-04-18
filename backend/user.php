@@ -43,10 +43,8 @@ class User
 				{
 					if ($ugidQuery[1][0]['groupid'] == $admgid[1][0]['id']){return true;}
 					else {return false;}
-				}
-				else {if ($config['debug'] == true){trigger_error("admgid returned null.", E_USER_ERROR);}}
-			}
-			else {if ($config['debug'] == true){trigger_error("ugidQuery returned null.", E_USER_ERROR);}}
+				}				
+			}			
 		}
     }    
 	public static function isUserLoggedIn()
