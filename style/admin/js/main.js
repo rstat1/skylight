@@ -23,8 +23,8 @@ function getNewPostWindow()
                                 height:"250px",
                                 'position[]': ['0', '0', '5','5']
                                }, 
-                               function(data){
-                                   
+                               function(data){                                   
 									$("#window-container").append(data);  
+									idOfHead.appendChild(newJSElement);
                                },"html");   
 }
