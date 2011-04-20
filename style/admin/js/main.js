@@ -11,20 +11,16 @@ function loadMainDashPage()
 }
 function getNewPostWindow()
 {
-	var newJSElement = document.createElement('script');
-	var idOfHead = document.getElementsByTagName('head')[0];
-	newJSElement.setAttribute("type","text/javascript")
-	newJSElement.setAttribute("src", "admin/draggableCode/");
-	newJSElement.setAttribute("id", Math.floor(Math.random()*100));
-	idOfHead.appendChild(newJSElement);
     $.post("admin/newWindow/", {title: "New Post", 
                                 content: '<p style="color:black;">Hello World!</p>', 
                                 width: "250px",
                                 height:"250px",
-                                'position[]': ['0', '0', '5','5']
+                                'position[]': ['0', '0', '0','0']
                                }, 
                                function(data){                                   
-									$("#window-container").append(data);  
-									idOfHead.appendChild(newJSElement);
-                               },"html");   
+									$("#window-container").append(data.html);  									
+									$(".window").resizable({containment: "#window-container"}).draggable({handles: "n, e, s, w", stack: "#window-container", containment: "#window-container", scroll: false});
+									//$(".window" + data.windowID).css("margin", "0");									
+                               },"json");
+							   
 }

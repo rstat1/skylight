@@ -1,8 +1,11 @@
 <?php
 abstract class Admin
 {
+	public $adminToolbarItems = array();
     function display()
     {
+		Modules::action("admin_theme_init", NULL);
+		Modules::action("admin_toolbar", NULL);
         Theme::output("admin");
     }
     function addToTemplate($data, $where)
@@ -19,6 +22,15 @@ abstract class Admin
 				Theme::$footer_html[] = $data;
 			break;
 		}		
+	}
+	function makeTemplateVar()
+	{
+		$final = "";
+		for($i = 0; $i < array_count_values($this->$adminToolbarItems); $i++)
+		{
+			$final .= $this->$adminToolbarItems[i];
+		}
+		$this->assignToVar("{#ADMINTOOLBAR#}", $final);
 	}
 	function assignToVar($var, $data)		
 	{

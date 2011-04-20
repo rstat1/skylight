@@ -125,7 +125,7 @@ class NewsHelper
 		}
 		else 
 		{
-			/*$today = getdate();
+			$today = getdate();
 			$id = array("1", "", "","","");
 			$title_var = array("Tag is empty", "", "", "", "");
 			$datetime = array($today['mday']. " ". $today['month'] . " " . $today['year'] , "", "", "","");
@@ -142,8 +142,8 @@ class NewsHelper
 			$ids = array_combine($idtags, $id);	
 			
 			$tags = array_merge($titletags,$authortags, $datetimetags, $idtags);
-			$data = array_merge($titles, $dates, $authors, $ids);*/
-			return "No content here!";
+			$data = array_merge($titles, $dates, $authors, $ids);
+			/*return "No content here!";*/
 		}
 		self::$news = Theme::parse("","", $tags, $data, self::$tag_template, false, false);		
 		return self::$news;				

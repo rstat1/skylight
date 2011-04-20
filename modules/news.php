@@ -5,6 +5,14 @@ class news extends Module
 	public function set_priorities(){}
 	public function action_shutdown(){}
 	public function action_theme_init(){}
+	public function action_admin_theme_init()
+	{
+		Theme::$header_html[] = "\n\t". '<script type="text/javascript" src="modules/news/js/newsAdminUI.js"></script>' . "\n";
+	}
+	public function action_admin_toolbar()
+	{
+		
+	}
 	public function action_tag($args)
 	{	        
         global $config;	
@@ -19,8 +27,6 @@ class news extends Module
 	{
 		global $config;
 		$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "AjaxHandler", "action" => "ajax"));
-		/*$this->addURLFilter(array("name" => "ajax", "matchto" => "%ajax/([A-Za-z0-9-]+)%mx" , "handler" => "AjaxHandler", "action" => "display_tag"));
-		$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "ThemeHandler", "action" => "display_post"));*/
 		$this->assignToVar("{#TAGS#}", NewsHelper::getTags());
 		$this->assignToVar("{#LATESTARTICLES#}", NewsHelper::getLatest5Articles("home", $config['package-content-withL5A']));		
 		$this->assignToVar("{#SITETITLE#}", $config['site-name']);
@@ -29,11 +35,9 @@ class news extends Module
 		switch($request['Page'])
 		{	
 			case "ajax-load":
-				//header("Content-Type: application/xml; charset=UTF-8");
 				echo NewsHelper::getNews($request['Args']);						
 			break;
 			case "article":
-				//echo NewsHelper::getArticleById($request['Args']);
 			break;
 			default:								
 		}	

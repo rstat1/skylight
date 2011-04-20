@@ -16,11 +16,8 @@ class AdminHandler extends Action
                     $db->init();
                 break;
                 case "newWindow":
-                    Window::create();
-                break;
-                case "draggableCode":
-                    Window::makeResizableAndDraggable();
-                break;
+                    if ($config['debug'] == true) {Window::create();}
+                break;                
             }
         }
         else {header("Location: ". $config['base-path']);}

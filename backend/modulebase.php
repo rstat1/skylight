@@ -3,7 +3,6 @@ abstract class ModuleBase
 {
 	public function init()
 	{
-
 		$methods = get_class_methods($this);
 		$methods = array_combine($methods, $methods);
 		

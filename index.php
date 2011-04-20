@@ -1,7 +1,7 @@
 <?php
 define("root_path", dirname(__FILE__));	 
 include (root_path . "/backend/errorhandler.php");
-ErrorHandler::set();
+@ErrorHandler::set();
 ob_start();
 include (root_path . "/backend/config.php");
 include (root_path . "/backend/constants.php");
@@ -60,7 +60,7 @@ if (isset($_COOKIE['sk_U']) && $_SERVER['REQUEST_URI'] == $config['base-path'])
 URL::parse($_SERVER['REQUEST_URI']);
 if ($config['debug'] && $_SERVER['REQUEST_URI'] == $config['base-path'])
 {
-    echo '<p style="color:white;">Number of cache misses:'. Database::$CacheMisses . "</p>";
+    echo '<br/><p style="color:white;">Number of cache misses:'. Database::$CacheMisses . "</p>";
     echo '<p style="color:white;">Number of cache hits:'. Database::$CacheHits. "</p>";
     echo '<p style="color:white;">Total number of queries:'. Database::$numquerys . "</p>";
 }
