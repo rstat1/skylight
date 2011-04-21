@@ -12,12 +12,11 @@ class AdminHandler extends Action
             switch ($argsVar[2])
             {
                 case "dashboard":
-                    $db = new Dashboard();
-                    $db->init();
+                    AdminUI::init();
                 break;
                 case "newWindow":
                     if ($config['debug'] == true) {Window::create();}
-                break;                
+                break;
             }
         }
         else {header("Location: ". $config['base-path']);}

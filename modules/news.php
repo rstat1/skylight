@@ -11,7 +11,8 @@ class news extends Module
 	}
 	public function action_admin_toolbar()
 	{
-		
+		AdminUI::addLink("style/images/pencil1.png", "newPostOpen()");
+		//AdminCore::registerURLFilter("
 	}
 	public function action_tag($args)
 	{	        
