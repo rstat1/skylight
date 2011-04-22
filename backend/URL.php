@@ -3,6 +3,7 @@ class URL
 {
 	private static $requestHandled;
 	private static $knownURLs = array();
+	private static $knownModUrls = array();
 
 	public static function setSystemURLs()
 	{		
@@ -73,6 +74,10 @@ class URL
 			$han->act("404");
 		}
 		else {return true;}
+	}
+	public static function registerModuleURL($type, $module, $action)
+	{
+		 array_push(self::$knownModURLs,array("type" => $type, "action" => $action, "moduleName" => $module));
 	}
 	public static function addToURLList($url)
 	{

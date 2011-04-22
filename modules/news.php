@@ -5,13 +5,30 @@ class news extends Module
 	public function set_priorities(){}
 	public function action_shutdown(){}
 	public function action_theme_init(){}
+	public function action_admin_newpost()
+	{
+		$toolbarItems = array();
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost1()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost2()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost1()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost2()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost1()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost2()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost1()"));
+		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost2()"));
+		$win = new Window("New Post", 799, 460, "<p>Hello World</p>", $toolbarItems);
+	}
 	public function action_admin_theme_init()
 	{
 		Theme::$header_html[] = "\n\t". '<script type="text/javascript" src="modules/news/js/newsAdminUI.js"></script>' . "\n";
 	}
 	public function action_admin_toolbar()
 	{
-		AdminUI::addLink("style/images/pencil1.png", "newPostOpen()");
+		AdminUI::addModuleButton("style/images/pencil1.png", "newPostOpen()");
 		//AdminCore::registerURLFilter("
 	}
 	public function action_tag($args)

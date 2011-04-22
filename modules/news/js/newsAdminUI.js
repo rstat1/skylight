@@ -1,6 +1,6 @@
  function newPostOpen()
  {
-	$.post("admin/news/newPost/", {title: "New Post", 
+	$.post("admin/newpost/", {title: "New Post", 
 								content: '<p style="color:black;">Hello World!</p>', 
                                 width: "250px",
                                 height:"250px",

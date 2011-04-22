@@ -8,7 +8,7 @@ class AdminUI extends AdminCore
 		self::makeTemplateVar();
         Theme::output("admin");
     }
-	public static function addLink($imagePath, $functionName)
+	public static function addModuleButton($imagePath, $functionName)
 	{
 		self::makeToolbarItem($imagePath, $functionName);
 	}
