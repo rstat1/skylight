@@ -13,11 +13,11 @@ class Window
         $filepath = URL::scriptPath() . "/style/admin";
        	$window = file_get_contents($filepath. "/window.htm", FILE_USE_INCLUDE_PATH);
 		
-		$_SESSION['idCount'] = rand(0, 100);		
-        if (self::$idCount == NULL) {self::$idCount = $_SESSION['idCount'];}
-        $tags = array("{#ID#}", "{#WINDOWTITLE#}", "{#HEIGHT#}", "{#WIDTH#}", "{#WINDOWCONTENT#}", "{#LEFT#}", "{#RIGHT#}", "{#TOP#}", "{#BOTTOM#}", "{#WINDOWTOOLBAR#}");
+		$_SESSION['zOrder'] = 6;
+		$top = -200 + rand(-135, -200). "px";
+        $tags = array("{#ID#}", "{#WINDOWTITLE#}", "{#HEIGHT#}", "{#WIDTH#}", "{#WINDOWCONTENT#}", "{#LEFT#}", "{#RIGHT#}", "{#TOP#}", "{#BOTTOM#}", "{#WINDOWTOOLBAR#}", "{#STACKPOS#}");
        
-	    $values = array(NULL, $title, $height ."px", $width."px", $content, $postion[0][0]."px", $position[1][0]."px", $position[2][0]."px", $position[3][0]."px", $this->makeToolbarFromItems());
+	    $values = array(NULL, $title, $height ."px", $width."px", $content, $postion[0][0]."px", $position[1][0]."px", $top, "0px", $this->makeToolbarFromItems(),$_SESSION['zOrder']);
         $windowContent = array_combine($tags, $values);
         $window = Theme::parse("", "", $tags, $windowContent, $window, false, false);
         	

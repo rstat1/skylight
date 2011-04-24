@@ -8,7 +8,13 @@
                                }, 
                                function(data){                                   
 									$("#window-container").append(data.html);  									
-									$(".window").resizable({containment: "#window-container"}).draggable({handles: "n, e, s, w", stack: "#window-container", containment: "#window-container", scroll: false});
+									$(".window").resizable({containment: "#window-container"})
+									$(".window").draggable({
+												 handles: "n, e, s, w", 
+												 stack: {group: '#window-container', min: 5 }, 
+												 containment: "#window-container", 
+												 scroll: false
+												 });
 									//$(".window" + data.windowID).css("margin", "0");									
                                },"json");
  }
