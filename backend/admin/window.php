@@ -2,22 +2,25 @@
 class Window
 {
     private static $idCount;
+	private static $top;
 	private static $toolbarItems = array();
 	public function __construct($title, $width, $height, $content, $toolbarArr = NULL)
 	{
-		$this->create($title, $width, $height, $content, $toolbarArr);
+		$this->create($title, $width, $height, $content, $toolbarArr);		
 	}
 	private function create($title, $width, $height, $content, $toolbarArr = NULL)
     { 
+		
 		self::$toolbarItems = $toolbarArr;
         $filepath = URL::scriptPath() . "/style/admin";
        	$window = file_get_contents($filepath. "/window.htm", FILE_USE_INCLUDE_PATH);
 		
-		$_SESSION['zOrder'] = 6;
-		$top = -200 + rand(-135, -200). "px";
+		$_SESSION['zOrder'] -= 6;
+		$_SESSION['topVal'] = $_SESSION['topVal'] + 15;
+		self::$top = $_SESSION['topVal'];
         $tags = array("{#ID#}", "{#WINDOWTITLE#}", "{#HEIGHT#}", "{#WIDTH#}", "{#WINDOWCONTENT#}", "{#LEFT#}", "{#RIGHT#}", "{#TOP#}", "{#BOTTOM#}", "{#WINDOWTOOLBAR#}", "{#STACKPOS#}");
        
-	    $values = array(NULL, $title, $height ."px", $width."px", $content, $postion[0][0]."px", $position[1][0]."px", $top, "0px", $this->makeToolbarFromItems(),$_SESSION['zOrder']);
+	    $values = array(NULL, $title, $height ."px", $width."px", $content, $postion[0][0]."px", $position[1][0]."px", self::$top . "px", "0px", $this->makeToolbarFromItems(),$_SESSION['zOrder']);
         $windowContent = array_combine($tags, $values);
         $window = Theme::parse("", "", $tags, $windowContent, $window, false, false);
         	
@@ -37,6 +40,11 @@ class Window
 			}
 			return $final;
 		}
+	}
+	function __destruct()
+	{
+		/*$_SESSION['zOrder'] = 600;
+		$_SESSION['topVal'] = 0;*/
 	}
 }
 ?>

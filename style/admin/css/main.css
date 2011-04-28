@@ -6,15 +6,27 @@
 	background-color:#f1f2f3;
 	font-family: Helvetica, Arial, sans-serif;
 }
-.menubar {
+.topbar {
+	background-color:#0b1a22;
+	color:#000000;
+	position:absolute;
+	text-align:left;
+	height:28px;
+	width: 300px;
+	margin-left:72%;
+	margin-top:-76px;
+	padding-left:5px;
+	border-radius: 0px 0px 8px 8px;
+}
+.addinbar {
     padding-top:6px;
 	text-transform:lowercase;
 	border-radius: 0px 15px 15px 0px;
     background-color:#0b1a22;
 	color:#000000;
 	width:52px;
-	height:94%;
-    margin-top:-48px;
+	height:44%;
+    margin-top:128px;
     position:absolute;
 	text-align:left;    
 }
@@ -26,10 +38,10 @@
     margin-right:109px;
     margin-top:-45px;*/
     bottom: 0px;
-    left: 56px;
+    left: 55px;
     position: absolute;
     right:0px;
-    top: 0px;
+    top: 29px;
     color:#0b1a22;
     
 }

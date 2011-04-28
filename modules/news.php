@@ -8,7 +8,7 @@ class news extends Module
 	public function action_admin_newpost()
 	{
 		$toolbarItems = array();
-		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost()"));
+		array_push($toolbarItems, array("image" => "style/images/disk.png", "jsFunc" => "beginSavePost()"));
 		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost1()"));
 		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost2()"));
 		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost()"));

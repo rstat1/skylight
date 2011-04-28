@@ -119,7 +119,6 @@ class compiler
 					}
 					else {$compiledtemp[] = "';} else { echo '";}
 					$conelseec = true;
-					//print("Else Var = " .$block_val[1] . ' $conelsec = ' . $conelseec . " ");					
 				break;
 				case "ENDIF":
 					if ($conelseec == true) 
@@ -212,13 +211,13 @@ class compiler
 	public static function compile_if($var, $contains_quotes)	
 	{		
 		self::$hasnot = NULL;
+		$hasand = NULL;
 		preg_match_all('/(?:
 			"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"         |
 			\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     |
 			[(),]                                  |
 			[^\s(),]+)/x',$var, $matches);
-		$tokens = $matches[0];
-		//print_r($tokens);
+		$tokens = $matches[0];		
 		for ($i = 0, $size = sizeof($tokens); $i < $size; $i++)
 		{
 			$token = &$tokens[$i];
@@ -309,8 +308,7 @@ class compiler
 							else {$compiledif = 'if ($_REQUEST["' . $act_var. '"] == "' .$valvar. '" && '. $transvar  . ")" . "{ ?> ";}
 							return $compiledif;
 						}
-					}
-					
+					}					
 					if ($valvar == "NULL")
 					{
 						if (self::$hasnot == true) {$compiledif = 'if ($_REQUEST["' . $act_var. '"] == ' .strtoupper($valvar). ')' . "{ ?>"; return $compiledif;}

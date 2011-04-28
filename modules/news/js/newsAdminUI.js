@@ -11,7 +11,7 @@
 									$(".window").resizable({containment: "#window-container"})
 									$(".window").draggable({
 												 handles: "n, e, s, w", 
-												 stack: {group: '#window-container', min: 5 }, 
+												 stack: '#window-container', 
 												 containment: "#window-container", 
 												 scroll: false
 												 });

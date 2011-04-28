@@ -7,6 +7,7 @@
 	height:315px;
     text-align:left;
     opacity: 0.8;
+	 position: absolute;
 }
 #window-header {
     background-color:#0b1a22;

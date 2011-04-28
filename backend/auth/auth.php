@@ -13,7 +13,7 @@ class Auth
 	}
     public static function checkPermission($permission)
     {
-        $user = $_SESSION['currUser'];
+        if (isset($_SESSION['currUser'])) {$user = $_SESSION['currUser'];}
         switch ($permission)
         {
             case "U_AUTH":                

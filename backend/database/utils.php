@@ -27,6 +27,8 @@ class Utils
 	}
 	public static function makeSets($columns, $data)
 	{
+		$x = 0;
+		$sets = NULL;
 		$finalSets = array();
 		foreach($columns as $value)
 		{
