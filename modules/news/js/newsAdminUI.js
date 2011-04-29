@@ -8,7 +8,7 @@
                                }, 
                                function(data){                                   
 									$("#window-container").append(data.html);  									
-									$(".window").resizable({containment: "#window-container"})
+									$(".window").resizable({containment: "#window-container"});
 									$(".window").draggable({
 												 handles: "n, e, s, w", 
 												 stack: '#window-container', 
