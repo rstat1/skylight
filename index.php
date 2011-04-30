@@ -1,7 +1,7 @@
 <?php
 define("root_path", dirname(__FILE__));	 
 include (root_path . "/backend/errorhandler.php");
-//ErrorHandler::set();
+ErrorHandler::set();
 ob_start();
 include (root_path . "/backend/config.php");
 include (root_path . "/backend/constants.php");
@@ -13,14 +13,10 @@ function __autoload($class_name)
 	$dirs = array(root_path. "/backend", root_path. "/backend/handlers", root_path. "/modules/news", root_path. "/backend/database", 
                   root_path. "/backend/auth/handlers", root_path. "/backend/auth",root_path. "/backend/admin" );
 	foreach($dirs as $dir)
-	{
-		
+	{		
 		$glob = glob($dir. "/*.php");		
 		$fnames = array_map(create_function('$a', 'return strtolower(basename($a));'), $glob);
-		if (is_array($fnames) && is_array($glob) && count($fnames) > 0)
-		{
-			$files = array_merge($files, array_combine($fnames, $glob));		
-		}
+		if (is_array($fnames) && is_array($glob) && count($fnames) > 0){$files = array_merge($files, array_combine($fnames, $glob));}
 	}
 	if(isset($files[$classfile])) {include $files[$classfile];}
 }
@@ -47,7 +43,6 @@ else
 	echo '</div></div></body></html>';
 	die();	
 }
-
 if (isset($_COOKIE['sk_U']) && $_SERVER['REQUEST_URI'] == $config['base-path'])
 {
     if (!isset($_SESSION['currUser']));
@@ -56,7 +51,6 @@ if (isset($_COOKIE['sk_U']) && $_SERVER['REQUEST_URI'] == $config['base-path'])
         Session::attachUserId($_SESSION['currUser']['id']);
     }
 }
-
 URL::parse($_SERVER['REQUEST_URI']);
 if ($config['debug'] && $_SERVER['REQUEST_URI'] == $config['base-path'])
 {
