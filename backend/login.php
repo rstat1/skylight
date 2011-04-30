@@ -3,17 +3,7 @@ class Login
 {
 	public $action = '';
 	public $args = NULL;
-
-	/*public function act()
-	{
-		$this->addToTemplate('<p style="color:white;">' .$_POST['skylightPW']. "</p>", "body");
-		header("Location: /skylight");
-	}*/	
-	
-	public function action_displayLogin()
-	{
-		
-	}
+	public function action_displayLogin(){}
 	public function action_doLogin($user, $pass)
 	{
 		$pwChallenge = Auth::challenge($user, $pass);

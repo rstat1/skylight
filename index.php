@@ -23,14 +23,8 @@ function __autoload($class_name)
 $nummods = count(Modules::get(array(root_path . "/modules")));
 if ($nummods > 0)
 {
-	foreach(Modules::get(array(root_path . "/modules")) as $mod)
-	{
-		include_once($mod);
-	}
-	foreach(Modules::get(array(root_path . "/modules")) as $mod)
-	{
-		Modules::load($mod);
-	}	
+	foreach(Modules::get(array(root_path . "/modules")) as $mod){include_once($mod);}
+	foreach(Modules::get(array(root_path . "/modules")) as $mod){Modules::load($mod);}	
 	Modules::action("theme_init");
 	Modules::action("init");	
 }
