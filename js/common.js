@@ -8,7 +8,7 @@
 });
 function authChallengeInit()
 {
-	$.post("auth/challenge/", $("#loginForm").serialize(), function(data) {       
+	$.post("auth/challenge/", $("#loginForm").serialize(), function(data) {
         if (data.indexOf("Login Successful!") == -1)
         {
             $("#login-failed").html(data);

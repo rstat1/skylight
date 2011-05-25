@@ -24,7 +24,7 @@ class URL
         return "http://" . $_SERVER['SERVER_NAME'] . $config['base-path'];
 		/*$script_path = explode("/", $_SERVER['REQUEST_URI']);
        	if ($script_path[1] == ""){return "http://" . $_SERVER['SERVER_NAME'];}
-	    else {return "http://" . $_SERVER['SERVER_NAME'] . "/" . $script_path[1] . "/";}*/
+	    else {return "http://" . $_SERVER['SERVERNAME'] . "/" . $script_path[1] . "/";}*/
 	}
 	public static function scriptPath()
 	{

@@ -28,23 +28,29 @@ class cache
 	}
 	public static function putTemplateDataInCache($name, $data)
 	{
-		$cacheFile = @fopen(root_path. "/cache/tpl_$name.php", "w+");
-		if (is_array($data))
+		if ($config['data-cache'])
 		{
-			@fwrite($cacheFile, var_export(serialize($data), true));
+			$cacheFile = @fopen(root_path. "/cache/tpl_$name.php", "w+");
+			if (is_array($data))
+			{
+				@fwrite($cacheFile, var_export(serialize($data), true));
+			}
+			else {@fwrite($cacheFile, $data);}
+			@fclose($cacheFile);
 		}
-		else {@fwrite($cacheFile, $data);}
-		@fclose($cacheFile);
 	}
 	public static function putDataInCache($name, $data)
-	{		
-		$cacheFile = @fopen(root_path. "/cache/sql_$name.php", "w+");
-		if (is_array($data))
+	{	
+		if ($config['data-cache'])
 		{
-			@fwrite($cacheFile, base64_encode(serialize($data)));
+			$cacheFile = @fopen(root_path. "/cache/sql_$name.php", "w+");
+			if (is_array($data))
+			{
+				@fwrite($cacheFile, base64_encode(serialize($data)));
+			}
+			else {@fwrite($cacheFile, $data);}
+			@fclose($cacheFile);
 		}
-		else {@fwrite($cacheFile, $data);}
-		@fclose($cacheFile);
 	}
 	public static function put_in_cache($value, $name, $ext)
     {

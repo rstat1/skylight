@@ -14,3 +14,5 @@ glob:style/images/admin-bg.png
 glob:style/images/pencil.ico
 glob:style/images/pencil.png
 glob:style/images/top-bar-bg.png
+syntax: glob
+skyCommitID
