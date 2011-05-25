@@ -21,14 +21,17 @@ class Database
 		}   
 		else{trigger_error(htmlentities(mysql_error()), E_USER_ERROR);} 
 	}    
-	public static function get($query, $cache = true)
+	public static function get($query, $cache = true, $table, $forceCacheUpdate = false)
 	{
-		$cacheHash = md5($query);
-		if (Cache::inCache("sql_$cacheHash.php"))
+		global $config;
+		$cacheHash = base64_encode($query);
+		if ($table != NULL) {$filename = $table. "_$cacheHash.php";}
+		else {$filename = "sql_$cacheHash.php";}
+		if (Cache::inCache($filename) && $forceCacheUpdate == false)
 		{
             self::$numquerys += 1;
-			self::$CacheHits += 1;
-			return Cache::getDataFromCache("sql_$cacheHash.php");
+			self::$CacheHits += 1;			
+			return Cache::getDataFromCache($filename);
 		}
 		if ($query != NULL)
 		{
@@ -38,11 +41,8 @@ class Database
 			else
 			{
 				$data = array(mysql_num_rows($query_result), self::getResultAsArray($query_result));
-				if ($cache) 
-                {
-                    Cache::putDataInCache(md5($query), $data);
-                    self::$CacheMisses += 1;
-                }
+				Cache::putDataInCache(base64_encode($query), $data, $table);
+                if ($forceCacheUpdate == false) {self::$CacheMisses += 1;}                
                 self::$numquerys += 1;
 				return $data;
 			}
@@ -64,9 +64,13 @@ class Database
 			{
 				$dataToInsert = Utils::returnArrayAsCSV($data);
 				$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";
-                self::connect();
+				self::connect();
 				$query_result = mysql_query($finalQuery, self::$connect_id);	
-				if ($query_result){return true;}
+				if ($query_result)
+				{
+					Utils::updateCachedData($table);
+					return true;
+				}
 				else {trigger_error(mysql_error());die();}
 			}
 			else {trigger_error("Function expects first argument to be an array.");}
@@ -85,9 +89,13 @@ class Database
 		        $sets = Utils::makeSets(explode(",",self::$columns), $data);
                 $sets = trim($sets, ",");
                 $finalQuery = "UPDATE $table SET $sets WHERE $keyfield[0] = ". $keyfield[1];
-                self::connect();
+				self::connect();
 				$query_result = mysql_query($finalQuery, self::$connect_id);	
-				if ($query_result){return true;}
+				if ($query_result)
+				{
+					Utils::updateCachedData($table);
+					return true;
+				}
 				else {trigger_error(mysql_error());die();}
             }
 			else {trigger_error("Function expects first argument to be an array.");}
@@ -103,13 +111,22 @@ class Database
                 $finalQuery = "DELETE FROM $table WHERE $where[0] $where[1]  '$where[2]'";
                 self::connect();                
 				$query_result = mysql_query($finalQuery, self::$connect_id);	
-				if ($query_result){return true;}
+				if ($query_result)
+				{
+					Utils::updateCachedData($table);
+					return true;
+				}
 				else {trigger_error(mysql_error(). " " . $finalQuery);die();}
             }
         	else {trigger_error("Function expects first argument to be an array.");}
 		}
 		else {trigger_error("This function requires some form of criteria so it knows what to delete and a table name so it knows where to delete from.");}
     }
+	public static function escape_string($str)
+	{
+		self::connect();
+		return mysql_real_escape_string($str);
+	}
 	//borrowed from a page about a particular MySQL command on http://php.net
 	public static function getResultAsArray($result)
 	{

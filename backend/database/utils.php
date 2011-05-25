@@ -48,6 +48,17 @@ class Utils
 	{
 		return "'". $string . "'";
 	}
+	public static function updateCachedData($table)
+	{
+		$glob = glob(root_path . "/cache/".$table."_*.php");
+		foreach($glob as $file)
+		{
+			$fileparts = explode("_", $file);
+			$query = base64_decode($fileparts[1]);
+			if (strstr($query, ")†")){$query = str_replace(")†", "", $query);}
+			Database::get($query, true, $fileparts[0], true);
+		}
+	}
 	private static function makeCSVString($n, $m)
 	{		
     	if (is_numeric($n)){self::$dataAsCSV .= $n. ",";}
