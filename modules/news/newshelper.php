@@ -22,7 +22,7 @@ class NewsHelper
 	public static function getTags()
 	{
 		self::$tag_template = self::getTemplate("tag");
-		$result = Database::get("SELECT * FROM categories");
+		$result = Database::get("SELECT * FROM categories", true, "categories");
 		$numOfResults = Database::ResultCount($result);
 		for($i = 0; $i < $numOfResults; $i++)
 		{
@@ -72,8 +72,8 @@ class NewsHelper
 		$datetimetags = array();
 		$contenttags = array();
 		self::$tag_template = self::getTemplate("fivenewsitems");
-		if ($tag == NULL) {$title = Database::get("SELECT * FROM posts ORDER by `id` DESC LIMIT 5");}
-		else{$result = Database::get("SELECT * FROM posts WHERE `category` LIKE '$tag' ORDER by `id` DESC LIMIT 5");}
+		if ($tag == NULL) {$title = Database::get("SELECT * FROM posts ORDER by `id` DESC LIMIT 5", true, "posts");}
+		else{$result = Database::get("SELECT * FROM posts WHERE `category` LIKE '$tag' ORDER by `id` DESC LIMIT 5", true, "categories");}
         $numOfResults = Database::ResultCount($result);
 		if ($numOfResults > 0)
 		{

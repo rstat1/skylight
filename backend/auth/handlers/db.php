@@ -5,7 +5,7 @@ class db
 	public function doChallenge($user, $pass)
 	{
 		$actualUser = AuthUtils::encryptUser($user);
-		$results = Database::get("SELECT * FROM users WHERE name LIKE '$actualUser'", false);
+		$results = Database::get("SELECT * FROM users WHERE name LIKE '$actualUser'", false, "users");
 		if ($results[0] == 0){return USER_NAME_DOESNT_EXIST;} //echo '<p style="color:red;">No such user "'. $user .'" </p>';}
 		else
 		{

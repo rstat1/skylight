@@ -44,7 +44,7 @@ class theme
         
 		$filepath = URL::scriptPath() . "/style/" .$style;
        
-		$headerfile = file_get_contents($filepath. "/header.htm", FILE_USE_INCLUDE_PATH);
+ 	    $headerfile = file_get_contents($filepath. "/header.htm", FILE_USE_INCLUDE_PATH);
 		$bodyfile = file_get_contents($filepath. "/body.htm", FILE_USE_INCLUDE_PATH);
 		$footerfile = file_get_contents($filepath. "/footer.htm", FILE_USE_INCLUDE_PATH);
 

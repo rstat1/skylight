@@ -41,7 +41,7 @@ class Database
 			else
 			{
 				$data = array(mysql_num_rows($query_result), self::getResultAsArray($query_result));
-				Cache::putDataInCache(base64_encode($query), $data, $table);
+				if ($cache && $config['data-cache']) {Cache::putDataInCache(base64_encode($query), $data, $table);}
                 if ($forceCacheUpdate == false) {self::$CacheMisses += 1;}                
                 self::$numquerys += 1;
 				return $data;

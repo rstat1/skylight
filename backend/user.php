@@ -26,7 +26,7 @@ class User
     {      
         $name = AuthUtils::encryptUser($_COOKIE['sk_U'], true);
 		$query = "SELECT id,name,theme,enablejs FROM users WHERE name LIKE '$name'";
-		$isVaildName = Database::get($query, false);
+		$isVaildName = Database::get($query, false, "users");
         $_SESSION['currUser'] = $isVaildName[1][0];
         self::$user = $isVaildName[1][0];       
     }   
@@ -35,8 +35,8 @@ class User
 		global $config;
 		if (self::isUserLoggedin())
 		{
-			$ugidQuery = Database::get("SELECT groupid FROM group_members WHERE userid LIKE '" . self::$user['id']. "'", false);
-			$admgid = Database::get("SELECT id FROM groups WHERE name LIKE 'Administrators'", true);			
+			$ugidQuery = Database::get("SELECT groupid FROM group_members WHERE userid LIKE '" . self::$user['id']. "'", false, "users");
+			$admgid = Database::get("SELECT id FROM groups WHERE name LIKE 'Administrators'", true, "users");
 			if ($ugidQuery[0] > 0)
 			{
 				if ($admgid[0] > 0)

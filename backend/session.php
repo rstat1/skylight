@@ -26,13 +26,13 @@ class Session
     static function exists($id)
     {
 		$query = "SELECT * FROM sessions WHERE sessid = '$id'";
-        $session = Database::get($query, false);
+        $session = Database::get($query, false, "sessions");
         if ($session[0] == 0) {return false;}
         else {return true;}
     }
     static function get($id)
     {        
-        $sessionrow = Database::get("SELECT * FROM sessions WHERE sessid = '$id'", false);
+        $sessionrow = Database::get("SELECT * FROM sessions WHERE sessid = '$id'", false, "sessions");
         if ($sessionrow[0] == 0) {return false;}
         else
         {

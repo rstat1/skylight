@@ -7,7 +7,6 @@ glob:test.php
 glob:test/*
 glob:test.autoload.php
 glob:other/*
-glob:.htaccess
 glob:php_error_log
 glob:backend/config.php
 glob:style/images/admin-bg.png
@@ -16,3 +15,5 @@ glob:style/images/pencil.png
 glob:style/images/top-bar-bg.png
 syntax: glob
 skyCommitID
+blog/*
+gkfj

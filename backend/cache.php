@@ -28,6 +28,7 @@ class cache
 	}
 	public static function putTemplateDataInCache($name, $data)
 	{
+		global $config;
 		if ($config['data-cache'])
 		{
 			$cacheFile = @fopen(root_path. "/cache/tpl_$name.php", "w+");
@@ -40,7 +41,8 @@ class cache
 		}
 	}
 	public static function putDataInCache($name, $data)
-	{	
+	{
+		global $config;
 		if ($config['data-cache'])
 		{
 			$cacheFile = @fopen(root_path. "/cache/sql_$name.php", "w+");
