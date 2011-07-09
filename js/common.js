@@ -5,6 +5,10 @@
 	$("#registerForm").submit(function() {
 		return validateRegistration();
 	});
+	if (checkForPHSupport() == false)
+	{
+		$('label').css('display', 'block');
+	}
 });
 function authChallengeInit()
 {
@@ -39,4 +43,9 @@ function validateRegistration()
         }
     });
 	return false;
+}
+function checkForPHSupport() 
+{
+  var i = document.createElement('input');
+  return 'placeholder' in i;
 }

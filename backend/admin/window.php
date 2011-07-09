@@ -12,9 +12,7 @@ class Window
     { 
 		self::$toolbarItems = $toolbarArr;
         $filepath = URL::scriptPath() . "/style/admin";
-       	$window = file_get_contents($filepath. "/window.htm", FILE_USE_INCLUDE_PATH);
-		//if ($_SESSION['zOrder'] == NULL) {$_SESSION['zOrder'] = 0;}
-		//$_SESSION['zOrder'] += 1;
+       	$window = file_get_contents($filepath. "/window.htm", FILE_USE_INCLUDE_PATH);		
 		$_SESSION['topVal'] = $_SESSION['topVal'] + 15;
 		self::$top = $_SESSION['topVal'];
         $tags = array("{#ID#}", "{#WINDOWTITLE#}", "{#HEIGHT#}", "{#WIDTH#}", "{#WINDOWCONTENT#}", "{#LEFT#}", "{#RIGHT#}", "{#TOP#}", "{#BOTTOM#}", "{#WINDOWTOOLBAR#}");//, "{#STACKPOS#}");

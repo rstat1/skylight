@@ -6,6 +6,7 @@ class theme
 	public static $body_html = array();
 	public static $header_html = array();
 	public static $footer_html = array();
+	public static $toolbarItems = array();
 	private static $page = "";
 	private static $output = "";
 	private static $selectedPart = "";
@@ -104,7 +105,16 @@ class theme
 			}
 		}		
 		return $content;
-	}	
+	}
+	private static function buildToolbarItemTagData()
+	{
+		if (count(self::$toolbarItems) > 0)
+		{
+			 foreach(self::$toolbarItems as $item) {$toolbar .= $item;}
+			 return $toolbar;
+		}
+		else {return " ";}
+	}
 	private static function addRequiredTags()
 	{
 		global $config;
@@ -121,10 +131,13 @@ class theme
 				$commitID = file_get_contents(root_path. "/skyCommitID");
 				if (strlen($commitID) > 12) {$commitID = substr($commitID, 0, 12);}
 			}	
-		}
+		}		
 		else {$commitID = $config['version'];}
 		self::$vars_data[] = $commitID;
         
+		self::$vars[] = "{#TOOLBARITEMS#}";
+		self::$vars_data[] = self::buildToolbarItemTagData();
+		
 		self::$vars[] = "{#BASEPATH#}";
 		self::$vars_data[] =  URL::base();
 			

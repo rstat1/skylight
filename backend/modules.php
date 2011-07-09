@@ -14,7 +14,7 @@ class Modules
 		{
 			$glob = glob($dir. "/*.php");		
 			$fnames = array_map(create_function('$a', 'return strtolower(basename($a));'), $glob);
-			if (is_array($fnames)) {$files = @array_merge($files, array_combine($fnames, $glob));}
+			if (is_array($fnames) && count($fnames) > 0) {$files = @array_merge($files, array_combine($fnames, $glob));}
 		}
 		self::$modules = $files;
 		return self::$modules;

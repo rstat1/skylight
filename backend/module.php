@@ -4,8 +4,13 @@ abstract class Module extends ModuleBase
 	abstract public function info();
 	abstract public function action_init();	
 	abstract public function action_theme_init();
+	private $toolbarItems = array();
 	final public function __construct()
 	{
+	}
+	function addToToolbar($item)
+	{
+		Theme::$toolbarItems[] = $item['html'];
 	}
 	function addToTemplate($data, $where)
 	{

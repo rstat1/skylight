@@ -7,11 +7,11 @@ class Utils
 	public static function returnColumnNames($data)
 	{
 		$keys = array_keys($data);
-		self::$columnNames = "true";
-		self::$csvColumns = self::returnArrayAsCSV($keys, "true");
+		self::$columnNames = 'true';
+		self::$csvColumns = self::returnArrayAsCSV($keys, true);
 		return self::$csvColumns;		
 	}
-	public static function returnArrayAsCSV($data, $columnNames = "")
+	public static function returnArrayAsCSV($data, $columnNames = '')
 	{	
 		self::$csvColumns = "";
 		self::$dataAsCSV = "";
@@ -63,11 +63,12 @@ class Utils
 	{		
     	if (is_numeric($n)){self::$dataAsCSV .= $n. ",";}
         else
-        {	
-			if (self::$columnNames == "true"){self::$dataAsCSV .= $n. ",";}
+        {				
+			if (self::$columnNames == 'true'){self::$dataAsCSV .= $n. ",";}
 			else {self::$dataAsCSV .= "'" .$n. "',";}
         	
         }
+		self::$columnNames = '';
 		return self::$dataAsCSV;
 	}	
 }

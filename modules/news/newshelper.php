@@ -28,6 +28,7 @@ class NewsHelper
 		{
 			self::$tags .= Theme::parse("","", array("{#TAG#}"), array("{#TAG#}" => $result[1][$i]['name']), self::$tag_template, false, false);
 		}
+		if (self::$tags == "") {self::$tags = Theme::parse("","", array("{#TAG#}"), array("{#TAG#}" => "No tags!"), self::$tag_template, false, false); }
 		return self::$tags;
 	}
 	public static function getArticleById($id)

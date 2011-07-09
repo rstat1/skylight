@@ -5,25 +5,13 @@
 				<ul>
 					<li id="user" class="menu-bar">{#USERNAME#} <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>
                     <!-- IF U_AUTH -->
-                        <!-- IF P_ACP --><!-- ECHOHTML --><li id="acp" class="menu-bar">{#ACPLINK#}</li><!-- ENDIF -->                        
+                        <!-- IF P_ACP --><!-- ECHOHTML --><li id="acp" class="menu-bar">{#ACPLINK#}</li><!-- ENDIF -->
                         <li id="login" class="menu-bar"><a style="color:White; text-decoration:none;" href="{#LOGINOUTLINK#}">{#LOGINOUTTEXT#}</a></li>
                     <!-- ELSE -->
                         <li id="login" class="menu-bar"><a style="color:White; text-decoration:none;" href="{#LOGINOUTLINK#}">{#LOGINOUTTEXT#}</a></li>
                         <li id="register" class="menu-bar"><a style="color:White; text-decoration:none;" href="{#REGISTERLINK#}">{#REGISTERTEXT#}</a></li>
-                    <!-- ENDIF -->                    
-					<li id="tags" class="menu-bar">Tags <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>					
+                    <!-- ENDIF -->
+					{#TOOLBARITEMS#}
 				</ul>
-			</div>			
-		</div>		
-		<div style="" class="category" id="category">
-			<ul>				
-				{#TAGS#}
-			</ul>		
-		</div>			
-		<div id="outer">
-			<div id="inner">
-				<div class="bgtext">{#SITETITLE#}</div>
-				<span class="news">{#LATESTARTICLES#}</span>
 			</div>
 		</div>
-		

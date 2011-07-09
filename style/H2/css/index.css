@@ -108,7 +108,7 @@ img {
 	background-color:#404040;
 	height:186px;
 	margin-left:98px;
-	margin-top:-17px;
+	margin-top:-10px;
 	width:305px;
 	z-index:1;
 }
@@ -125,6 +125,7 @@ img {
 }
 input[type="text"], input[type="password"], input[type="email"]{
 	font-size:14pt;
+	width:210px;
 	border:1px solid #BBBBBB;
 	-moz-border-radius:5px 5px 5px 5px;
 	-webkit-border-radius:5px 5px 5px 5px;
@@ -149,7 +150,7 @@ label.abovecontent {
 	font-size:9px;
 	font-weight:normal;
 	line-height:10px;
-	margin-left:5px;
+	margin-left:45px;
 	margin-top:-13px;
 	padding:1px 10px 2px;
 	position:absolute;
