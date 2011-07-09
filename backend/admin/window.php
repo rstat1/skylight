@@ -16,8 +16,8 @@ class Window
 		$_SESSION['topVal'] = $_SESSION['topVal'] + 15;
 		self::$top = $_SESSION['topVal'];
         $tags = array("{#ID#}", "{#WINDOWTITLE#}", "{#HEIGHT#}", "{#WIDTH#}", "{#WINDOWCONTENT#}", "{#LEFT#}", "{#RIGHT#}", "{#TOP#}", "{#BOTTOM#}", "{#WINDOWTOOLBAR#}");//, "{#STACKPOS#}");
-       
-	    $values = array(NULL, $title, $height ."px", $width."px", $content, $postion[0][0]."px", $position[1][0]."px", self::$top. "px", "0px", $this->makeToolbarFromItems());//,$_SESSION['zOrder']);
+        
+	    $values = array(str_replace(" ", '', $title) + rand(0, 9999999), $title, $height ."px", $width."px", $content, $postion[0][0]."px", $position[1][0]."px", self::$top. "px", "0px", $this->makeToolbarFromItems());//,$_SESSION['zOrder']);
         $windowContent = array_combine($tags, $values);
         $window = Theme::parse("", "", $tags, $windowContent, $window, false, false);
         	

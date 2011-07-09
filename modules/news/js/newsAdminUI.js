@@ -1,31 +1,28 @@
  function newPostOpen()
  {
 	$.post("admin/newpost/", function(data){                                   
-									$("#window-container").append(data.html);
-									$(".window").resizable({containment: "#window-container"});
-									$(".window").draggable({
-												 handles: "n, e, s, w", 
-												 stack: '#window-container',
-												 containment: "#window-container",
-												 scroll: false
-												 });
+									makeWindow(data.html);
 									setupPSClickHandlers();
                                },"json");
 }
 
 function setupPSClickHandlers()
 {
+	var contentArea = document.getElementById("content-area");
 	$('#meta').click(function() {
 		$('#meta').addClass('selected-window-command');
 		$('#attach').removeClass('selected-window-command');
 		$('#image').removeClass('selected-window-command');
-		$.get("admin/metadialog/", function(data){			
-			document.getElementById("content-area").innerHTML = data.html;
-			if (checkForPHSupport() == false)
-			{
-				$('label').css("display", "block");
-			}
-		}, "json");
+		if ($('#metadata') == [])
+		{
+			$.get("admin/metadialog/", function(data){			
+				contentArea.innerHTML = data.html;
+				if (checkForPHSupport() == false)
+				{
+					$('label').css("display", "block");
+				}
+			}, "json");
+		}
 	});
 	$('#image').click(function() {
 		$('#meta').removeClass('selected-window-command');

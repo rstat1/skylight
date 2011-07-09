@@ -1,11 +1,19 @@
 ﻿$(document).ready(function() {
-	$("#write").bind("click", function() {
-		getNewPostWindow()
-	});
 	
 });
-
-function loadMainDashPage()
+function makeWindow(html)
 {
-	alert("This where a call to skylight's AJAX APIs would be made");
+	$("#window-container").append(html);
+	$(".window").resizable({containment: "#window-container"});
+	$(".window").draggable({
+		handles: "n, e, s, w", 
+		stack: '#window-container',
+		containment: "#window-container",
+		scroll: false
+	});
+	$(".close").click(function() {
+		var windowName = $('.close').attr('id');
+		var windowSelector = "div." + windowName;
+		$(windowSelector).remove()
+	});
 }
