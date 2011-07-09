@@ -12,8 +12,8 @@ function makeWindow(html)
 		scroll: false
 	});
 	$(".close").click(function() {
-		var windowName = $('.close').attr('id');
-		var windowSelector = "div." + windowName;
+		var windowName = $( this ).attr('id');
+		var windowSelector = "." + windowName;
 		$(windowSelector).remove()
 	});
 }
