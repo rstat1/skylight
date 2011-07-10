@@ -11,7 +11,7 @@ class news extends Module
 		array_push($toolbarItems, array("image" => "style/images/disk.png", "jsFunc" => "beginSavePost()"));
 		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost1()"));
 		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost2()"));		
-		$win = new Window("New Post", 620, 380, $this->getNewPostWindowContent("newpost"), $toolbarItems);		
+		$win = new Window("New Post", 789, 562, $this->getNewPostWindowContent("newpost"), $toolbarItems);		
 	}
 	public function action_admin_dialog()
 	{
@@ -19,7 +19,10 @@ class news extends Module
 	}
 	public function action_admin_theme_init()
 	{
+		//Theme::$header_html[] = "\n\t". '<script src="modules/news/js/editor/tiny_mce.js" type="text/javascript"></script>';
+		//Theme::$header_html[] = "\n\t". '<script type=text/javascript>tinyMCE.init({mode : "none", theme : "advanced", theme_advanced_toolbar_location : "top", theme_advanced_statusbar_location : "bottom"});</script>';
 		Theme::$header_html[] = "\n\t". '<script type="text/javascript" src="modules/news/js/newsAdminUI.js"></script>' . "\n";
+		
 	}
 	public function action_admin_toolbar()
 	{

@@ -1,4 +1,4 @@
-﻿$(document).ready(function(){       	
+﻿$(document).ready(function(){ 	
 	$("#loginForm").submit(function() {
 		return authChallengeInit();
 	});
@@ -43,6 +43,14 @@ function validateRegistration()
         }
     });
 	return false;
+}
+//http://stackoverflow.com/questions/1799123/how-to-automatic-resize-tinymce
+function toScreenHeight(id, minus) {
+    var height;
+
+    if (typeof(window.innerHeight) == "number"){height = window.innerHeight;}
+	else if (document.documentElement && document.documentElement.clientHeight){height = document.documentElement.clientHeight;}
+    document.getElementById(id).style.height = (height - minus) + "px";
 }
 function checkForPHSupport() 
 {

@@ -12,7 +12,7 @@ function makeWindow(html)
 		scroll: false
 	});
 	$(".close").click(function() {
-		var windowName = $( this ).attr('id');
+		windowName = $( this ).attr('id');
 		var windowSelector = "." + windowName;
 		$(windowSelector).remove()
 	});
