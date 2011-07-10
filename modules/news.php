@@ -13,9 +13,9 @@ class news extends Module
 		array_push($toolbarItems, array("image" => "style/images/tool1.png", "jsFunc" => "beginSavePost2()"));		
 		$win = new Window("New Post", 620, 380, $this->getNewPostWindowContent("newpost"), $toolbarItems);		
 	}
-	public function action_admin_metadialog()
+	public function action_admin_dialog()
 	{
-		echo json_encode(array("html" => $this->getWindowSection("newpost", "metadialog")));
+		echo json_encode(array("html" => $this->getWindowSection($_POST['dialog'], $_POST['section'])));
 	}
 	public function action_admin_theme_init()
 	{
@@ -65,7 +65,7 @@ class news extends Module
 			default:								
 		}		
 	}	
-	private function getWindowSection($dialog,$section)
+	private function getWindowSection($dialog, $section)
 	{		
 		return file_get_contents("news/windows/" .$dialog. "-sections/" .$section.".htm", FILE_USE_INCLUDE_PATH);
 	}
