@@ -28,7 +28,8 @@ class User
 		$query = "SELECT id,name,theme,enablejs FROM users WHERE name LIKE '$name'";
 		$isVaildName = Database::get($query, false, "users");
         $_SESSION['currUser'] = $isVaildName[1][0];
-        self::$user = $isVaildName[1][0];       
+        self::$user = $isVaildName[1][0];
+		self::$user += array("username" => $_COOKIE['sk_U']);
     }   
     public static function isAnAdmin()
     {

@@ -5,6 +5,11 @@ class news extends Module
 	public function set_priorities(){}
 	public function action_shutdown(){}
 	public function action_theme_init(){}
+	public function action_admin_save_post()	
+	{
+		$tag = $_POST['tags'];// explode($_POST['tags'], ";");
+		Database::put(array(NULL, Database::escape_string($_POST['title']),Database::escape_string($_POST['content']), $tag, $_COOKIE['sk_U'], $_POST['date']),"posts");
+	}
 	public function action_admin_newpost()
 	{
 		$toolbarItems = array();
@@ -48,16 +53,13 @@ class news extends Module
 		{
 			$fileName = "news/style/newsitems.htm";
 			$this->addToTemplate(file_get_contents($fileName, FILE_USE_INCLUDE_PATH), "body");
-			$this->addToToolbar(array('html' => '<li id="tags" class="menu-bar">Tags <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>', 'clickevent' => ""));
-		
+			$this->addToToolbar(array('html' => '<li id="tags" class="menu-bar">Tags <img style="margin-top:-5px;" src="style/images/dropdown.png" alt="arrow"/></li>', 'clickevent' => ""));		
 			$this->addURLFilter(array("name" => "show-article", "matchto" => "%article/([0-9-]+)%i" , "handler" => "AjaxHandler", "action" => "ajax"));
 			$this->assignToVar("{#TAGS#}", NewsHelper::getTags());
-			$this->assignToVar("{#LATESTARTICLES#}", NewsHelper::getLatest5Articles("home", $config['package-content-withL5A']));		
+			$this->assignToVar("{#LATESTARTICLES#}", NewsHelper::getLatest5Articles("webos", $config['package-content-withL5A']));		
 			$this->assignToVar("{#SITETITLE#}", $config['site-name']);
 			$this->assignToVar("{#BASEPATH#}", URL::base());
 		}
-		
-		
 		switch($request['Page'])
 		{	
 			case "ajax-load":

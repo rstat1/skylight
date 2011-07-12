@@ -80,8 +80,13 @@ function contentClickHandler()
 			$("#postcontent_ifr").css("height", height + "px");//, function(index) {return index - 30;}));				
 			$("#postcontent_ifr").css("width", width + "px");//, function(index) {return index - 30;}));
 		});			
+		hideOtherVisibleBlocks("post-content");
 	}
-	else{hideOtherVisibleBlocks("post-content");}
+	else
+	{
+		hideOtherVisibleBlocks("post-content");
+		$('#post-content').css("display", "block");
+	}
 }
 function setupPSClickHandlers()
 {	
@@ -127,6 +132,16 @@ function setupPSClickHandlers()
 		$('#attach').removeClass('selected-window-command');
 		$('#content').addClass('selected-window-command');
 		contentClickHandler();
+	});	
+}
+function beginSavePost()
+{
+	var editor = tinyMCE.get('postcontent');
+	var content = editor.getContent();
+	var title = $('#title').val();
+	var tags = $('#tags').val();
+	var postdate = $('#date').val();
+	$.post("admin/save_post/", {content: content, title: title, tags: tags, date: postdate}, function(data){
+		$("#window-footer").html("Post saved and published sucessfully!");
 	});
-	
 }

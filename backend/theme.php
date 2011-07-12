@@ -50,6 +50,7 @@ class theme
 		$footerfile = file_get_contents($filepath. "/footer.htm", FILE_USE_INCLUDE_PATH);
 
 		self::$header_html[] = "\n\t". '<script type="text/javascript" src="js/common.js"></script>';
+		self::$header_html[] = "\n\t". '<script type="text/javascript" src="style/' .$config['style']. '/js/index.js"></script>';
         self::$header_html[] = "\n\t". '<script type="text/javascript">var path = "' .$config['base-path'] .'";</script>';
 		self::$header_html[] = "\n\t". '<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />';
 		self::$header_html[] = "\n\t". "<title>". $config['site-name']."</title>";

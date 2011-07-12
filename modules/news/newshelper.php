@@ -20,7 +20,7 @@ class NewsHelper
 	}
 //	public function parse($temp_path, $temp_part, $tags, $replinfo, $toparse, $inc_output, $isfile)
 	public static function getTags()
-	{
+	{		
 		self::$tag_template = self::getTemplate("tag");
 		$result = Database::get("SELECT * FROM categories", true, "categories");
 		$numOfResults = Database::ResultCount($result);
@@ -33,14 +33,14 @@ class NewsHelper
 	}
 	public static function getArticleById($id)
 	{		
-		$result = Database::get("SELECT * FROM posts WHERE `id` LIKE '$id'");
+		$result = Database::get("SELECT * FROM posts WHERE `id` LIKE '$id'", true, "posts");
 		self::$tag_template = self::getTemplate("content");
 		$numOfResults = Database::ResultCount($result);
 		for($i = 0; $i < $numOfResults; $i++)
 		{				
 			$title = $result[1][$i];
 			$tags = array("{#TITLE#}", "{#CONTENT#}", "{#ID#}", "{#TAG#}");
-			$content = array($title['Title'], $title['content'], $title['id'], $title['category']);
+			$content = array($title['title'], $title['content'], $title['id'], $title['category']);
 			$data = array_combine($tags, $content);
 			self::$news = Theme::parse("","", $tags, $data, self::$tag_template, false, false);
 		}		
@@ -66,6 +66,7 @@ class NewsHelper
 	}	
 	public static function getLatest5Articles($tag = "", $getContent = false)
 	{	
+		
 		$numOfResults = 0;
 		$idtags = array();
 		$titletags = array();
@@ -78,40 +79,40 @@ class NewsHelper
         $numOfResults = Database::ResultCount($result);
 		if ($numOfResults > 0)
 		{
-			if ($numOfResults < 5) {$x = 5;}
-			else {$x = 1;}
 			for($i = 0; $i < $numOfResults; $i++)
-			{					
+			{
 				$title = $result[1][$i];
 				$id[] = $title['id'];
-				$title_var[] = $title['Title'];
+				$title_var[] = $title['title'];
 				$datetime[] = $title['postdate'];
 				$author[] = $title['author'];
 				if ($getContent == true){$content[] = $title['content'];}
 				$idtags = array("{#ID5#}","{#ID4#}","{#ID3#}","{#ID2#}","{#ID1#}");
-				$titletags = array("{#TITLE5#}","{#TITLE4#}", "{#TITLE3#}", "{#TITLE2#}", "{#TITLE1#}");							
-				$authortags = array("{#AUTHOR5#}","{#AUTHOR4#}", "{#AUTHOR3#}", "{#AUTHOR2#}", "{#AUTHOR1#}");							
-				$datetimetags = array("{#POSTDATE5#}","{#POSTDATE4#}", "{#POSTDATE3#}", "{#POSTDATE2#}", "{#POSTDATE1#}");					
+				$titletags = array("{#TITLE5#}","{#TITLE4#}", "{#TITLE3#}", "{#TITLE2#}", "{#TITLE1#}");
+				$authortags = array("{#AUTHOR5#}","{#AUTHOR4#}", "{#AUTHOR3#}", "{#AUTHOR2#}", "{#AUTHOR1#}");
+				$datetimetags = array("{#POSTDATE5#}" ,"{#POSTDATE4#}", "{#POSTDATE3#}", "{#POSTDATE2#}", "{#POSTDATE1#}");
 				if ($getContent == true) {$contenttags = array("{#CONTENT1#}","{#CONTENT2#}","{#CONTENT3#}","{#CONTENT4#}","{#CONTENT5#}");}
-				if ($numOfResults < 5) 
+			}
+			if ($numOfResults < 5) 
+			{				
+				$fill = 5 - $numOfResults;
+				for ($i = 0; $i < $fill; $i++)
 				{
-					$fill = 5 - $numOfResults;
-					for ($x = 0; $i < $fill; $x++)
-					{
-						$id[] = "";
-						$title_var[] = "";
-						$datetime[] = "";
-						$author[] = "";
-						if ($getContent == true) {$content[] = "";}
-					}
-					$x -= 1;
-				}
-				else {$x += 1;}
-			}	
+					$id[] = "";
+					$title_var[] = "";
+					$datetime[] = "";	
+					$author[] = "";
+					if ($getContent == true) {$content[] = "";}						
+				}									
+			}
 			$titles = array_combine($titletags, $title_var);
+			// print_r($titles);
+			// die();
 			$dates = array_combine($datetimetags, $datetime);
-			$authors = array_combine($authortags, $author);			
-			$ids = array_combine($idtags, $id);	
+			$authors = array_combine($authortags, $author);
+			$ids = array_combine($idtags, $id);
+			// print_r($ids);
+			// die();
 			if ($getContent == true) { $contents = array_combine($contenttags, $content);}
 			if ($getContent == true) 
 			{ 
@@ -142,10 +143,10 @@ class NewsHelper
 			$authors = array_combine($authortags, $author);	
 			$ids = array_combine($idtags, $id);	
 			
-			$tags = array_merge($titletags,$authortags, $datetimetags, $idtags);
+			$tags = array_merge($titletags,$authortags, $datetimetags, $idtags);			
 			$data = array_merge($titles, $dates, $authors, $ids);
 			/*return "No content here!";*/
-		}
+		}		
 		self::$news = Theme::parse("","", $tags, $data, self::$tag_template, false, false);		
 		return self::$news;				
 	}
