@@ -6,18 +6,27 @@ class Utils
 	static $dataAsCSV = "";
 	public static function returnColumnNames($data)
 	{
-		$keys = array_keys($data);
-		self::$columnNames = 'true';
-		self::$csvColumns = self::returnArrayAsCSV($keys, true);
-		return self::$csvColumns;		
+		$keys = array_keys($data);	
+		self::$csvColumns = "";
+		self::$dataAsCSV = "";
+		if (is_array($data))
+		{
+			$finalArray = array_map(array("Utils", "makeCSVStringColumns"), $keys);
+			$final = $finalArray[count($finalArray) - 1];
+			$data = str_split($final, strrpos($final, ","));
+			array_pop($data);
+			return $data[0];
+		}
+		else {throw new InvaildArgument("returnArrayAsCSV kind of requires an array. DUH!!");}
 	}
-	public static function returnArrayAsCSV($data, $columnNames = '')
+	public static function returnArrayAsCSV($data, $columnNames = false)
 	{	
 		self::$csvColumns = "";
 		self::$dataAsCSV = "";
 		if (is_array($data))
 		{
-			$finalArray = array_map(array("Utils", "makeCSVString"), $data, array(self::$columnNames));
+			$finalArray = array_map(array("Utils", "makeCSVString"), $data, array(true));
+			
 			$final = $finalArray[count($finalArray) - 1];
 			$data = str_split($final, strrpos($final, ","));
 			array_pop($data);
@@ -59,14 +68,23 @@ class Utils
 			Database::get($query, true, $fileparts[0], true);
 		}
 	}
-	private static function makeCSVString($n, $m)
-	{		
+	
+	private static function makeCSVString($n)
+	{
     	if (is_numeric($n)){self::$dataAsCSV .= $n. ",";}
         else
         {				
-			if (self::$columnNames == 'true'){self::$dataAsCSV .= $n. ",";}
-			else {self::$dataAsCSV .= "'" .$n. "',";}
-        	
+			self::$dataAsCSV .= "'" .$n. "',";
+        }
+		self::$columnNames = '';
+		return self::$dataAsCSV;
+	}
+	private static function makeCSVStringColumns($n)
+	{
+    	if (is_numeric($n)){self::$dataAsCSV .= $n. ",";}
+        else
+        {				
+			self::$dataAsCSV .= $n. ",";        	
         }
 		self::$columnNames = '';
 		return self::$dataAsCSV;
