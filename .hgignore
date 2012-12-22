@@ -17,3 +17,6 @@ syntax: glob
 skyCommitID
 blog/*
 gkfj
+files/*
+*.iso
+oldcrap/*

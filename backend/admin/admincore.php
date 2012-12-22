@@ -34,12 +34,14 @@ abstract class AdminCore
 		$topMargin = 2;
 		if (isset(self::$adminToolbarItems) && count(self::$adminToolbarItems) > 0)
 		{
+			$final = "<span>";
 			for($i = 0; $i < count(self::$adminToolbarItems); $i++)
 			{
 				$topMargin = $topMargin + 8;
-				$img = '<img id="" style="margin-left:7px;margin-top:' .$topMargin. 'px;" src="' .self::$adminToolbarItems[$i]['image']. '" onclick="'.self::$adminToolbarItems[$i]['jsFunc']. '"/>';
+				$img = '<img id="" style="margin-left:7px;" src="' .self::$adminToolbarItems[$i]['image']. '" onclick="'.self::$adminToolbarItems[$i]['jsFunc']. '"/>';
 				$final .= $img;
 			}
+			$final .= "</span>";
 			self::assignToVar("{#ADMINLINKS#}", $final);
 		}
 		else {self::assignToVar("{#ADMINLINKS#}", "");}

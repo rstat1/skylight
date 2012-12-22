@@ -7,18 +7,18 @@
 	font-family: Helvetica, Arial, sans-serif;
 }
 .topbar {
-	background-color: rgba(34,34,34,0.75);
-	color: black;
-	position: absolute;
-	margin-top: 904px;
-	text-align: left;
-	height: 28px;
-	width: 125px;
-	margin-left: 89%;
-	padding-left: 5px;
-	border-radius: 0px 0px 0px 0px;
+	background-color:#0b1a22;
+	color:#000000;
+	position:absolute;
+	top: 0px;
+	text-align:left;
+	height:28px;
+	width: 300px;
+	margin-left:72%;	
+	padding-left:5px;
+	border-radius: 0px 0px 8px 8px;
 }
-/*.addinbar {
+.addinbar {
     padding-top:6px;
 	text-transform:lowercase;
 	border-radius: 0px 15px 15px 0px;
@@ -29,15 +29,6 @@
     margin-top:128px;
     position:absolute;
 	text-align:left;    
-}*/
-.addinbar {
-	text-transform: lowercase;
-	color: black;
-	width: 88%;
-	height: 33px;
-	margin-top: 902px;
-	position: absolute;
-	text-align: left;
 }
 .content {	
     /*position:relative;
@@ -46,11 +37,11 @@
     margin-left:55px;
     margin-right:109px;
     margin-top:-45px;*/
-    bottom: 40px;
-    left: 0px;
+    bottom: 0px;
+    left: 55px;
     position: absolute;
     right:0px;
-    top: 0px;
+    top: 29px;
     color:#0b1a22;
     
 }

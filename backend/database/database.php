@@ -62,8 +62,9 @@ class Database
 		{			 
 			if (is_array($data))
 			{
-				$dataToInsert = Utils::returnArrayAsCSV($data);
-				$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";				
+				$dataToInsert = Utils::returnArrayAsCSV($data, false);
+				$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";
+				
 				self::connect();
 				$query_result = mysql_query($finalQuery, self::$connect_id);	
 				if ($query_result)

@@ -1,7 +1,7 @@
 <?php
 define("root_path", dirname(__FILE__));	 
 include (root_path . "/backend/errorhandler.php");
-//ErrorHandler::set();
+ErrorHandler::set();
 ob_start();
 include (root_path . "/backend/config.php");
 include (root_path . "/backend/constants.php");
