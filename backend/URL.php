@@ -20,8 +20,8 @@ class URL
 	}
 	public static function base()
 	{
-        global $config;        
-        return "http://" . $_SERVER['SERVER_NAME'] . $config['base-path'];
+        global $config;
+        return "http://" . $_SERVER['SERVER_NAME']. ":". $_SERVER['SERVER_PORT'] . $config['base-path'];
 		/*$script_path = explode("/", $_SERVER['REQUEST_URI']);
        	if ($script_path[1] == ""){return "http://" . $_SERVER['SERVER_NAME'];}
 	    else {return "http://" . $_SERVER['SERVERNAME'] . "/" . $script_path[1] . "/";}*/
@@ -60,7 +60,6 @@ class URL
 			{                
 				if (preg_match($hand['matchto'], $parsedURL))
 				{  
-					//print_r($hand);
 					self::activateHandler($hand['handler'], $hand['action'], $actionArgs);
 					self::$requestHandled = true;
 				}
@@ -99,7 +98,7 @@ class URL
 		$hand->action = $action;
 		$hand->args = $args;
 		if ($action == "(%page%)") {$action = $args[2];}
-		//print($action);
+		if ($hand == null) { trigger_error("handler is null"); }
 		$hand->act($action);
 	}
 /*	private static function activateHandler($name, $action, $args)
@@ -115,4 +114,3 @@ class URL
 		$hand->act($name);
 	}*/
 }
-?>

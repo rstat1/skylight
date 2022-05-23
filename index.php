@@ -1,10 +1,11 @@
 <?php
+error_reporting(E_ALL);
 define("root_path", dirname(__FILE__));
 spl_autoload_register("autoload");
 
 include (root_path . "/backend/session.php");
 include (root_path . "/backend/errorhandler.php");
-ErrorHandler::set();
+// ErrorHandler::set();
 ob_start();
 include (root_path . "/backend/config.php");
 include (root_path . "/backend/constants.php");
@@ -46,4 +47,3 @@ if ($config['debug'] && $_SERVER['REQUEST_URI'] == $config['base-path'])
     echo '<p style="color:white;">Total number of queries:'. Database::$numquerys . "</p>";
 }
 ob_end_flush();
-?>
