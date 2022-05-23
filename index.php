@@ -1,12 +1,17 @@
 <?php
-define("root_path", dirname(__FILE__));	 
+define("root_path", dirname(__FILE__));
+spl_autoload_register("autoload");
+
+include (root_path . "/backend/session.php");
 include (root_path . "/backend/errorhandler.php");
 ErrorHandler::set();
 ob_start();
 include (root_path . "/backend/config.php");
 include (root_path . "/backend/constants.php");
-Session::init();
-function __autoload($class_name)
+// Session::init();
+
+
+function autoload($class_name)
 {
 	$classfile = strtolower($class_name . ".php");
 	$files = array();
@@ -15,7 +20,7 @@ function __autoload($class_name)
 	foreach($dirs as $dir)
 	{		
 		$glob = glob($dir. "/*.php");		
-		$fnames = array_map(create_function('$a', 'return strtolower(basename($a));'), $glob);
+		$fnames = array_map(fn($a) => strtolower(basename($a)), $glob);
 		if (is_array($fnames) && is_array($glob) && count($fnames) > 0){$files = array_merge($files, array_combine($fnames, $glob));}
 	}
 	if(isset($files[$classfile])) {include $files[$classfile];}

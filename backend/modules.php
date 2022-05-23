@@ -13,7 +13,7 @@ class Modules
 		foreach($dirs as $dir)
 		{
 			$glob = glob($dir. "/*.php");		
-			$fnames = array_map(create_function('$a', 'return strtolower(basename($a));'), $glob);
+			$fnames = array_map(fn($a) => strtolower(basename($a)), $glob);
 			if (is_array($fnames) && count($fnames) > 0) {$files = @array_merge($files, array_combine($fnames, $glob));}
 		}
 		self::$modules = $files;

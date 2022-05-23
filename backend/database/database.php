@@ -12,14 +12,17 @@ class Database
 	public static function connect()
 	{	
 		global $config;
-		if (!isset(self::$connect_id)) {self::$connect_id = mysql_connect($config['db-server'], $config['db-user'], $config['db-pass']);}
+		if (!isset(self::$connect_id)) {self::$connect_id = mysqli_connect($config['db-server'], $config['db-user'], $config['db-pass']);}
 		if(self::$connect_id)
 		{
-			$dbsel = mysql_select_db($config['db-name']);	
-			if ($dbsel = true){return self::$connect_id;}
-			else{trigger_error(htmlentities(mysql_error()), E_USER_ERROR);}
+			$dbsel = mysqli_select_db(self::$connect_id, $config['db-name']);	
+			if ($dbsel == true){
+				echo "success";
+				return self::$connect_id;
+			}
+			else{trigger_error(htmlentities(mysqli_error(self::$connect_id)), E_USER_ERROR);}
 		}   
-		else{trigger_error(htmlentities(mysql_error()), E_USER_ERROR);} 
+		else{trigger_error(htmlentities(mysqli_error(self::$connect_id)), E_USER_ERROR);} 
 	}    
 	public static function get($query, $cache = true, $table, $forceCacheUpdate = false)
 	{
@@ -36,11 +39,11 @@ class Database
 		if ($query != NULL)
 		{
 			self::connect();
-			$query_result = mysql_query($query, self::$connect_id);
-			if(!$query_result){trigger_error(htmlentities(mysql_error()), E_USER_ERROR);}
+			$query_result = mysqli_query(self::$connect_id, $query);
+			if(!$query_result){trigger_error(htmlentities(mysqli_error(self::$connect_id)), E_USER_ERROR);}
 			else
 			{
-				$data = array(mysql_num_rows($query_result), self::getResultAsArray($query_result));
+				$data = array(mysqli_num_rows($query_result), self::getResultAsArray($query_result));
 				if ($cache && $config['data-cache']) {Cache::putDataInCache(base64_encode($query), $data, $table);}
                 if ($forceCacheUpdate == false) {self::$CacheMisses += 1;}                
                 self::$numquerys += 1;
@@ -66,13 +69,13 @@ class Database
 				$finalQuery = "INSERT INTO " . $table. " VALUES(" . $dataToInsert . ")";
 				
 				self::connect();
-				$query_result = mysql_query($finalQuery, self::$connect_id);	
+				$query_result = mysqli_query(self::$connect_id, $finalQuery);
 				if ($query_result)
 				{
 					Utils::updateCachedData($table);
 					return true;
 				}
-				else {trigger_error(mysql_error());}
+				else {trigger_error(mysqli_error(self::$connect_id));}
 			}
 			else {trigger_error("Function expects first argument to be an array.");}
 		}
@@ -91,13 +94,13 @@ class Database
                 $sets = trim($sets, ",");
                 $finalQuery = "UPDATE $table SET $sets WHERE $keyfield[0] = ". $keyfield[1];
 				self::connect();
-				$query_result = mysql_query($finalQuery, self::$connect_id);	
+				$query_result = mysqli_query(self::$connect_id, $finalQuery);	
 				if ($query_result)
 				{
 					Utils::updateCachedData($table);
 					return true;
 				}
-				else {trigger_error(mysql_error());die();}
+				else {trigger_error(mysqli_error(self::$connect_id));die();}
             }
 			else {trigger_error("Function expects first argument to be an array.");}
 		}
@@ -133,7 +136,7 @@ class Database
 	{
 		$table_result=array();
 		$r=0;
-		while($row = mysql_fetch_assoc($result))
+		while($row = mysqli_fetch_assoc($result))
 		{
 			$arr_row=array();
 			$c=0;
