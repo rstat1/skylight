@@ -1,4 +1,4 @@
-CREATE DATABASE `skylight`;
+CREATE DATABASE IF NOT EXISTS `skylight`;
 USE `skylight` ;
 CREATE TABLE IF NOT EXISTS `categories` (
   `category` text NOT NULL

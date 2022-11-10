@@ -155,10 +155,17 @@ class compiler
 				break;	
 			}			
 		}	
-		$final_temp = '';		
-		for ($i = 0, $size = sizeof($text_blocks); $i < $size; $i++)
-		{
-			$final_temp .= $text_blocks[$i] . $compiledtemp[$i];
+		$final_temp = '';
+		if (sizeof($compiledtemp) > 0) {
+			for ($i = 0, $size = sizeof($compiledtemp); $i < $size; $i++)
+			{
+				$final_temp .= $text_blocks[$i] . $compiledtemp[$i];
+			}
+		} else {
+		
+			foreach($text_blocks as $text_block) {
+				$final_temp .= $text_block;
+			}
 		}
 		self::tpl_write_cache($final_temp, $template, $part, $cpath, $nocache);
 		//echo $final_temp;	

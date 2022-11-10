@@ -125,15 +125,17 @@ class theme
 		self::$vars_data[] =  $config['site-name'];
 		
         self::$vars[] = "{#VERSION#}";
-		if ($config['debug'] == true)
-		{
-			if (file_exists(root_path . "/skyCommitID")) 
-			{
-				$commitID = file_get_contents(root_path. "/skyCommitID");
-				if (strlen($commitID) > 12) {$commitID = substr($commitID, 0, 12);}
-			}	
-		}		
-		else {$commitID = $config['version'];}
+		// if ($config['debug'] == true)
+		// {
+		// 	if (file_exists(root_path . "/skyCommitID")) 
+		// 	{
+		// 		$commitID = file_get_contents(root_path. "/skyCommitID");
+		// 		if (strlen($commitID) > 12) {$commitID = substr($commitID, 0, 12);}
+		// 	}	
+		// }		
+		// else {
+			$commitID = $config['version'];
+		// }
 		self::$vars_data[] = $commitID;
         
 		self::$vars[] = "{#TOOLBARITEMS#}";
